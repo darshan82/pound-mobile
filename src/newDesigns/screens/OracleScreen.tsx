@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
     },
     logoImage: {
-        getWidth: getWidth(100),
+        width: getWidth(100),
         height: getWidth(40),
         resizeMode: "contain",
         alignSelf: "center"

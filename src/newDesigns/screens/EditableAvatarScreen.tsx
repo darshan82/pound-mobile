@@ -101,6 +101,8 @@ export default function EditableAvatarScreen() {
     }
 
     function onMessageReceived(message: any) {
+        console.log("@3423423423423", message);
+        
         const data = message.nativeEvent.data;
         const event = JSON.parse(data);
 

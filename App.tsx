@@ -4,7 +4,7 @@ import { NativeBaseProvider, StatusBar, extendTheme } from 'native-base';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppProvider } from './src/app/context/AppProvider';
 import { configureNativeAppEventEmitter } from './src/modules/wearables/helpers/appleSamples';
-import { MainNavigation } from './src/newDesigns/routes/Navigation';
+import { Navigation } from './src/newDesigns/routes/Navigation';
 
 const theme = extendTheme({
   fontConfig: {
@@ -63,7 +63,7 @@ const App = () => {
       <StatusBar backgroundColor={'black'} barStyle="light-content"/>
       <AppProvider>
         <NativeBaseProvider theme={theme}>
-          <MainNavigation />
+          <Navigation />
         </NativeBaseProvider>
       </AppProvider>
     </SafeAreaProvider>

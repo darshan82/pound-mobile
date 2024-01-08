@@ -173,7 +173,7 @@ function DrawerStack() {
 
 
 
-export const MainNavigation = () => {
+export const Navigation = () => {
   const { headerShown } = useContext(AppContext);
 
   return (
