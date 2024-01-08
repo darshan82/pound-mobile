@@ -14,7 +14,6 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
-import { CircularProgress } from 'react-native-progress-circle-gradient';
 
 interface ToggleSwitchProps {
    style?: StyleProp<ViewStyle>;

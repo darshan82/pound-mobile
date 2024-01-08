@@ -13,7 +13,7 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
-import { CircularProgress } from 'react-native-progress-circle-gradient';
+// import { CircularProgress } from 'react-native-progress-circle-gradient';
 
 interface RoundProgressProps {
    progress: number,
@@ -42,7 +42,7 @@ interface RoundProgressProps {
                     transform: [{ rotate: '195deg' }]
                 }}
             >
-                <CircularProgress
+                {/* <CircularProgress
 
                     backgroundColor={'rgba(0,0,0,0)'}
                     radius={size/2.4}
@@ -55,7 +55,7 @@ interface RoundProgressProps {
                     onAnimationFinish={() => {
 
                     }}
-                />
+                /> */}
                 
             </View>
             <Text style={[fontBold(3),{fontSize:size/6, position:"absolute"}]}>{progressText}</Text>
