@@ -1,14 +1,5 @@
 import React, {useMemo, useRef} from "react";
 import WebView from 'react-native-webview';
-import {
-    AssetUnlockedEvent,
-    AvatarCreatorEvent,
-    AvatarExportedEvent,
-    UserAuthorizedEvent,
-    UserSetEvent,
-    UserUpdatedEvent,
-    UserLoggedOutEvent
-} from "./src";
 import {Alert} from 'react-native';
 
 
@@ -73,29 +64,29 @@ export default function EditableAvatarScreen() {
     } as Record<string, any>;
 
 
-    function onAvatarExported(message: AvatarExportedEvent) {
+    function onAvatarExported(message: any) {
         console.log("32423423message.data?.url4234", message.data?.url);
         
         Alert.alert(`Avatar Exported | Avatar Url = ${message.data?.url}`);
     }
 
-    function onAssetUnlocked(message: AssetUnlockedEvent) {
+    function onAssetUnlocked(message: any) {
         Alert.alert(`Asset Unlocked | Asset ID = ${message.data?.assetId}`);
     }
 
-    function onUserAuthorized(message: UserAuthorizedEvent) {
+    function onUserAuthorized(message: any) {
         Alert.alert(`User Authorized | User ID = ${message.data?.id}`);
     }
 
-    function onUserSet(message: UserSetEvent) {
+    function onUserSet(message: any) {
         Alert.alert(`User Set | User ID = ${message.data?.id}`);
     }
 
-    function onUserUpdated(message: UserUpdatedEvent) {
+    function onUserUpdated(message: any) {
         // Alert.alert(`User Updated | User ID = ${message.data?.id}`);
     }
 
-    function onUserLoggedOut(message: UserLoggedOutEvent) {
+    function onUserLoggedOut(message: any) {
         Alert.alert(`User Logged Out`);
     }
 
@@ -109,9 +100,9 @@ export default function EditableAvatarScreen() {
         );
     }
 
-    function onMessageReceived(message) {
+    function onMessageReceived(message: any) {
         const data = message.nativeEvent.data;
-        const event = JSON.parse(data) as AvatarCreatorEvent;
+        const event = JSON.parse(data);
 
         if (event?.source !== RPM_TARGET) {
             return;
