@@ -2,7 +2,6 @@ import React, { FC, ReactNode } from 'react';
 import { StyleSheet, StyleProp, TextStyle, Image, ImageSourcePropType, ViewStyle } from 'react-native';
 import { Button, Spinner, Text, View } from 'native-base';
 import { If } from 'react-haiku';
-import { getCumulativeWidth } from 'react-native-gifted-charts/src/utils';
 import { getWidth } from '../../modules/dashboard/helpers/tabs';
 
 type InputButtonProps = {
