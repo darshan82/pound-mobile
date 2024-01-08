@@ -1,0 +1,1 @@
+export {useProfileInputs} from './useProfileInputs';
