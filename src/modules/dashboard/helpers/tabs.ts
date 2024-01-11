@@ -10,7 +10,7 @@ export const getWidth = (value : number = 1) =>{
 export const fontRegular = (value : number = 3.5, color:string = 'white') => {
   return {
     fontSize: getWidth(value),
-    // fontFamily: Platform.OS === 'ios' ? 'AbsoluteZero-Italic' : 'AbsoluteZeroItalic',
+    fontFamily: 'Montserrat',
     color: color
   }
 };
@@ -19,7 +19,7 @@ export const fontBold =(value : number = 3.5, color:string = 'white') =>{
   return {
     fontSize: getWidth(value),
     fontWeight:'bold',
-    // fontFamily: Platform.OS === 'ios' ? 'AbsoluteZero-Italic' : 'AbsoluteZeroItalic',
+    fontFamily: 'Montserrat',
     color: color
   }
 };

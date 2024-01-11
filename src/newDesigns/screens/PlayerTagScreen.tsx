@@ -17,6 +17,7 @@ import { fontBold, fontRegular, getWidth } from "../../modules/dashboard/helpers
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
 import LinearGradient from "react-native-linear-gradient";
+import Colors from "../components/Colors";
 
 
 export default function PlayerTagScreen() {
@@ -24,78 +25,52 @@ export default function PlayerTagScreen() {
     const navigation = useNavigation();
 
     return (
-        <SafeAreaView
-            style={styles.container}
-        >
-            <KeyboardAwareScrollView
-            contentContainerStyle={{flex:1}}
-            >
-                <View
-                    style={styles.innerContainer}
-                >
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+          <View style={styles.innerContainer}>
+            <Image
+              style={styles.logoImage}
+              source={require('../assets/images/justLogo.png')}
+            />
 
-                    
-                    <Image
-                        style={styles.logoImage}
-                        source={require('../assets/images/smalllogo.png')}
-                    />
+            <Text style={styles.loginText}>{"It’s your name.\nOwn it. "}</Text>
 
-                    <Text style={styles.loginText}>{"It’s your name.\nOwn it."}</Text>
-                    <Text style={styles.discText}>{"Unlock the Avatar State by forging a digital identity"}</Text>
+            <Text
+              style={[
+                fontRegular(4, Colors.gray3),
+                {
+                  textAlign: 'center',
+                  marginVertical: getWidth(5),
+                  lineHeight: getWidth(7),
+                },
+              ]}>
+              {'You are now on a journey to reach\nthe Avatar State'}
+            </Text>
 
-                    <View style={{marginTop: getWidth(5),}}>
-                        <InputText
-                            containerStyle={{ marginTop: getWidth(2), width: "100%" }}
-                            labelTitle="Player Tag"
-                            placeholder="check player tag availability"
-                        />
-                        <Image
-                            style={styles.infoImage}
-                            source={require('../assets/images/infiIcon.png')}
-                        />
-                    </View>
-                   
-                    <Text style={styles.infoText}>{"Must be xx characters and xxx"}</Text>
+            <InputText
+              containerStyle={{marginTop: getWidth(3), width: '100%'}}
+              labelTitle="Player Tag"
+              placeholder="username@hotmail.com"
+            />
 
+<Text style={styles.infoText}>
+              {'Must be xx characters and xxx'}
+            </Text>
 
-                    <View style={{
-                        flexDirection: "row", borderWidth: 1, borderColor: 'white', width: "100%",
-                        height: getWidth(10),
-                        borderRadius: getWidth(2),
-                        alignItems:"center",
-                        padding:getWidth(2),
-                        marginTop:getWidth(7)
-                    }}>
-                        <View style={{flex:1}}>
-                            <LinearGradient
-                                colors={['#3B500F', '#AEFF03']}
-                                start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
-                                locations={[0, 1.0]}
-                                style={[{ height: "100%", width:"30%", borderRadius:getWidth(1)  }]}/>
-                        </View>
-                      
-                        <View style={{ height: "90%", backgroundColor:"gray", paddingHorizontal:getWidth(3), paddingVertical:getWidth(1)}}>
-                            <Text style={fontRegular(2.5, 'white')}>{"Avaliable"}</Text>
-                        </View>
+            <Image
+              style={{flex: 1, resizeMode: 'contain', width: '100%', marginVertical: getWidth(5)}}
+              source={require('../assets/images/avatar.png')}
+            />
 
-                    </View>
-
-
-                    <Image
-                            style={{flex:1, resizeMode:"contain", width:"100%"}}
-                            source={require('../assets/images/avatar.png')}
-                        />
-
-                    <InputButton
-                        onPress={()=> navigation.navigate("BodyTypeScreen")}
-                        style={styles.continueBtn}
-                        labelTitle="CONTINUE"
-                    />
-
-
-                </View>
-            </KeyboardAwareScrollView>
-        </SafeAreaView>
+            <InputButton
+              onPress={() => navigation.navigate('BodyTypeScreen')}
+              style={styles.continueBtn}
+              textColor={Colors.gray1}
+              labelTitle="CONTINUE"
+            />
+          </View>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
     );
 }
 
@@ -103,15 +78,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: getWidth(8),
+        backgroundColor: Colors.gray1,
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: Colors.gray1,
     },
     logoImage: {
-        width: getWidth(18),
+        width: getWidth(40),
         height: getWidth(18),
         resizeMode: "contain",
+        marginBottom: getWidth(3),
         alignSelf: "center"
     },
     infoImage: {
@@ -139,10 +116,9 @@ const styles = StyleSheet.create({
         marginTop:getWidth(2)
     },
     infoText: {
-        alignSelf: "center",
-        ...fontBold(2.5),
-        textAlign: "center",
+        ...fontBold(3),
         opacity: 0.6,
+        marginLeft: getWidth(4),
         marginTop:getWidth(2)
     },
     forgetText: {
@@ -157,8 +133,10 @@ const styles = StyleSheet.create({
         marginTop: getWidth(3)
     },
     continueBtn: {
-        marginTop: getWidth(4), 
-        borderRadius:getWidth(5)
+        marginTop: getWidth(4),
+        borderRadius:getWidth(3),
+        borderWidth:0,
+        backgroundColor:Colors.lightGreen,
     },
     imgBtn: {
         marginTop: getWidth(4),

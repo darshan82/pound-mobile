@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
     Dimensions,
@@ -13,76 +13,89 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
-import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { fontBold, fontRegular, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
+import Colors from "../components/Colors";
 
 
 export default function BodyTypeScreen() {
 
     const navigation = useNavigation();
 
+    const [bodytype, setBodyType] = useState(1);
+
     return (
-        <SafeAreaView
-            style={styles.container}
-        >
-            <KeyboardAwareScrollView
-                contentContainerStyle={{ flex: 1 }}
-            >
-                <View
-                    style={styles.innerContainer}
-                >
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+          <View style={styles.innerContainer}>
+            <Image
+              style={styles.logoImage}
+              source={require('../assets/images/justLogo.png')}
+            />
 
+            <Text style={styles.loginText}>
+              {'It’s your journey.\nOwn it. '}
+            </Text>
 
-                    <Image
-                        style={styles.logoImage}
-                        source={require('../assets/images/smalllogo.png')}
-                    />
+            <Text
+              style={[
+                fontRegular(4, Colors.gray3),
+                {
+                  textAlign: 'center',
+                  marginVertical: getWidth(5),
+                  lineHeight: getWidth(7),
+                },
+              ]}>
+              {'Lets start with identifying your goals'}
+            </Text>
 
-                    <Text style={styles.loginText}>{"It’s your name.\nOwn it."}</Text>
-                    <Text style={styles.discText}>{"Own your identity in the digital world. \nGet started by personalizing your avatar."}</Text>
+            <Text style={fontBold(5)}>{'Choose a body type'}</Text>
 
+            <InputButton
+              onPress={() => setBodyType(1)}
+              style={[styles.continueBtn, bodytype == 1 ? null : {borderWidth:0, backgroundColor:Colors.gray2}]}
+              textColor={bodytype == 1 ? Colors.lightGreen : "white"}
+              labelTitle="Masculine"
+            />
 
+            <InputButton
+              onPress={() => setBodyType(2)}
+              style={[styles.continueBtn, bodytype == 2 ? null : {borderWidth:0, backgroundColor:Colors.gray2}]}
+              textColor={bodytype == 2 ? Colors.lightGreen : "white"}
+              labelTitle="Feminine"
+            />
 
-                    <Text style={fontBold(5)}>{"Choose a body type"}</Text>
+            <InputButton
+              onPress={() => setBodyType(3)}
+              style={[styles.continueBtn, bodytype == 3 ?  null : {borderWidth:0, backgroundColor:Colors.gray2}]}
+              textColor={bodytype == 3 ? Colors.lightGreen : "white"}
+              labelTitle="Don't Specify"
+            />
+            <View style={{flex: 1}} />
+            <Text style={styles.discText}>{'Already have a RPM avatar?'}</Text>
+            <InputText
+              containerStyle={{marginTop: getWidth(2), width: '100%'}}
+              labelTitle="Enter Model URL"
+              placeholder="https://models.readyplayer.me/xxxx.glb"
+            />
 
-                    <InputButton
-                        onPress={() => navigation.navigate("BodyTypeScreen")}
-                        style={styles.continueBtn}
-                        labelTitle="Masculine"
-                    />
-
-                    <InputButton
-                        onPress={() => navigation.navigate("BodyTypeScreen")}
-                        style={styles.continueBtn}
-                        labelTitle="Feminine"
-                    />
-
-                    <InputButton
-                        onPress={() => navigation.navigate("BodyTypeScreen")}
-                        style={styles.continueBtn}
-                        labelTitle="Don't Specify"
-                    />
- <View style={{ flex: 1 }} />
-                    <Text style={styles.discText}>{"Already have a RPM avatar?"}</Text>
-                    <InputText
-                        containerStyle={{ marginTop: getWidth(2), width: "100%" }}
-                        labelTitle="Enter Model URL"
-                        placeholder="https://models.readyplayer.me/xxxx.glb"
-                    />
-                    
-                   
-
-                    <InputButton
-                        onPress={() => navigation.navigate("AvatarScreen")}
-                        style={[styles.continueBtn,{marginTop:getWidth(5),marginBottom:getWidth(5)}]}
-                        labelTitle="CONTINUE"
-                    />
-
-
-                </View>
-            </KeyboardAwareScrollView>
-        </SafeAreaView>
+            <InputButton
+              onPress={() => navigation.navigate('AvatarScreen')}
+              textColor={Colors.gray1}
+              style={[
+                styles.continueBtn,
+                {
+                  marginTop: getWidth(5),
+                  marginBottom: getWidth(5),
+                  backgroundColor: Colors.lightGreen,
+                },
+              ]}
+              labelTitle="CONTINUE"
+            />
+          </View>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
     );
 }
 
@@ -90,16 +103,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: getWidth(8),
+        backgroundColor: Colors.gray1,
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: Colors.gray1,
     },
     logoImage: {
-        width: getWidth(18),
+        width: getWidth(40),
         height: getWidth(18),
-        marginVertical: getWidth(5),
         resizeMode: "contain",
+        marginBottom: getWidth(3),
         alignSelf: "center"
     },
     powerdByImage: {
@@ -137,7 +151,11 @@ const styles = StyleSheet.create({
         marginTop: getWidth(3)
     },
     continueBtn: {
-        marginTop: getWidth(2)
+        marginTop: getWidth(2),
+        borderWidth:2,
+        borderColor:Colors.lightGreen,
+        backgroundColor:Colors.lightGreen+"30",
+        borderRadius:getWidth(3),
     },
     imgBtn: {
         marginTop: getWidth(4),

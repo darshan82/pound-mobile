@@ -16,6 +16,7 @@ import { InputButton } from "../components/InputButton";
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
+import Colors from "../components/Colors";
 
 
 export default function AvatarScreen() {
@@ -55,6 +56,7 @@ export default function AvatarScreen() {
                         onPress={() => navigation.navigate("SelectOptionScreen")}
                         style={[styles.continueBtn]}
                         labelTitle="CONTINUE"
+                        textColor={Colors.gray1}
                     />
 
 
@@ -68,10 +70,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: getWidth(8),
+        backgroundColor: Colors.gray1,
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: Colors.gray1,
     },
     logoImage: {
         width: getWidth(18),
@@ -100,6 +103,8 @@ const styles = StyleSheet.create({
     }, 
     continueBtn: {
         marginTop: getWidth(2),
-        borderRadius:getWidth(5)
+        borderWidth:0,
+        backgroundColor:Colors.lightGreen,
+        borderRadius:getWidth(3)
     },
 });

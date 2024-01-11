@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Input, FormControl, Text, View} from 'native-base';
 import {
   KeyboardTypeOptions,
@@ -9,7 +9,9 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import { getWidth } from '../../modules/dashboard/helpers/tabs';
+import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
+import Colors from './Colors';
 
 interface InputTextProps {
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
@@ -27,6 +29,8 @@ interface InputTextProps {
   containerStyle?: StyleProp<ViewStyle>;
   onChangeText?: (text: string) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+  isPassword: boolean;
+  isFloating: boolean;
 }
 
 export const InputText: FC<InputTextProps> = ({
@@ -43,35 +47,53 @@ export const InputText: FC<InputTextProps> = ({
   type,
   value,
   containerStyle,
-  onChangeText,
+  onChangeText = ()=>{},
+  isPassword,
   onBlur,
+  isFloating = true
 }) => {
+  const [valueInput, setValue] = useState(value ?? "")
   return (
     <View style={containerStyle}>
       <FormControl isInvalid={isInvalid} style={styleControl}>
-        {labelTitle && (
-          <FormControl.Label>
-            <Text style={{ fontWeight: "bold" }} color="white">{labelTitle}</Text>
-          </FormControl.Label>
-        )}
-        <Input
-          autoCapitalize={autoCapitalize}
-          autoCorrect={autoCorrect}
-          backgroundColor="white"
-          editable={editable}
-          fontFamily="Helvetica"
-          keyboardType={keyboardType}
-          onBlur={onBlur}
-          onChangeText={onChangeText}
-          paddingY={5}
-          placeholder={placeholder}
-          rounded="lg"
-          size="lg"
-          style={[styles.baseInput, style]}
-          type={type}
-          value={value}
 
-        />
+      {labelTitle && !isFloating ? (
+          <FormControl.Label>
+            <Text style={[fontBold(4) ,{marginBottom:getWidth(2)}]} color="white">
+              {labelTitle}
+            </Text>
+          </FormControl.Label>
+        ) : null}
+
+      <FloatingLabelInput
+      staticLabel={!isFloating}
+        label={isFloating ? labelTitle : ''}
+        hintTextColor={'#aaa'}
+       hint={placeholder}
+        containerStyles={[
+          styles.baseInput,
+          style
+        ]}
+        value={valueInput}
+        labelStyles={{
+          color:"white",
+          marginBottom: getWidth(2)
+        }}
+        placeholderTextColor={Colors.gray3}
+        customLabelStyles={{
+          colorFocused: Colors.gray3,
+          colorBlurred:Colors.gray3
+        }}
+        inputStyles={{
+          fontSize:getWidth(3.2),
+          color:"white",
+        }}
+        onChangeText={value => {
+          setValue(value)
+          onChangeText(value)
+        }}
+      />
+
         <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
       </FormControl>
     </View>
@@ -80,12 +102,14 @@ export const InputText: FC<InputTextProps> = ({
 
 const styles = StyleSheet.create({
   baseInput: {
-    paddingTop: getWidth(2),
-    paddingBottom:getWidth(2),
-    paddingLeft: getWidth(5),
-    paddingRight: getWidth(5),
-    backgroundColor:'black',
+    height:getWidth(13),
+    paddingLeft: getWidth(3),
+    paddingRight: getWidth(3),
+    backgroundColor:Colors.gray2,
+    borderRadius:getWidth(2.5),
     fontSize:getWidth(3.2),
-    color:"white"
+    color:"white",
+    borderWidth:0,
+    borderColor:Colors.gray2
   },
 });

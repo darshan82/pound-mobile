@@ -10,7 +10,8 @@ type InputButtonProps = {
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
   labelTitle: string,
-  image: ImageSourcePropType
+  image: ImageSourcePropType,
+  textColor:string
 };
 
 export const InputButton: FC<InputButtonProps> = ({
@@ -19,7 +20,8 @@ export const InputButton: FC<InputButtonProps> = ({
   style,
   labelTitle = "",
   onPress = () => { },
-  image
+  image,
+  textColor
 }) => {
   return (
     <Button
@@ -37,7 +39,7 @@ export const InputButton: FC<InputButtonProps> = ({
           />
         </If>
 
-        <Text style={styles.text} color="white"
+        <Text style={styles.text} color={textColor ? textColor : "white"}
         >
           {labelTitle}
         </Text>

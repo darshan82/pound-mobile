@@ -26,35 +26,40 @@ export default function FirstScreen() {
             style={styles.container}
         >
 
+<Image
+                style={{width:getWidth(100), resizeMode:"contain", position:"absolute"}}
+                source={require('../assets/images/firstimg.png')}
+            />
+            
+
             
                 <Image
                     style={styles.logoImage}
-                    source={require('../assets/images/justLogo.png')}
+                    source={require('../assets/images/logo.png')}
                 />
-            <Text style={fontBold(7)}>Reach the Avatar State</Text>
+            <Text style={fontBold(4)}>Reach the Avatar State</Text>
 
 
-            <Image
-                style={{width:getWidth(90), height:getWidth(100), resizeMode:"contain"}}
-                source={require('../assets/images/firstimg.png')}
-            />
+            <View style={{flex:1}}/>
 
 
-            <Text 
+           
+<InputButton
             onPress={()=> navigation.navigate("SignUpScreen")}
-            style={[fontBold(5,"#AEFF03"), {textDecorationLine:"underline", paddingVertical:getWidth(4)}]}>FORGE MY IDENTITY</Text>
+            textColor={"#0B0B0B"}
+            style={{...styles.loginBtn, backgroundColor: '#AEFF03', borderColor:"#AEFF03"}}
+                labelTitle="Forge my identity"
+            />
 
         
             <InputButton
             onPress={()=> navigation.navigate("LoginScreen")}
-                style={styles.loginBtn}
-                labelTitle="LOG IN"
+                style={{...styles.loginBtn, backgroundColor: '#0B0B0B'}}
+                labelTitle="Sign in"
             />
 
-            <Image
-                style={styles.powerdByImage}
-                source={require('../assets/images/BP_LOGO_POWERED.png')}
-            />
+            
+            
 
         </SafeAreaView>
     );
@@ -62,14 +67,17 @@ export default function FirstScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: getWidth(10),
-        backgroundColor: "black",
+        paddingBottom: getWidth(5),
+        paddingHorizontal: getWidth(4),
+        backgroundColor: "#0B0B0B",
         justifyContent: 'center',
         alignItems: 'center',
         height: "100%"
     },
     logoImage: {
-        height: getWidth(20),
+        
+        width: getWidth(100),
+        height: getWidth(40),
         resizeMode: "contain"
     },
     imagePView: {
@@ -82,6 +90,7 @@ const styles = StyleSheet.create({
     loginBtn: {
         marginTop: getWidth(5),
         backgroundColor:'#7A7A7A',
-        borderRadius:getWidth(5)
+        borderRadius:getWidth(4),
+        marginHorizontal:getWidth(10)
     },
 });

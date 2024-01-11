@@ -23,7 +23,7 @@ export default function LogoWithBack() {
         >
             <Image
                 style={styles.logoImage}
-                source={require('../assets/images/smalllogo.png')}
+                source={require('../assets/images/justLogo.png')}
             />
 
             <TouchableOpacity
@@ -32,7 +32,7 @@ export default function LogoWithBack() {
             >
                 <Image
                     style={styles.leftErrow}
-                    source={require('../assets/images/leftErrow.png')}
+                    source={require('../assets/images/arrow_left.png')}
                 />
             </TouchableOpacity>
         </View>
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     innerContainer: {
-        backgroundColor: "black",
         justifyContent: "center"
     },
     logoImage: {

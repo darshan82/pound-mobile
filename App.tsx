@@ -58,7 +58,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider
-    style={{backgroundColor:"black"}}
+    style={{backgroundColor:"#2E2E2E"}}
     >
       <StatusBar backgroundColor={'black'} barStyle="light-content"/>
       <AppProvider>
