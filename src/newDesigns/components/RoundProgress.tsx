@@ -58,7 +58,6 @@ interface RoundProgressProps {
                 /> */}
                 
             </View>
-            <Text style={[fontBold(3),{fontSize:size/6, position:"absolute"}]}>{progressText}</Text>
         </View>
     );
 }

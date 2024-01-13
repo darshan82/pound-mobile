@@ -14,6 +14,7 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import Colors from "./Colors";
 // import { CircularProgress } from 'react-native-progress-circle-gradient';
 
 interface ToggleSwitchProps {
@@ -34,13 +35,14 @@ interface ToggleSwitchProps {
         <TouchableOpacity 
         activeOpacity={1}
         style={[{
-            backgroundColor: isOn ? "rgba(174, 255, 3, 0.44)" : "rgba(122, 122, 122, 1)",
-            width: getWidth(23),  borderRadius: getWidth(2),
-            paddingHorizontal:getWidth(1.5),
-            paddingVertical:getWidth(1.5),
+            backgroundColor: Colors.gray1,
+            width: getWidth(13),  borderRadius: getWidth(5),
+            height: getWidth(7.6),
+            paddingHorizontal:getWidth(1),
+            paddingVertical:getWidth(1),
             justifyContent:"center",
             alignItems:isOn ? "flex-end" :"flex-start" 
-        }, style]}
+        },isOn ? {backgroundColor:Colors.lightGreen+30, borderWidth:1, borderColor:Colors.lightGreen} : {}, style]}
         onPress={()=>{
             setIsOn((p)=>{
                 onToggleChange(!p)
@@ -49,7 +51,7 @@ interface ToggleSwitchProps {
             
         }}
         >
-            <View style={{ backgroundColor: "white", width: getWidth(5), height: getWidth(5), borderRadius: getWidth(6) }} />
+            <View style={{ backgroundColor: isOn ? "white" : Colors.gray2, width: getWidth(5), height: getWidth(5), borderRadius: getWidth(6) }} />
 
         </TouchableOpacity>
     );

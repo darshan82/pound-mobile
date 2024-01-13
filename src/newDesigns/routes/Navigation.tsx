@@ -23,13 +23,79 @@ import JournalScreen from '../screens/JournalScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import OracleScreen from '../screens/OracleScreen';
 import { View } from 'native-base';
-import { getWidth } from '../../modules/dashboard/helpers/tabs';
-import { Image, TouchableOpacity } from 'react-native';
+import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
+import { Animated, Image, TouchableOpacity } from 'react-native';
 import ChatScreen from '../screens/ChatScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import EditableAvatarScreen from '../screens/EditableAvatarScreen';
 import MotionSency from '../components/MotionSency';
 import FitnessChallage from '../screens/FitnessChallage';
+import Colors from '../components/Colors';
+
+export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
+  return (
+    <View
+      style={{
+        backgroundColor: Colors.gray2,
+        paddingBottom: (isHome && state.index == 1) ? getWidth(3) : getWidth(7),
+        borderBottomLeftRadius: (isHome && state.index == 1) ? 0 : getWidth(8),
+        borderBottomRightRadius: (isHome && state.index == 1) ? 0 : getWidth(8),
+        paddingHorizontal: getWidth(3),
+      }}>
+        <View style={{width:"100%", height:getWidth(14), flexDirection: 'row', borderRadius: getWidth(3),backgroundColor: 'black',padding:2, alignItems:"center"}}>
+      {state.routes.map((route, index) => {
+        const {options} = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined
+            ? options.tabBarLabel
+            : options.title !== undefined
+            ? options.title
+            : route.name;
+
+        const isFocused = state.index === index;
+
+        const onPress = () => {
+          const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+          });
+
+          if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name, route.params);
+          }
+        };
+
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
+
+        const inputRange = state.routes.map((_, i) => i);
+        const opacity = position.interpolate({
+          inputRange,
+          outputRange: inputRange.map(i => (i === index ? 1 : 0)),
+        });
+
+        return (
+          <TouchableOpacity
+            accessibilityRole="button"
+            accessibilityState={isFocused ? {selected: true} : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={onPress}
+            onLongPress={onLongPress}
+            style={{flex: 1,height:"100%",  alignItems: 'center', backgroundColor:isFocused ? Colors.gray1 : "black", justifyContent:"center", borderRadius:getWidth(3)  }}>
+            <Animated.Text style={[fontBold(4)]}>{label}</Animated.Text>
+          </TouchableOpacity>
+        );
+      })}
+      </View>
+    </View>
+  );
+}
 
 
 // Create bottom tab navigator
@@ -49,18 +115,19 @@ function HomeScreen() {
     // Your Home screen content here
     // Include the TopTab navigator here for "journal", "progress", "oracle" tabs
     <View style={{flex:1}}>
-      <View style={{flexDirection:"row", justifyContent:"center"}}>
+      <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center", backgroundColor:Colors.gray2}}>
         <Image
           style={{ width: getWidth(6), height: getWidth(10), left: getWidth(3), resizeMode: "contain" , marginLeft:getWidth(6), position:"absolute"}}
           source={require('../assets/images/dp.png')}
         />
         <Image
-          style={{ width: getWidth(15), height: getWidth(10), marginHorizontal: getWidth(3), resizeMode: "contain", alignSelf:"center" }}
+          style={{ width: getWidth(40), height: getWidth(20), marginHorizontal: getWidth(3), resizeMode: "contain", alignSelf:"center" }}
           source={require('../assets/images/justLogo.png')}
         />
       </View>
       <View style={{flex:1}}>
       <TopTab.Navigator
+      tabBar={props => <MyTabBar {...props} isHome={true} />}
         initialRouteName={"Dashboard"}
         screenOptions={{
           headerShown: false,
@@ -196,7 +263,7 @@ export const Navigation = () => {
         <Stack.Screen name="SelectLocation" component={SelectLocation} />
         <Stack.Screen name="FinalScreen" component={FinalScreen} />
 
-        <Stack.Screen name="DrawerStack" component={BottomTabNavigator} />
+        <Stack.Screen name="DrawerStack" component={HomeScreen} />
         <Stack.Screen name="EditableAvatarScreen" component={EditableAvatarScreen} />
         <Stack.Screen name="MotionSency" component={MotionSency} />
         <Stack.Screen name="LeaderboardScreen" component={LeaderboardScreen} />

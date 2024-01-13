@@ -17,6 +17,7 @@ import { InputButton } from "../components/InputButton";
 import { fontBold, fontRegular, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
+import Colors from "../components/Colors";
 
 
 export default function RankingScreen() {
@@ -32,7 +33,6 @@ export default function RankingScreen() {
                 >
 
                 <FlatList
-                    style={{marginTop:getWidth(3)}}
                     data={["", "", ""]}
                     keyExtractor={(item, index)=> index.toString()}
                     renderItem={({item, index})=>{
@@ -41,7 +41,10 @@ export default function RankingScreen() {
                             onPress={()=>{
                                 navigation.navigate("MotionSency")
                             }}
-                            style={{flexDirection:"row", alignItems:"center", justifyContent:"space-between", paddingVertical:getWidth(3), borderBottomWidth:1, borderBottomColor:  'rgba(255,255,552,0.4)'}}>
+                            style={{flexDirection:"row", 
+                            marginTop:getWidth(3),
+                            alignItems:"center", justifyContent:"space-between",
+                             paddingVertical:getWidth(3), backgroundColor:Colors.gray2, paddingHorizontal:getWidth(4), borderRadius:getWidth(3)}}>
                                 <Text style={fontBold(4, "#AEFF03")}>{++index}</Text>
                                 <Image
                                     style={styles.image}
@@ -62,11 +65,11 @@ export default function RankingScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(1),
+        padding: getWidth(5),
+        backgroundColor: Colors.gray0,
     },
     innerContainer: {
         // flex:1,
-        backgroundColor: "black",
         justifyContent: 'center',
     },
     image: {

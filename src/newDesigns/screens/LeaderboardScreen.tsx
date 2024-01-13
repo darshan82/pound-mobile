@@ -18,6 +18,8 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
 import RankingScreen from './RankingScreen';
 import LogoWithBack from '../components/LogoWithBack';
+import { MyTabBar } from '../routes/Navigation';
+import Colors from '../components/Colors';
 
   const Tab = createMaterialTopTabNavigator();
   
@@ -38,13 +40,14 @@ export default function LeaderboardScreen() {
                     style={styles.innerContainer}
                 >
 
-
+                    <View style={{backgroundColor:Colors.gray2, paddingHorizontal:getWidth(4)}}>
                     <LogoWithBack/>
 
                     <Text style={styles.loginText}>{"Leaderboard"}</Text>
-
+                    </View>
 
                     <Tab.Navigator
+                     tabBar={props => <MyTabBar {...props} isHome={true} />}
                         backBehavior="none"
                         screenOptions={{
                             tabBarActiveTintColor: "#AEFF03",
@@ -83,11 +86,11 @@ export default function LeaderboardScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(4),
+        backgroundColor: Colors.gray0,
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: Colors.gray0,
     },
     logoImage: {
         width: getWidth(18),

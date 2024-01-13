@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
     Dimensions,
@@ -7,58 +7,148 @@ import {
     View,
     TouchableOpacity,
     Text,
+    FlatList,
+    ScrollView,
 } from "react-native";
 
 
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
-import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { fontBold, fontRegular, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
+import { ToggleSwitch } from "../components/ToggleSwitch";
+import LogoWithBack from "../components/LogoWithBack";
+import Colors from "../components/Colors";
 
 
 export default function FinalScreen() {
 
     const navigation = useNavigation();
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    useEffect(()=>{
+        navigation.setOptions({
+            headerShown : false
+        })
+    },[])
 
     return (
-        <SafeAreaView
-            style={styles.container}
-        >
-            <KeyboardAwareScrollView
-                contentContainerStyle={{ flex: 1 }}
-            >
-                <View
-                    style={styles.innerContainer}
-                >
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
+          <View style={styles.innerContainer}>
+            <LogoWithBack />
+
+            <Text style={styles.loginText}>{'Enable Connections'}</Text>
+            <Text style={styles.discText}>
+              {
+                'We use your health data to provide\npersonalized and highly effective\nworkouts and suggestions.'
+              }
+            </Text>
+
+            <View style={{flexDirection:"row", backgroundColor:Colors.gray2, alignItems:"center", paddingHorizontal:getWidth(5), paddingVertical:getWidth(2),borderRadius:getWidth(3)}}>
+             
+                <Text
+                  style={{
+                    ...fontBold(5),
+                    alignSelf: 'flex-start',
+                    marginVertical: getWidth(2),
+                  }}>
+                  {'Step Counting '}
+                </Text>
+                <Image
+                  style={styles.infoImage}
+                  source={require('../assets/images/question.png')}
+                />
+                <View style={{flex:1}}/>
+              <ToggleSwitch                
+                onToggleChange={() => {}}
+              />
+            </View>
 
 
-                    <Image
-                        style={styles.logoImage}
-                        source={require('../assets/images/smalllogo.png')}
-                    />
+            <View style={{flexDirection:"row", marginTop:getWidth(4), backgroundColor:Colors.gray2, alignItems:"center", paddingHorizontal:getWidth(5), paddingVertical:getWidth(2),borderRadius:getWidth(3)}}>
+             
+             <Text
+               style={{
+                 ...fontBold(5),
+                 alignSelf: 'flex-start',
+                 marginVertical: getWidth(2),
+               }}>
+               {'Motion Detection '}
+             </Text>
+             <Image
+               style={styles.infoImage}
+               source={require('../assets/images/question.png')}
+             />
+             <View style={{flex:1}}/>
+           <ToggleSwitch                
+             onToggleChange={() => {}}
+           />
+         </View>
 
-                    <Text style={styles.loginText}>{"Connect Wearable Devices"}</Text>
-                    <Text style={styles.discText}>{"We use your health data to provide personalized and\nhighly effective workouts and suggestions."}</Text>
+            <View style={{marginTop: getWidth(5), flexDirection:"row", alignItems:"center"}}>
+              <Text style={{...fontBold(5)}}>
+                {'Heart Rate Detection '}
+              </Text>
+              <Image
+                style={styles.infoImage}
+                source={require('../assets/images/question.png')}
+              />
+            </View>
 
+            <FlatList
+              data={['WATCH', 'Google Fit', 'Fit Bit']}
+              nestedScrollEnabled={false}
+              style={{marginTop: getWidth(3), flex:1}}
+              numColumns={2}
+              renderItem={({item, index}) => {
+                return (
+                  <TouchableOpacity
+                  onPress={()=>{
+                    setSelectedIndex(index)
+                  }}
+                    style={[{
+                      width: getWidth(40),
+                      height: getWidth(13),
+                      borderRadius: getWidth(2.5),
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderColor: 'white',
+                      marginLeft: getWidth(3),
+                      marginBottom: getWidth(3),
+                      backgroundColor:Colors.gray2
+                    },selectedIndex == index ? { backgroundColor: Colors.lightGreen+30, borderWidth:2, borderColor:Colors.lightGreen} : {}]}>
+                    <Text style={{...fontBold(4)}}>{item}</Text>
+                  </TouchableOpacity>
+                );
+              }}
+            />
 
+        
 
-
-                </View>
-            </KeyboardAwareScrollView>
-        </SafeAreaView>
+            <InputButton
+              onPress={() => navigation.navigate('BodyTypeScreen')}
+              style={styles.continueBtn}
+              textColor={Colors.gray1}
+              labelTitle="CONTINUE"
+            />
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(8),
+        padding: getWidth(5),
+        backgroundColor: Colors.gray1,
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: Colors.gray1,
     },
     logoImage: {
         width: getWidth(18),
@@ -80,8 +170,9 @@ const styles = StyleSheet.create({
     },
     discText: {
         alignSelf: "center",
-        ...fontBold(3),
+        ...fontRegular(4, Colors.gray3),
         textAlign: "center",
+        lineHeight:getWidth(7),
         marginVertical: getWidth(5)
     },
     infoText: {
@@ -102,10 +193,17 @@ const styles = StyleSheet.create({
         marginTop: getWidth(3)
     },
     continueBtn: {
-        marginTop: getWidth(2)
+        marginTop: getWidth(11),
+        borderRadius: getWidth(3),
+        backgroundColor:Colors.lightGreen
     },
     imgBtn: {
         marginTop: getWidth(4),
         backgroundColor: 'rgba(255,255,552,0.2)'
+    },
+    infoImage: {
+        width: getWidth(4),
+        height: getWidth(10),
+        resizeMode: "contain"
     },
 });

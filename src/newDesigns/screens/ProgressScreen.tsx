@@ -1,168 +1,265 @@
-import React from "react";
+import React from 'react';
 
 import {
-    Dimensions,
-    Image,
-    StyleSheet,
-    View,
-    TouchableOpacity,
-    Text,
-} from "react-native";
+  Dimensions,
+  Image,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  FlatList,
+} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {InputButton} from '../components/InputButton';
+import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import {RoundProgress} from '../components/RoundProgress';
+import SimpleGradientProgressbarView from 'react-native-simple-gradient-progressbar-view';
+import Colors from '../components/Colors';
 
 
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { InputButton } from "../components/InputButton";
-import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
-import { RoundProgress } from "../components/RoundProgress";
-import SimpleGradientProgressbarView from "react-native-simple-gradient-progressbar-view";
-
+const ProgressBar = ({progress = 0.1, style, progressHeight = getWidth(2), toColor="#AEFF03"}) => {
+  return (
+    <View
+      style={[{
+        marginTop: getWidth(1),
+        overflow: 'hidden',
+      },style]}>
+      <Image
+        style={{position: 'absolute'}}
+        source={require('../assets/images/progressBG.png')}
+      />
+      <SimpleGradientProgressbarView
+        style={{width: '100%', height: progressHeight}}
+        fromColor="#FFFFFF"
+        toColor={toColor}
+        progress={progress}
+        maskedCorners={[1, 1, 1, 1]}
+        cornerRadius={7.0}
+      />
+      <Image
+        style={{
+          position: 'absolute',
+          width: `${progress*100}%`,
+          height: '100%',
+          resizeMode: 'repeat',
+        }}
+        source={require('../assets/images/progeessStep.png')}
+      />
+    </View>
+  );
+};
 
 export default function ProgressScreen() {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  
 
-    return (
-        <SafeAreaView
-            style={styles.container}
-        >
-
-            
+  return (
+    <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          backgroundColor: Colors.gray2,
+          width: '100%',
+          borderBottomLeftRadius: getWidth(8),
+          borderBottomRightRadius: getWidth(8),
+          paddingHorizontal: getWidth(5),
+          paddingBottom: getWidth(8),
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={[fontBold(5), {flex: 1}]}>Patrick</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              borderRadius: getWidth(3),
+              padding: getWidth(1),
+              backgroundColor: Colors.gray2,
+              alignItems: 'center',
+              paddingRight: getWidth(4.5),
+            }}>
+            <Image
+              style={{
+                width: getWidth(10),
+                height: getWidth(10),
+                resizeMode: 'contain',
+              }}
+              source={require('../assets/images/tokenpound.png')}
+            />
+            <Text style={[fontBold(4), {}]}>1,345</Text>
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flex: 1}}>
             <View
-                style={{ flexDirection: "row", alignItems: "center", marginTop:getWidth(5) }}
-            >
-                <Text style={[fontBold(6), {flex:1 }]}>Patrick</Text>
-                <View
-                style={{flexDirection:"row", borderWidth:1, borderColor:"white", borderRadius:getWidth(1), padding:getWidth(1)}}
-                >
-                    <Text style={[fontBold(4.5),{ marginLeft: getWidth(4)}]}>2</Text>
-                    <Image
-                        style={{ width: getWidth(4.5), height: getWidth(6), marginHorizontal: getWidth(3), resizeMode:"contain" }}
-                        source={require('../assets/images/coin.png')}
-                    />
-                </View>
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={[fontBold(3.5), {marginVertical: getWidth(2)}]}>
+                LEVEL
+              </Text>
+
+              <Text style={[fontBold(3.5), {marginVertical: getWidth(2)}]}>
+                345
+              </Text>
             </View>
-            <View style={{ flexDirection: "row" , alignItems:"center"}}>
-                <View style={{flex:1}}>
 
-                    <Text style={[fontBold(3), { marginTop: getWidth(2) }]}>Level: mono</Text>
+            <ProgressBar progress={0.6} />
 
-                    <View
-                        style={{ borderWidth: 1, borderColor: "white", marginTop: getWidth(1), borderTopLeftRadius: 10, borderBottomRightRadius: 10, overflow: "hidden" }}
-                    >
-                        <SimpleGradientProgressbarView
-                            style={{ width: "100%", height: getWidth(2) }}
-                            fromColor="#f201f7"
-                            toColor="#aefe03"
-                            progress={0.5}
-                            maskedCorners={[0, 0, 1, 1]}
-                            cornerRadius={7.0}
-                        />
-                    </View>
-                    <Text style={[fontBold(3), { marginTop: getWidth(2) }]}>Streaks: 12 days</Text>
-                    <View
-                        style={{ borderWidth: 1, borderColor: "white", marginTop: getWidth(1), borderTopLeftRadius: 10, borderBottomRightRadius: 10, overflow: "hidden" }}
-                    >
-                        <SimpleGradientProgressbarView
-                            style={{ width: "100%", height: getWidth(2) }}
-                            fromColor="#f201f7"
-                            toColor="#aefe03"
-                            progress={0.7}
-                            maskedCorners={[0, 0, 1, 1]}
-                            cornerRadius={7.0}
-                        />
-                    </View>
-                </View>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={[fontBold(3.5), {marginVertical: getWidth(2)}]}>
+                STREAK
+              </Text>
 
-                <Image
-                    style={{width:getWidth(17), height:getWidth(15), marginLeft:getWidth(3), resizeMode:"contain", marginTop:getWidth(6)}}
-                    source={require('../assets/images/position.png')}
-                />
-
+              <Text style={[fontBold(3.5), {marginVertical: getWidth(2)}]}>
+                64 days
+              </Text>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <ProgressBar progress={0.9} />
+          </View>
 
-                <View style={{ alignItems: "center", height: "100%" }}>
+          <View
+            style={{
+              height: getWidth(23),
+              backgroundColor: Colors.gray2,
+              padding: getWidth(3),
+              marginLeft: getWidth(4),
+              borderRadius: getWidth(3),
+              alignItems: 'center',
+              marginTop: getWidth(4),
+            }}>
+            <Image
+              style={{
+                width: getWidth(10),
+                height: getWidth(7),
+                resizeMode: 'contain',
+              }}
+              source={require('../assets/images/trophy.png')}
+            />
+            <Text style={[fontBold(4), {marginVertical: getWidth(2)}]}>
+              Ranking
+            </Text>
 
-                    <RoundProgress
-                        size={getWidth(15)}
-                        style={{ marginTop: getWidth(4) }}
-                        progress={25}
-                        progressText={25}
-                    />
-                    <Text style={[fontBold(3.5), { marginTop: getWidth(2) }]}>Steps</Text>
+            <View
+              style={{
+                backgroundColor: Colors.lightGreen,
+                paddingHorizontal: getWidth(2),
+                paddingVertical: getWidth(1),
+                borderRadius: getWidth(5),
+                alignItems: 'center',
+                borderWidth: 3,
+                borderColor: Colors.gray1,
+              }}>
+              <Text style={[fontBold(3, Colors.gray1)]}> #23 </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={{flexDirection: 'row', paddingHorizontal: getWidth(5)}}>
+        <View style={{alignItems: 'center', height: '100%'}}>
+          <RoundProgress
+            size={getWidth(20)}
+            style={{marginTop: getWidth(4)}}
+            progress={25}
+            progressText={25}
+          />
 
+          <RoundProgress
+            size={getWidth(19)}
+            style={{marginTop: getWidth(4)}}
+            progress={25}
+            progressText={25}
+          />
 
-                    <RoundProgress
-                        size={getWidth(15)}
-                        style={{ marginTop: getWidth(4) }}
-                        progress={25}
-                        progressText={25}
-                    />
-                    <Text style={[fontBold(3.5), { marginTop: getWidth(2) }]}>HRV</Text>
+          <RoundProgress
+            size={getWidth(19)}
+            style={{marginTop: getWidth(4)}}
+            progress={25}
+            progressText={25}
+          />
 
+          <RoundProgress
+            size={getWidth(19)}
+            style={{marginTop: getWidth(4)}}
+            progress={25}
+            progressText={25}
+          />
 
-                    <RoundProgress
-                        size={getWidth(15)}
-                        style={{ marginTop: getWidth(4) }}
-                        progress={25}
-                        progressText={25}
-                    />
-                    <Text style={[fontBold(3.5), { marginTop: getWidth(2) }]}>Strain</Text>
+          <RoundProgress
+            size={getWidth(19)}
+            style={{marginTop: getWidth(4)}}
+            progress={25}
+            progressText={25}
+          />
+        </View>
 
+        <TouchableOpacity
+          style={{
+            width: '87%',
+            height: '86%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          activeOpacity={1}
+          onPress={() => {
+            navigation.navigate('EditableAvatarScreen');
+          }}>
+          <Image
+            style={styles.avatarImage}
+            source={require('../assets/images/Capsule.png')}
+          />
+          <Image
+            style={{
+              position: 'absolute',
+              width: '50%',
+              height: '50%',
+              resizeMode: 'contain',
+            }}
+            source={require('../assets/images/avatar.png')}
+          />
 
-
-                    <RoundProgress
-                        size={getWidth(15)}
-                        style={{ marginTop: getWidth(4) }}
-                        progress={25}
-                        progressText={25}
-                    />
-                    <Text style={[fontBold(3.5), { marginTop: getWidth(2) }]}>Recovery</Text>
-
-
-                    <RoundProgress
-                        size={getWidth(15)}
-                        style={{ marginTop: getWidth(4) }}
-                        progress={25}
-                        progressText={25}
-                    />
-                    <Text style={[fontBold(3.5), { marginTop: getWidth(2) }]}>Energy</Text>
-
-                </View>
-
-
-                <TouchableOpacity
-                    style={styles.avatarImage}
-                    activeOpacity={1}
-                    onPress={() => {
-                        navigation.navigate("EditableAvatarScreen")
+          <FlatList
+            style={{position:"absolute", width:getWidth(32), height:getWidth(19), bottom:getWidth(9), right:getWidth(25), backgroundColor:"black", padding:getWidth(1), paddingRight:getWidth(2)}}
+            data={[{image:require(`../assets/images/STRENGTH.png`), color: "#80B310"},{image: require(`../assets/images/DEFENSE.png`), color: "#C50CCA"},{image: require(`../assets/images/AGILITY.png`), color: "#0783E9"},{image: require(`../assets/images/VITALITY.png`), color: "#D10F13"},{image:  require(`../assets/images/INTELLECT.png`), color: "#C3C218"},{image: require(`../assets/images/Luck.png`), color: "#12BF89"}]}
+            renderItem={({item}) => {
+              return (
+                <View style={{flexDirection: 'row', width:"100%", alignItems:"center"}}>
+                  <Image
+                    style={{
+                      width: getWidth(2.7),
+                      height: getWidth(2.7),
+                      resizeMode: 'contain',
                     }}
-                >
-                    <Image
-                        style={styles.avatarImage}
-                        source={require('../assets/images/avatar.png')}
-                    />
-                </TouchableOpacity>
-
-            </View>
-
-        </SafeAreaView>
-    );
+                    source={item.image}
+                  />
+                  <View style={{flex:1, width:"100%"}}>
+                  <ProgressBar progress={0.5}
+                  progressHeight={getWidth(1)}
+                  toColor={item.color}
+                  style={{borderWidth:1, borderColor: item.color, borderRadius:getWidth(2)}}
+                  />
+                  </View>
+                </View>
+              );
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: getWidth(8),
-    },
-    innerContainer: {
-        flex: 1,
-        backgroundColor: "white",
-    },
-    avatarImage: {
-        width:"100%",
-        flex:1,
-        resizeMode: "contain"
-    }
+  container: {
+    flex: 1, backgroundColor:Colors.gray0
+    
+  },
+  innerContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  avatarImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+  },
 });
