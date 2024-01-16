@@ -17,9 +17,10 @@ import { InputButton } from "../components/InputButton";
 import { fontBold, fontRegular, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
+import Colors from "./Colors";
 
 
-export default function LockView() {
+export default function LockView({ isVisible, text, subText , btnText}) {
 
     const navigation = useNavigation();
 
@@ -28,16 +29,21 @@ export default function LockView() {
             <View
                 style={styles.innerContainer}
             >
-
-                <View style={{ margin: getWidth(2), justifyContent: "space-between", padding: getWidth(3), borderWidth: 1, borderColor: 'white', borderRadius: getWidth(2), backgroundColor: "black" , alignItems:"center", marginTop:getWidth(10)}}>
+                <View style={{ margin: getWidth(2), justifyContent: "space-between", padding: getWidth(3), borderRadius: getWidth(2), backgroundColor: 'rgba(0,0,0,0.2)', alignItems: "center", marginTop: getWidth(10) }}>
 
                     <Image
                         style={styles.image}
                         source={require('../assets/images/lock.png')}
                     />
-                    <Text style={fontBold(4, "white")}>Team Ranking</Text>
+                    <Text style={[fontBold(5, "white"), { marginVertical: getWidth(5) }]}>Team Ranking</Text>
 
-                    <Text style={[fontRegular(4),{marginBottom:getWidth(4)}]}>Unlocks with [badge name] </Text>
+                    {subText ? <Text style={[fontBold(4, Colors.lightGreen), { marginBottom: getWidth(4) }]}>{subText}</Text> : null}
+
+                   {btnText ?  <TouchableOpacity
+                        style={{ backgroundColor: Colors.lightGreen, paddingHorizontal: getWidth(10) , borderRadius:getWidth(10)}}
+                    >
+                        <Text style={[fontBold(5, Colors.gray2), { marginVertical: getWidth(4) }]}>{btnText}</Text>
+                    </TouchableOpacity> : null}
 
                 </View>
 
@@ -48,14 +54,15 @@ export default function LockView() {
 
 const styles = StyleSheet.create({
     innerContainer: {
-        width:"100%",
-        height:"100%",
-        position:"absolute",
-        backgroundColor: 'rgba(0,0,0,0.8)',
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        backgroundColor: 'rgba(0,0,0,0.7)',
+        justifyContent: "center"
     },
     image: {
-        width: getWidth(15),
-        height: getWidth(25),
+        width: getWidth(10),
+        height: getWidth(10),
         resizeMode: "contain",
     }
 });

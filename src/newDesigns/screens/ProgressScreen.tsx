@@ -57,7 +57,7 @@ export default function ProgressScreen() {
   
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View
         style={{
           backgroundColor: Colors.gray2,
@@ -120,7 +120,7 @@ export default function ProgressScreen() {
           <View
             style={{
               height: getWidth(23),
-              backgroundColor: Colors.gray2,
+              backgroundColor: Colors.gray2_0,
               padding: getWidth(3),
               marginLeft: getWidth(4),
               borderRadius: getWidth(3),
@@ -154,39 +154,34 @@ export default function ProgressScreen() {
           </View>
         </View>
       </View>
-      <View style={{flexDirection: 'row', paddingHorizontal: getWidth(5)}}>
-        <View style={{alignItems: 'center', height: '100%'}}>
+      <View style={{flex:1, flexDirection: 'row', paddingHorizontal: getWidth(5)}}>
+        <View style={{alignItems: 'center', height: '100%', justifyContent:"space-around"}}>
           <RoundProgress
             size={getWidth(20)}
-            style={{marginTop: getWidth(4)}}
             progress={25}
             progressText={25}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            style={{marginTop: getWidth(4)}}
             progress={25}
             progressText={25}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            style={{marginTop: getWidth(4)}}
             progress={25}
             progressText={25}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            style={{marginTop: getWidth(4)}}
             progress={25}
             progressText={25}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            style={{marginTop: getWidth(4)}}
             progress={25}
             progressText={25}
           />
@@ -195,7 +190,7 @@ export default function ProgressScreen() {
         <TouchableOpacity
           style={{
             width: '87%',
-            height: '86%',
+            height: '100%',
             alignItems: 'center',
             justifyContent: 'center',
           }}
@@ -244,7 +239,7 @@ export default function ProgressScreen() {
           />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

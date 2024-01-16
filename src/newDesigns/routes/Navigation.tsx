@@ -42,7 +42,7 @@ export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
         borderBottomRightRadius: (isHome && state.index == 1) ? 0 : getWidth(8),
         paddingHorizontal: getWidth(3),
       }}>
-        <View style={{width:"100%", height:getWidth(14), flexDirection: 'row', borderRadius: getWidth(3),backgroundColor: 'black',padding:2, alignItems:"center"}}>
+        <View style={{width:"100%", height:getWidth(12), flexDirection: 'row', borderRadius: getWidth(3),backgroundColor: 'black',padding:2, alignItems:"center"}}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -88,7 +88,7 @@ export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{flex: 1,height:"100%",  alignItems: 'center', backgroundColor:isFocused ? Colors.gray1 : "black", justifyContent:"center", borderRadius:getWidth(3)  }}>
-            <Animated.Text style={[fontBold(4)]}>{label}</Animated.Text>
+            <Animated.Text style={[fontBold(3.5)]}>{label}</Animated.Text>
           </TouchableOpacity>
         );
       })}

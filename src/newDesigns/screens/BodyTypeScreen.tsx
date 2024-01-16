@@ -27,7 +27,9 @@ export default function BodyTypeScreen() {
 
     return (
       <SafeAreaView style={styles.container}>
-        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+        <KeyboardAwareScrollView 
+        // contentContainerStyle={{flex: 1}}
+        >
           <View style={styles.innerContainer}>
             <Image
               style={styles.logoImage}
@@ -72,8 +74,8 @@ export default function BodyTypeScreen() {
               textColor={bodytype == 3 ? Colors.lightGreen : "white"}
               labelTitle="Don't Specify"
             />
-            <View style={{flex: 1}} />
-            <Text style={styles.discText}>{'Already have a RPM avatar?'}</Text>
+            
+            <Text style={[styles.discText,{marginTop:getWidth(20)}]}>{'Already have a RPM avatar?'}</Text>
             <InputText
               containerStyle={{marginTop: getWidth(2), width: '100%'}}
               labelTitle="Enter Model URL"

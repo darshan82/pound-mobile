@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import {
   Dimensions,
@@ -22,12 +22,15 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
+import JornalDetaileModal from '../components/JornalDetaileModal';
+import LockView from '../components/LockView';
 
 export default function RankingScreen() {
   const navigation = useNavigation();
+  const jornalDetaileModalRef = useRef();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.innerContainer}>
         <FlatList
           style={{marginTop: getWidth(3), paddingHorizontal: getWidth(4)}}
@@ -36,7 +39,7 @@ export default function RankingScreen() {
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate('LeaderboardScreen')}
+                onPress={() => jornalDetaileModalRef.current?.showModal(true)}
                 style={{
                   alignItems: 'center',
                   padding: getWidth(5),
@@ -127,7 +130,11 @@ export default function RankingScreen() {
           }}
         />
       </View>
-    </SafeAreaView>
+      <LockView/>
+      <JornalDetaileModal
+      ref={jornalDetaileModalRef}
+      />
+    </View>
   );
 }
 
