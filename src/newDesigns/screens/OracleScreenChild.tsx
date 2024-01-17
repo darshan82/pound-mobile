@@ -58,7 +58,7 @@ export default function OracleScreenChild() {
                         )
                     }}
                 />
-                      <LockView/>
+                      {/* <LockView/> */}
                 </View>
         </SafeAreaView>
     );

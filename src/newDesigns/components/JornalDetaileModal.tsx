@@ -74,7 +74,7 @@ import QuestionWithOptions from './QuestionWithOptions';
                 />
               </TouchableOpacity>
               <View style={{flex: 1}} >
-              <View style={{width:getWidth(20), height:getWidth(3), borderRadius:getWidth(10), backgroundColor:Colors.gray2_0, marginLeft:getWidth(20)}} />
+              <View style={{width:getWidth(20), height:getWidth(2), borderRadius:getWidth(10), backgroundColor:Colors.gray2_0, marginLeft:getWidth(20)}} />
               </View>
               <TouchableOpacity
               onPress={()=>{

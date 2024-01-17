@@ -51,12 +51,12 @@ export default function RankingScreen() {
                   style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    width: '97%',
+                    width: '80%',
                     alignItems: 'center',
                   }}>
-                  <View>
+                  <View style={{alignItems:"center"}}>
                     <Text style={fontBold(3.5)}>July 16</Text>
-                    <Text style={fontBold(3.5)}>July 16</Text>
+                    <Text style={fontRegular(3.5)}>2023</Text>
                   </View>
                   <View
                     style={{
@@ -65,9 +65,9 @@ export default function RankingScreen() {
                       backgroundColor: Colors.gray3 + '30',
                     }}
                   />
-                  <View>
+                  <View style={{alignItems:"center"}}>
                     <Text style={fontBold(3.5)}>July 16</Text>
-                    <Text style={fontBold(3.5)}>July 16</Text>
+                    <Text style={fontRegular(3.5, Colors.gray3)}>XP Gain</Text>
                   </View>
                   <View
                     style={{
@@ -76,9 +76,15 @@ export default function RankingScreen() {
                       backgroundColor: Colors.gray3 + '30',
                     }}
                   />
-                  <View>
-                    <Text style={fontBold(3.5)}>July 16</Text>
-                    <Text style={fontBold(3.5)}>July 16</Text>
+                  <View style={{alignItems:"center"}}>
+                    <View style={{flexDirection:"row"}}>
+                    <Text style={fontBold(3.5)}>23</Text>
+                    <Image
+                        style={[{width:getWidth(5), height:getWidth(5), resizeMode:"contain", marginLeft:getWidth(2)}]}
+                        source={require('../assets/images/tokenpound.png')}
+                      />
+                    </View>
+                    <Text style={fontRegular(3.5, Colors.gray3)}>Token</Text>
                   </View>
                 </View>
 
@@ -130,7 +136,9 @@ export default function RankingScreen() {
           }}
         />
       </View>
-      <LockView/>
+      {/* <LockView
+      btnText="text"
+      /> */}
       <JornalDetaileModal
       ref={jornalDetaileModalRef}
       />

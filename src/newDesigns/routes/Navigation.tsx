@@ -29,7 +29,6 @@ import ChatScreen from '../screens/ChatScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import EditableAvatarScreen from '../screens/EditableAvatarScreen';
 import MotionSency from '../components/MotionSency';
-import FitnessChallage from '../screens/FitnessChallage';
 import Colors from '../components/Colors';
 
 export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
@@ -37,9 +36,9 @@ export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
     <View
       style={{
         backgroundColor: Colors.gray2,
-        paddingBottom: (isHome && state.index == 1) ? getWidth(3) : getWidth(7),
-        borderBottomLeftRadius: (isHome && state.index == 1) ? 0 : getWidth(8),
-        borderBottomRightRadius: (isHome && state.index == 1) ? 0 : getWidth(8),
+        paddingBottom: (isHome && state.index == 0) ? getWidth(7) : getWidth(3),
+        borderBottomLeftRadius: (isHome && state.index == 0) ?  getWidth(8) : 0,
+        borderBottomRightRadius: (isHome && state.index == 0) ?  getWidth(8) : 0,
         paddingHorizontal: getWidth(3),
       }}>
         <View style={{width:"100%", height:getWidth(12), flexDirection: 'row', borderRadius: getWidth(3),backgroundColor: 'black',padding:2, alignItems:"center"}}>
@@ -137,7 +136,6 @@ function HomeScreen() {
         <TopTab.Screen name="Journal" component={JournalScreen} />
         <TopTab.Screen name="Dashboard" component={ProgressScreen} />
         <TopTab.Screen name="Oracle" component={OracleScreen} />
-        {/* <TopTab.Screen name="Fitness" component={FitnessChallage} /> */}
       </TopTab.Navigator>
       </View>
     </View>
