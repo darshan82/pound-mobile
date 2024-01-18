@@ -158,32 +158,47 @@ export default function ProgressScreen() {
         <View style={{alignItems: 'center', height: '100%', justifyContent:"space-around"}}>
           <RoundProgress
             size={getWidth(20)}
-            progress={25}
+            progress={90}
             progressText={25}
+            color={"#FA00FF"}
+            centerImg={require('../assets/images/img5.png')}
+            isloacked={false}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            progress={25}
+            progress={80}
             progressText={25}
+            color={"#2450FD"}
+            centerImg={require('../assets/images/img4.png')}
+            isloacked={false}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            progress={25}
+            progress={70}
             progressText={25}
+            color={"#F82003"}
+            centerImg={require('../assets/images/img3.png')}
+            isloacked={false}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            progress={25}
+            progress={100}
             progressText={25}
+            color={"#AEFF03"}
+            centerImg={require('../assets/images/img2.png')}
+            isloacked={true}
           />
 
           <RoundProgress
             size={getWidth(19)}
-            progress={25}
+            progress={70}
             progressText={25}
+            color={"#FFC700"}
+            centerImg={require('../assets/images/img1.png')}
+            isloacked={false}
           />
         </View>
 

@@ -53,6 +53,7 @@ export default function SignUpScreen() {
                         containerStyle={{ marginTop: getWidth(4), width:"100%" }}
                         labelTitle="Password"
                         placeholder="Password123"
+                        isPassword={true}
                     />
 
 

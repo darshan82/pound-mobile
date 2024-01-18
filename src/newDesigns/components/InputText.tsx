@@ -8,6 +8,8 @@ import {
   TextStyle,
   StyleSheet,
   ViewStyle,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
@@ -79,6 +81,7 @@ export const InputText: FC<InputTextProps> = ({
           color:"white",
           marginBottom: getWidth(2)
         }}
+        isPassword={isPassword}
         placeholderTextColor={Colors.gray3}
         customLabelStyles={{
           colorFocused: Colors.gray3,
@@ -93,6 +96,8 @@ export const InputText: FC<InputTextProps> = ({
           onChangeText(value)
         }}
       />
+
+     
 
         <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
       </FormControl>

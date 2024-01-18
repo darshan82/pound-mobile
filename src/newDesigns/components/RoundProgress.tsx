@@ -13,52 +13,75 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { CircularProgress } from "react-native-progress-circle-gradient";
 // import { CircularProgress } from 'react-native-progress-circle-gradient';
 
 interface RoundProgressProps {
    progress: number,
    style?: StyleProp<ViewStyle>;
    size: number,
-   progressText: string | number
+   progressText: string | number,
+   centerImg : string ,
+   color: string,
+   isloacked:boolean
   }
   
   export const RoundProgress: FC<RoundProgressProps> = ({
     progress = 0,
     style ,
     size = getWidth(50),
-    progressText = 0
+    progressText = 0,
+    centerImg,
+    color,
+    isloacked = true
   }) => {
 
     const navigation = useNavigation();
 
     return (
-        <View style={[{ width: size, height: size, justifyContent: "center", alignItems: "center" },style]}>
-            <Image
-                style={{ width: "100%", height: "100%", resizeMode: "contain", position: "absolute" , top:size/70}}
-                source={require('../assets/images/unfilled.png')}
-            />
-            <View
-                style={{
-                    transform: [{ rotate: '195deg' }]
-                }}
-            >
-                {/* <CircularProgress
+      <View
+        style={[
+          {
+            width: size,
+            height: size,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderColor: color,
+            borderRadius: getWidth(10),
+          },
+          style,
+        ]}>
+        <Image
+          style={{
+            width: '70%',
+            height: '70%',
+            resizeMode: 'contain',
+            position: 'absolute',
+          }}
+          source={!isloacked ? centerImg : require('../assets/images/lockround.png')}
+        />
 
-                    backgroundColor={'rgba(0,0,0,0)'}
-                    radius={size/2.4}
-                    strokeWidth={size/7}
-                    percentageComplete={progress}
-                    colors={['black', '#FA00FF', '#AEFF03']}
-                    easing={'quad'}
-                    duration={10}
-                    granularity={10}
-                    onAnimationFinish={() => {
-
-                    }}
-                /> */}
-                
-            </View>
+        <View
+          style={{
+            
+            marginLeft: getWidth(1),
+            // marginTop: getWidth(1.3),
+            transform: [{rotate: '340deg'}],
+          }}>
+          <CircularProgress
+            backgroundColor={'rgba(0,0,0,0)'}
+            radius={size / 2.25}
+            strokeWidth={size / 10}
+            percentageComplete={isloacked ? 100 : progress}
+            colors={isloacked ? [ 'black', '#FFFFFF'] : ['black', color , '#FFFFFF']}
+            easing={'quad'}
+            duration={10}
+            // granularity={10}
+            onAnimationFinish={() => {}}
+          />
         </View>
+      </View>
     );
 }
 

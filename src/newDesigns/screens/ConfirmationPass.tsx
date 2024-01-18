@@ -56,12 +56,14 @@ export default function ConfirmationPass() {
               containerStyle={{marginTop: getWidth(4), width: '100%'}}
               labelTitle="Password"
               placeholder="Password123"
+              isPassword={true}
             />
 
             <InputText
               containerStyle={{marginTop: getWidth(4), width: '100%'}}
               labelTitle="Confirm Password"
               placeholder="Password123"
+              isPassword={true}
             />
 
             <Text style={styles.forgetText}>Forgot Password?</Text>
