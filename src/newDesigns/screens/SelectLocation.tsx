@@ -18,6 +18,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { InputText } from "../components/InputText";
 import LogoWithBack from "../components/LogoWithBack";
 import Colors from "../components/Colors";
+import DropdownComponent from "../components/DropdownComponent";
 
 
 export default function SelectLocation() {
@@ -46,14 +47,14 @@ export default function SelectLocation() {
               placeholder="Insert answer"
             />
 
-            <InputText
+            <DropdownComponent
               containerStyle={{marginTop: getWidth(10), width: '100%'}}
               style={{color: '#AEFF03'}}
               isFloating={false}
               labelTitle="What is your location?"
               placeholder="Insert answer"
             />
-            <InputText
+            <DropdownComponent
               containerStyle={{marginTop: getWidth(10), width: '100%'}}
               style={{color: '#AEFF03'}}
               isFloating={false}

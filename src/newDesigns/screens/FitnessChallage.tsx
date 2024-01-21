@@ -207,15 +207,32 @@ export default function FitnessChallage() {
           labelTitle="Accept Challenge"
         />
 
-        <InputButton
-          onPress={() => fitnessRef.current?.showModal(true)}
+          <TouchableOpacity
+           onPress={() => fitnessRef.current?.showModal(true)}
           style={[
             styles.continueBtn,
-            {borderWidth: 0, backgroundColor: Colors.lightGreen},
+            {borderWidth: 0, backgroundColor: Colors.lightGreen, borderRadius:getWidth(3), height:getWidth(13), justifyContent:"center", alignItems:"center", flexDirection:"row"},
           ]}
-          textColor={Colors.gray1}
-          labelTitle="Motion detected"
-        />
+          >
+            <Text style={[fontBold(4, Colors.gray1),{}]}>Motion detected</Text>
+
+            
+                <View style={{flexDirection: 'row', backgroundColor:Colors.gray1, padding:getWidth(1), borderRadius:getWidth(3), marginLeft: getWidth(2),}}>
+                  <Text style={fontBold(3.5)}>+23</Text>
+                  <Image
+                    style={[
+                      {
+                        width: getWidth(5),
+                        height: getWidth(5),
+                        resizeMode: 'contain',
+                        marginLeft: getWidth(2),
+                      },
+                    ]}
+                    source={require('../assets/images/tokenpound.png')}
+                  />
+                </View>
+          </TouchableOpacity>
+        
 
         <InputButton
           onPress={() => navigation.navigate('BodyTypeScreen')}

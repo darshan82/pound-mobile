@@ -13,8 +13,7 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
-import { CircularProgress } from "react-native-progress-circle-gradient";
-// import { CircularProgress } from 'react-native-progress-circle-gradient';
+import  { CircularProgressBase } from 'react-native-circular-progress-indicator';
 
 interface RoundProgressProps {
    progress: number,
@@ -59,17 +58,18 @@ interface RoundProgressProps {
             resizeMode: 'contain',
             position: 'absolute',
           }}
-          source={!isloacked ? centerImg : require('../assets/images/lockround.png')}
+          source={
+            !isloacked ? centerImg : require('../assets/images/lockround.png')
+          }
         />
 
         <View
           style={{
-            
-            marginLeft: getWidth(1),
             // marginTop: getWidth(1.3),
-            transform: [{rotate: '340deg'}],
+            // transform: [{rotate: '340deg'}],
           }}>
-          <CircularProgress
+
+{/* <CircularProgress
             backgroundColor={'rgba(0,0,0,0)'}
             radius={size / 2.25}
             strokeWidth={size / 10}
@@ -79,6 +79,13 @@ interface RoundProgressProps {
             duration={10}
             // granularity={10}
             onAnimationFinish={() => {}}
+          /> */}
+
+          <CircularProgressBase
+          radius={size / 2.25}
+            value={isloacked ? 100 : progress}
+            activeStrokeColor={isloacked ? '#000000' : color}
+            activeStrokeSecondaryColor={'#FFFFFF'}
           />
         </View>
       </View>
