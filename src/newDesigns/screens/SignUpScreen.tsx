@@ -13,7 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
-import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { fontBold, fontSemiBold, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
 import Colors from "../components/Colors";
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
     forgetText: {
         alignSelf: "center",
-        ...fontBold(3),
+        ...fontSemiBold(3),
         opacity: 0.6,
         marginTop: getWidth(6)
     },
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     imgBtn: {
         marginTop: getWidth(4),
         backgroundColor:Colors.gray1,
-        borderColor:Colors.gray3
+        borderColor:Colors.gray2_0
     },
 });
+

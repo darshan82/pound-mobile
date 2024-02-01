@@ -2,7 +2,8 @@ import React, { FC, ReactNode } from 'react';
 import { StyleSheet, StyleProp, TextStyle, Image, ImageSourcePropType, ViewStyle } from 'react-native';
 import { Button, Spinner, Text, View } from 'native-base';
 import { If } from 'react-haiku';
-import { getWidth } from '../../modules/dashboard/helpers/tabs';
+import { fontSemiBold, getWidth } from '../../modules/dashboard/helpers/tabs';
+import Colors from './Colors';
 
 type InputButtonProps = {
   children: ReactNode;
@@ -39,7 +40,7 @@ export const InputButton: FC<InputButtonProps> = ({
           />
         </If>
 
-        <Text style={styles.text} color={textColor ? textColor : "white"}
+        <Text style={[styles.text, {color:textColor ? textColor : "white"}]}
         >
           {labelTitle}
         </Text>
@@ -60,8 +61,8 @@ const styles = StyleSheet.create({
     borderColor: 'white',
   },
   text: {
+   ...fontSemiBold(4,  Colors.gray1),
     marginHorizontal: getWidth(3),
-    fontWeight: "bold",
     textShadowColor: 'black', 
         textShadowOffset: { width: -1, height: 0 },
   },

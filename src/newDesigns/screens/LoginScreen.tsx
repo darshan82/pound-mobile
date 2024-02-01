@@ -13,7 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
-import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { fontBold, fontSemiBold, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
 import Colors from "../components/Colors";
@@ -24,78 +24,60 @@ export default function LoginScreen() {
     const navigation = useNavigation();
 
     return (
-        <SafeAreaView
-            style={styles.container}
-        >
-            <KeyboardAwareScrollView
-                style={{ flex: 1, height: '100%', }}
-            >
-                <View
-                    style={styles.innerContainer}
-                >
-                    <Image
-                        style={styles.logoImage}
-                        source={require('../assets/images/justLogo.png')}
-                    />
+      <SafeAreaView style={styles.container}>
+        <KeyboardAwareScrollView style={{flex: 1, height: '100%'}}>
+          <View style={styles.innerContainer}>
+            <Image
+              style={styles.logoImage}
+              source={require('../assets/images/justLogo.png')}
+            />
 
-                    <Text style={styles.loginText}>
-                        Log In
-                    </Text>
+            <Text style={styles.loginText}>Log In</Text>
 
+            <InputText
+              containerStyle={{marginTop: getWidth(3), width: '100%'}}
+              labelTitle="Email Address"
+              placeholder="username@hotmail.com"
+            />
 
-                    <InputText
-                        containerStyle={{ marginTop: getWidth(3), width:"100%" }}
-                        labelTitle="Email Address"
-                        placeholder="username@hotmail.com"
-                    />
+            <InputText
+              containerStyle={{marginTop: getWidth(4), width: '100%'}}
+              labelTitle="Password"
+              placeholder="Password123"
+              isPassword={true}
+            />
 
-                    <InputText
-                        containerStyle={{ marginTop: getWidth(4), width:"100%" }}
-                        labelTitle="Password"
-                        placeholder="Password123"
-                        isPassword={true}
-                    />
+            <Text style={styles.forgetText}>Forgot Password?</Text>
 
+            <InputButton
+              onPress={() => navigation.navigate('DrawerStack')}
+              style={styles.continueBtn}
+              labelTitle="CONTINUE"
+              textColor={Colors.gray1}
+            />
 
-<Text style={styles.forgetText}>Forgot Password?</Text>
+            <InputButton style={styles.imgBtn} labelTitle="FORGE MY IDENTITY" />
 
-                    <InputButton
-                        onPress={()=> navigation.navigate("DrawerStack")}
-                        style={styles.continueBtn}
-                        labelTitle="CONTINUE"
-                        textColor={Colors.gray1}
-                    />
+            <InputButton
+              image={require('../assets/images/discord.png')}
+              style={styles.imgBtn}
+              labelTitle="Discord"
+            />
 
-                  
+            <InputButton
+              image={require('../assets/images/twter.png')}
+              style={styles.imgBtn}
+              labelTitle="Twitter"
+            />
 
-                    
-<InputButton
-                        style={styles.imgBtn}
-                        labelTitle="FORGE MY IDENTITY"
-                    />
-
-                    <InputButton
-                        image={require('../assets/images/discord.png')}
-                        style={styles.imgBtn}
-                        labelTitle="Discord"
-                    />
-
-                    <InputButton
-                    image={require('../assets/images/twter.png')}
-                        style={styles.imgBtn}
-                        labelTitle="Twitter"
-                    />
-
-                    <InputButton
-                    image={require('../assets/images/google.png')}
-                        style={styles.imgBtn}
-                        labelTitle="Google"
-                    />
-
-
-                </View>
-            </KeyboardAwareScrollView>
-        </SafeAreaView>
+            <InputButton
+              image={require('../assets/images/google.png')}
+              style={styles.imgBtn}
+              labelTitle="Google"
+            />
+          </View>
+        </KeyboardAwareScrollView>
+      </SafeAreaView>
     );
 }
 
@@ -129,9 +111,10 @@ const styles = StyleSheet.create({
     },
     forgetText: {
         alignSelf: "center",
-        ...fontBold(3),
+        ...fontSemiBold(3),
         opacity: 0.6,
-        marginTop: getWidth(6)
+        marginTop: getWidth(6),
+        textDecorationLine:"underline"
     },
     orText: {
         alignSelf: "center",
@@ -147,6 +130,6 @@ const styles = StyleSheet.create({
     imgBtn: {
         marginTop: getWidth(4),
         backgroundColor:Colors.gray1,
-        borderColor:Colors.gray3
+        borderColor:Colors.gray2_0
     },
 });

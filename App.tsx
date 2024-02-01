@@ -10,16 +10,13 @@ const theme = extendTheme({
   fontConfig: {
     AbsoluteZero: {
       400: {
-        normal: 'AbsoluteZero',
-        italic:
-          Platform.OS === 'ios' ? 'AbsoluteZero-Italic' : 'AbsoluteZeroItalic',
+        normal: 'Montserrat-Regular',
+        
       },
     },
     Grotesk: {
       400: {
-        normal: 'FamiljenGroteskGF-Regular',
-        italic:
-          Platform.OS === 'ios' ? 'FamiljenGroteskGF-Regular' : 'GroteskItalic',
+        normal: 'Montserrat-Regular',
       },
     },
   },

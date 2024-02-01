@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
+import { fontBold, fontRegular, getWidth } from '../../modules/dashboard/helpers/tabs';
 import { FloatingLabelInput } from 'react-native-floating-label-input';
 import Colors from './Colors';
 
@@ -78,6 +78,7 @@ export const InputText: FC<InputTextProps> = ({
         ]}
         value={valueInput}
         labelStyles={{
+          ...fontRegular(3.2),
           color:"white",
           marginBottom: getWidth(2)
         }}
@@ -88,8 +89,9 @@ export const InputText: FC<InputTextProps> = ({
           colorBlurred:Colors.gray3
         }}
         inputStyles={{
-          fontSize:getWidth(3.2),
+          ...fontRegular(3.2),
           color:"white",
+          
         }}
         onChangeText={value => {
           setValue(value)
@@ -105,6 +107,8 @@ export const InputText: FC<InputTextProps> = ({
   );
 };
 
+
+
 const styles = StyleSheet.create({
   baseInput: {
     height:getWidth(13),
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
     paddingRight: getWidth(3),
     backgroundColor:Colors.gray2,
     borderRadius:getWidth(2.5),
-    fontSize:getWidth(3.2),
+    ...fontRegular(3.2),
     color:"white",
     borderWidth:0,
     borderColor:Colors.gray2

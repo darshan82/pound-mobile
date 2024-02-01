@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import Colors from "../components/Colors";
 
 const HEIGHT = Dimensions.get("window").height;
 
@@ -34,10 +35,10 @@ export default function FirstScreen() {
 
             
                 <Image
-                    style={styles.logoImage}
+                    style={[styles.logoImage,{marginLeft:getWidth(8)}]}
                     source={require('../assets/images/logo.png')}
                 />
-            <Text style={fontBold(4)}>Reach the Avatar State</Text>
+            <Text style={fontBold(3.5)}>Reach the Avatar State</Text>
 
 
             <View style={{flex:1}}/>
@@ -54,7 +55,7 @@ export default function FirstScreen() {
         
             <InputButton
             onPress={()=> navigation.navigate("LoginScreen")}
-                style={{...styles.loginBtn, backgroundColor: '#0B0B0B'}}
+                style={{...styles.loginBtn, backgroundColor: '#0B0B0B', borderColor:Colors.gray2_0}}
                 labelTitle="Sign in"
             />
 
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     container: {
         paddingBottom: getWidth(5),
         paddingHorizontal: getWidth(4),
-        backgroundColor: "#0B0B0B",
+        backgroundColor: Colors.gray1,
         justifyContent: 'center',
         alignItems: 'center',
         height: "100%"

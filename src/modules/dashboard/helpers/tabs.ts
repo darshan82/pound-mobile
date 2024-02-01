@@ -10,7 +10,7 @@ export const getWidth = (value : number = 1) =>{
 export const fontRegular = (value : number = 3.5, color:string = 'white') => {
   return {
     fontSize: getWidth(value),
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat-Regular',
     color: color
   }
 };
@@ -18,8 +18,36 @@ export const fontRegular = (value : number = 3.5, color:string = 'white') => {
 export const fontBold =(value : number = 3.5, color:string = 'white') =>{
   return {
     fontSize: getWidth(value),
-    fontWeight:'bold',
-    fontFamily: 'Montserrat',
+    fontFamily: 'Montserrat-Bold',
     color: color
   }
 };
+
+
+
+export const fontSemiBold =(value : number = 3.5, color:string = 'white') =>{
+  return {
+    fontSize: getWidth(value),
+    fontFamily: 'Montserrat-SemiBold',
+    color: color
+  }
+};
+
+export const fontExtraBold =(value : number = 3.5, color:string = 'white') =>{
+  return {
+    fontSize: getWidth(value),
+    fontFamily: 'Montserrat-ExtraBold',
+    color: color
+  }
+};
+
+
+export const fontBlackaBold =(value : number = 3.5, color:string = 'white') =>{
+  return {
+    fontSize: getWidth(value),
+    fontFamily: 'Montserrat-Black',
+    color: color
+  }
+};
+
+
