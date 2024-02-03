@@ -88,7 +88,7 @@ export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{flex: 1,height:"100%",  alignItems: 'center', backgroundColor:isFocused ? Colors.gray1 : "black", justifyContent:"center", borderRadius:getWidth(3)  }}>
+            style={{flex: 1,height:"100%",  alignItems: 'center', backgroundColor:isFocused ? Colors.gray2 : "black", justifyContent:"center", borderRadius:getWidth(3)  }}>
             <Animated.Text style={[fontBold(3.5)]}>{label}</Animated.Text>
           </TouchableOpacity>
         );
@@ -118,7 +118,7 @@ function HomeScreen() {
     <View style={{flex:1}}>
       <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center", backgroundColor:Colors.gray2}}>
         <Image
-          style={{ width: getWidth(6), height: getWidth(10), left: getWidth(3), resizeMode: "contain" , marginLeft:getWidth(6), position:"absolute"}}
+          style={{ width: getWidth(10), height: getWidth(10), left: getWidth(1), resizeMode: "contain" , marginLeft:getWidth(6), position:"absolute"}}
           source={require('../assets/images/dp.png')}
         />
         <Image

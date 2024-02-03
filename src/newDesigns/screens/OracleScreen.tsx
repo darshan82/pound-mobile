@@ -136,7 +136,6 @@ export default function OracleScreen() {
           textTransform: 'none',
         },
       }}>
-      <Tab.Screen name={'ALL'} component={OracleScreenChild} />
 
       <Tab.Screen name={'Game Quests'} component={OracleScreenChild} />
 

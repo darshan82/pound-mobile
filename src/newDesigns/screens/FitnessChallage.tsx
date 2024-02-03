@@ -27,12 +27,10 @@ import FitnessDetaileModal from '../components/FitnessDetaileModal';
 export default function FitnessChallage() {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
-  const fitnessRef = useRef();
+
 
   return (
-    <View
-    style={{flex: 1}}
-    >
+    <View style={{flex: 1}}>
       <ScrollView
         style={{flex: 1}}
         contentContainerStyle={{
@@ -43,14 +41,16 @@ export default function FitnessChallage() {
           <View style={{flexDirection: 'row'}}>
             <Text style={[fontBold(4), {}]}>Push-Up Prowess Challenge</Text>
             <View style={{flex: 1}} />
-            <TouchableOpacity>
+            <TouchableOpacity
+            style={{backgroundColor:Colors.gray3+30, paddingHorizontal: getWidth(3), paddingVertical:getWidth(1), borderRadius:getWidth(4)}}
+            >
               <Image
                 style={{
                   width: getWidth(6),
                   height: getWidth(6),
                   resizeMode: 'contain',
                 }}
-                source={require('../assets/images/cross.png')}
+                source={require('../assets/images/reload.png')}
               />
             </TouchableOpacity>
           </View>
@@ -107,45 +107,99 @@ export default function FitnessChallage() {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: '85%',
-                alignSelf: 'center',
+                width: '100%',
+                justifyContent: 'center',
               }}>
               <View
                 style={{
+                  borderRadius: getWidth(3),
                   alignItems: 'center',
-                  marginTop: getWidth(2),
+                  marginTop: getWidth(3),
                   backgroundColor: Colors.gray2_0,
-                  paddingVertical: getWidth(6),
-                  paddingHorizontal: getWidth(8),
-                  borderRadius: getWidth(5),
+                  padding: getWidth(3),
                 }}>
-                <Text style={fontBold(3.5)}>Enemies</Text>
+                <Text
+                  style={[
+                    fontRegular(3.5, Colors.white),
+                    {marginTop: getWidth(1)},
+                  ]}>
+                  Enemies
+                </Text>
                 <View style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                  {['', ''].map(() => (
-                    <Image
-                      style={styles.image}
-                      source={require('../assets/images/img.png')}
-                    />
+                  {[
+                    {
+                      image: require(`../assets/images/Ene1.png`),
+                      color: '#80B310',
+                    },
+                    {image: require(`../assets/images/Ene2.png`)},
+                  ].map((item, index) => (
+                    <View
+                      style={[
+                        styles.image,
+                        {
+                          marginLeft: index ? -getWidth(3) : 0,
+                          overflow: 'hidden',
+                        },
+                      ]}>
+                      <Image
+                        style={[
+                          {
+                            width: '70%',
+                            height: '70%',
+                            resizeMode: 'contain',
+                          },
+                        ]}
+                        source={item.image}
+                      />
+                    </View>
                   ))}
                 </View>
               </View>
+
               <View
                 style={{
+                  borderRadius: getWidth(3),
                   alignItems: 'center',
-                  marginTop: getWidth(2),
+                  marginTop: getWidth(3),
                   backgroundColor: Colors.gray2_0,
-                  paddingVertical: getWidth(6),
-                  paddingHorizontal: getWidth(8),
-                  borderRadius: getWidth(5),
+                  padding: getWidth(3),
+                  marginLeft: getWidth(10),
                 }}>
-                <Text style={fontBold(3.5)}>Enemies</Text>
+                <Text
+                  style={[
+                    fontRegular(3.5, Colors.white),
+                    {marginTop: getWidth(1)},
+                  ]}>
+                  Attributes
+                </Text>
                 <View style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                  {['', ''].map(() => (
-                    <Image
-                      style={styles.image}
-                      source={require('../assets/images/img.png')}
-                    />
+                  {[
+                    {
+                      image: require(`../assets/images/INTELLECT.png`),
+                      color: '#80B310',
+                    },
+                    {image: require(`../assets/images/STRENGTH.png`)},
+                    {image: require(`../assets/images/VITALITY.png`)},
+                  ].map((item, index) => (
+                    <View
+                      style={[
+                        styles.image,
+                        {
+                          marginLeft: index ? -getWidth(3) : 0,
+                          overflow: 'hidden',
+                        },
+                      ]}>
+                      <Image
+                        style={[
+                          {
+                            width: '70%',
+                            height: '70%',
+                            resizeMode: 'contain',
+                          },
+                        ]}
+                        source={item.image}
+                      />
+                    </View>
                   ))}
                 </View>
               </View>
@@ -190,7 +244,7 @@ export default function FitnessChallage() {
               <Text
                 style={[
                   fontRegular(3.5, Colors.gray3),
-                  {marginTop: getWidth(1), flex: 1, lineHeight: getWidth(5)},
+                  {marginTop: getWidth(1), flex: 1, lineHeight: getWidth(5.5), letterSpacing: getWidth(0.3)},
                 ]}>
                 {item}
               </Text>
@@ -199,43 +253,55 @@ export default function FitnessChallage() {
         </View>
 
         <InputButton
-          onPress={() => navigation.navigate('BodyTypeScreen')}
+          onPress={() => {}}
           style={[
-            styles.continueBtn,
-            {borderWidth: 0, backgroundColor: 'transparent'},
+           
+            {borderWidth: 0, backgroundColor: 'transparent', height:getWidth(5)},
           ]}
           labelTitle="Accept Challenge"
         />
 
-          <TouchableOpacity
-           onPress={() => fitnessRef.current?.showModal(true)}
+        <TouchableOpacity
           style={[
             styles.continueBtn,
-            {borderWidth: 0, backgroundColor: Colors.lightGreen, borderRadius:getWidth(3), height:getWidth(13), justifyContent:"center", alignItems:"center", flexDirection:"row"},
-          ]}
-          >
-            <Text style={[fontBold(4, Colors.gray1),{}]}>Motion detected</Text>
+            {
+              borderWidth: 0,
+              backgroundColor: Colors.lightGreen,
+              borderRadius: getWidth(3),
+              height: getWidth(13),
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+            },
+          ]}>
+          <Text style={[fontBold(4, Colors.gray1), {}]}>Motion detected</Text>
 
-            
-                <View style={{flexDirection: 'row', backgroundColor:Colors.gray1, padding:getWidth(1), borderRadius:getWidth(3), marginLeft: getWidth(2),}}>
-                  <Text style={fontBold(3.5)}>+23</Text>
-                  <Image
-                    style={[
-                      {
-                        width: getWidth(5),
-                        height: getWidth(5),
-                        resizeMode: 'contain',
-                        marginLeft: getWidth(2),
-                      },
-                    ]}
-                    source={require('../assets/images/tokenpound.png')}
-                  />
-                </View>
-          </TouchableOpacity>
-        
+          <View
+            style={{
+              flexDirection: 'row',
+              backgroundColor: Colors.gray1,
+              padding: getWidth(1),
+              paddingHorizontal: getWidth(2),
+              borderRadius: getWidth(3),
+              marginLeft: getWidth(2),
+            }}>
+            <Text style={fontBold(3)}>+23</Text>
+            <Image
+              style={[
+                {
+                  width: getWidth(4.5),
+                  height: getWidth(4.5),
+                  resizeMode: 'contain',
+                  marginLeft: getWidth(2),
+                },
+              ]}
+              source={require('../assets/images/tokenpound.png')}
+            />
+          </View>
+        </TouchableOpacity>
 
         <InputButton
-          onPress={() => navigation.navigate('BodyTypeScreen')}
+          onPress={() => {}}
           style={[
             styles.continueBtn,
             {
@@ -248,7 +314,6 @@ export default function FitnessChallage() {
           labelTitle="Heart rate detected"
         />
       </ScrollView>
-      <FitnessDetaileModal ref={fitnessRef} />
     </View>
   );
 }
@@ -314,13 +379,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,552,0.2)',
   },
   image: {
-    width: getWidth(8),
-    height: getWidth(8),
+    width: getWidth(11),
+    height: getWidth(11),
     resizeMode: 'contain',
-    backgroundColor: 'white',
+    backgroundColor: Colors.gray1,
     borderRadius: getWidth(10),
     borderWidth: 3,
     borderColor: Colors.gray2_0,
-    marginLeft: -getWidth(1.5),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

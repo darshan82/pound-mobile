@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import React, {forwardRef, useImperativeHandle, useState} from 'react';
 
 import {
   Dimensions,
@@ -24,24 +24,29 @@ import Colors from '../components/Colors';
 import ReactNativeModal from 'react-native-modal';
 import QuestionWithOptions from './QuestionWithOptions';
 
- const JornalDetaileModal = forwardRef(({}, ref)=> {
+const JornalDetaileModal = forwardRef(({}, ref) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
 
-
   useImperativeHandle(ref, () => ({
     showModal(value) {
-        setIsVisible(value)
+      setIsVisible(value);
     },
     hideModal(value) {
-        setIsVisible(value)
+      setIsVisible(value);
     },
-}));
+  }));
 
   return (
     <ReactNativeModal style={{margin: 0, padding: 0}} isVisible={isVisible}>
       <SafeAreaView style={{flex: 1}}>
-        <ScrollView style={{flex: 1, backgroundColor: Colors.gray2, borderTopLeftRadius:getWidth(6), borderTopRightRadius:getWidth(6)}}>
+        <ScrollView
+          style={{
+            flex: 1,
+            backgroundColor: Colors.gray2,
+            borderTopLeftRadius: getWidth(6),
+            borderTopRightRadius: getWidth(6),
+          }}>
           <View
             style={{
               alignItems: 'center',
@@ -50,7 +55,7 @@ import QuestionWithOptions from './QuestionWithOptions';
               borderRadius: getWidth(4),
               paddingBottom: getWidth(10),
             }}>
-            <View style={{flexDirection: 'row', marginBottom:getWidth(6)}}>
+            <View style={{flexDirection: 'row', marginBottom: getWidth(6)}}>
               <TouchableOpacity onPress={() => {}}>
                 <Image
                   style={{
@@ -73,14 +78,21 @@ import QuestionWithOptions from './QuestionWithOptions';
                   source={require('../../newDesigns/assets/images/rightArrow.png')}
                 />
               </TouchableOpacity>
-              <View style={{flex: 1}} >
-              <View style={{width:getWidth(20), height:getWidth(2), borderRadius:getWidth(10), backgroundColor:Colors.gray2_0, marginLeft:getWidth(20)}} />
+              <View style={{flex: 1}}>
+                <View
+                  style={{
+                    width: getWidth(20),
+                    height: getWidth(2),
+                    borderRadius: getWidth(10),
+                    backgroundColor: Colors.gray2_0,
+                    marginLeft: getWidth(20),
+                  }}
+                />
               </View>
               <TouchableOpacity
-              onPress={()=>{
-                setIsVisible(false)
-              }}
-              >
+                onPress={() => {
+                  setIsVisible(false);
+                }}>
                 <Image
                   style={{
                     width: getWidth(6),
@@ -91,16 +103,18 @@ import QuestionWithOptions from './QuestionWithOptions';
                 />
               </TouchableOpacity>
             </View>
+
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                width: '97%',
+                width: '75%',
                 alignItems: 'center',
+                marginTop:getWidth(4)
               }}>
-              <View>
+              <View style={{alignItems: 'center'}}>
                 <Text style={fontBold(3.5)}>July 16</Text>
-                <Text style={fontBold(3.5)}>July 16</Text>
+                <Text style={fontRegular(3.5)}>2023</Text>
               </View>
               <View
                 style={{
@@ -109,9 +123,15 @@ import QuestionWithOptions from './QuestionWithOptions';
                   backgroundColor: Colors.gray3 + '30',
                 }}
               />
-              <View>
+              <View style={{alignItems: 'center'}}>
                 <Text style={fontBold(3.5)}>July 16</Text>
-                <Text style={fontBold(3.5)}>July 16</Text>
+                <Text
+                  style={[
+                    fontRegular(3.5, Colors.gray3),
+                    {marginTop: getWidth(1)},
+                  ]}>
+                  XP Gain
+                </Text>
               </View>
               <View
                 style={{
@@ -120,125 +140,124 @@ import QuestionWithOptions from './QuestionWithOptions';
                   backgroundColor: Colors.gray3 + '30',
                 }}
               />
-              <View>
-                <Text style={fontBold(3.5)}>July 16</Text>
-                <Text style={fontBold(3.5)}>July 16</Text>
+              <View style={{alignItems: 'center'}}>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={fontBold(3.5)}>23</Text>
+                  <Image
+                    style={[
+                      {
+                        width: getWidth(5),
+                        height: getWidth(5),
+                        resizeMode: 'contain',
+                        marginLeft: getWidth(2),
+                      },
+                    ]}
+                    source={require('../assets/images/tokenpound.png')}
+                  />
+                </View>
+                <Text style={fontRegular(3.5, Colors.gray3)}>Token</Text>
               </View>
             </View>
 
-            <View
-              style={{
-                paddingVertical: getWidth(3),
-                backgroundColor: Colors.gray2_0,
-                width: '100%',
-                borderRadius: getWidth(3),
-                padding: getWidth(4),
-                marginTop: getWidth(5),
-                height: getWidth(23),
-              }}>
-              <Text style={fontBold(4)}>Enemies Defeated</Text>
-              <View style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                {[
-                  {
-                    image: require(`../../newDesigns/assets/images/STRENGTH.png`),
-                    color: '#80B310',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/DEFENSE.png`),
-                    color: '#C50CCA',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/AGILITY.png`),
-                    color: '#0783E9',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/VITALITY.png`),
-                    color: '#D10F13',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/INTELLECT.png`),
-                    color: '#C3C218',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/Luck.png`),
-                    color: '#12BF89',
-                  },
-                ].map((item, index) => (
-                  <View
-                    style={[
-                      styles.image,
-                      {
-                        marginLeft: index ? -getWidth(3.5) : 0,
-                        overflow: 'hidden',
-                      },
-                    ]}>
-                    <Image
+            <View style={{flexDirection: 'row', width: '100%', justifyContent:"center", marginTop:getWidth(10)}}>
+             
+
+              <View
+                style={{
+                  borderRadius: getWidth(3),
+                  alignItems: 'center',
+                  marginTop: getWidth(3),
+                  backgroundColor: Colors.gray2_0,
+                  padding: getWidth(3),
+                }}>
+                   <Text
+                style={[
+                  fontRegular(3.5, Colors.white),
+                  {marginTop: getWidth(1)},
+                ]}>
+                Enemies
+              </Text>
+                <View style={{flexDirection: 'row', marginTop: getWidth(2)}}>
+                  {[
+                    {
+                      image: require(`../assets/images/Ene1.png`),
+                      color: '#80B310',
+                    },
+                    {image: require(`../assets/images/Ene2.png`)},
+                  ].map((item, index) => (
+                    <View
                       style={[
-                        {width: '80%', height: '80%', resizeMode: 'contain'},
-                      ]}
-                      source={item.image}
-                    />
-                  </View>
-                ))}
+                        styles.image,
+                        {
+                          marginLeft: index ? -getWidth(3) : 0,
+                          overflow: 'hidden',
+                        },
+                      ]}>
+                      <Image
+                        style={[
+                          {
+                            width: '70%',
+                            height: '70%',
+                            resizeMode: 'contain',
+                          },
+                        ]}
+                        source={item.image}
+                      />
+                    </View>
+                  ))}
+                </View>
+              </View>
+
+              <View
+                style={{
+                  borderRadius: getWidth(3),
+                  alignItems: 'center',
+                  marginTop: getWidth(3),
+                  backgroundColor: Colors.gray2_0,
+                  padding: getWidth(3),
+                  marginLeft: getWidth(10),
+                }}>
+                  <Text
+                  style={[
+                    fontRegular(3.5, Colors.white),
+                    {marginTop: getWidth(1)},
+                  ]}>
+                  Attributes
+                </Text>
+                <View style={{flexDirection: 'row', marginTop: getWidth(2)}}>
+                  {[
+                    {
+                      image: require(`../assets/images/INTELLECT.png`),
+                      color: '#80B310',
+                    },
+                    {image: require(`../assets/images/STRENGTH.png`)},
+                    {image: require(`../assets/images/VITALITY.png`)},
+                  ].map((item, index) => (
+                    <View
+                      style={[
+                        styles.image,
+                        {
+                          marginLeft: index ? -getWidth(3) : 0,
+                          overflow: 'hidden',
+                        },
+                      ]}>
+                      <Image
+                        style={[
+                          {
+                            width: '70%',
+                            height: '70%',
+                            resizeMode: 'contain',
+                          },
+                        ]}
+                        source={item.image}
+                      />
+                    </View>
+                  ))}
+                </View>
+                
               </View>
             </View>
 
-            <View
-              style={{
-                paddingVertical: getWidth(3),
-                backgroundColor: Colors.gray2_0,
-                width: '100%',
-                borderRadius: getWidth(3),
-                padding: getWidth(4),
-                marginTop: getWidth(3),
-                height: getWidth(24),
-              }}>
-              <Text style={fontBold(4)}>Attributes Gained</Text>
-              <View style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                {[
-                  {
-                    image: require(`../../newDesigns/assets/images/STRENGTH.png`),
-                    color: '#80B310',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/DEFENSE.png`),
-                    color: '#C50CCA',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/AGILITY.png`),
-                    color: '#0783E9',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/VITALITY.png`),
-                    color: '#D10F13',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/INTELLECT.png`),
-                    color: '#C3C218',
-                  },
-                  {
-                    image: require(`../../newDesigns/assets/images/Luck.png`),
-                    color: '#12BF89',
-                  },
-                ].map((item, index) => (
-                  <View
-                    style={[
-                      styles.image,
-                      {
-                        marginLeft: index ? -getWidth(3.5) : 0,
-                        overflow: 'hidden',
-                      },
-                    ]}>
-                    <Image
-                      style={[
-                        {width: '80%', height: '80%', resizeMode: 'contain'},
-                      ]}
-                      source={item.image}
-                    />
-                  </View>
-                ))}
-              </View>
-            </View>
             <Text
               style={[
                 fontRegular(3.5, Colors.gray3),
@@ -287,5 +306,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default JornalDetaileModal
+export default JornalDetaileModal;

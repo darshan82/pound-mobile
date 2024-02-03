@@ -42,8 +42,6 @@ export default function LeaderboardScreen() {
 
                     <View style={{backgroundColor:Colors.gray2, paddingHorizontal:getWidth(4)}}>
                     <LogoWithBack/>
-
-                    <Text style={styles.loginText}>{"Leaderboard"}</Text>
                     </View>
 
                     <Tab.Navigator
