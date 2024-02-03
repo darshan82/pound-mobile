@@ -30,6 +30,8 @@ import LeaderboardScreen from '../screens/LeaderboardScreen';
 import EditableAvatarScreen from '../screens/EditableAvatarScreen';
 import MotionSency from '../components/MotionSency';
 import Colors from '../components/Colors';
+import ThreeAvatarScreen from '../screens/ThreeAvatarScreen';
+import GameSelection from '../screens/GameSelection';
 
 export function MyTabBar({ state, descriptors, navigation, position, isHome}) {
   return (
@@ -254,12 +256,14 @@ export const Navigation = () => {
         <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen name="ConfirmationPass" component={ConfirmationPass} />
         <Stack.Screen name="PlayerTagScreen" component={PlayerTagScreen} />
+        <Stack.Screen name="ThreeAvatarScreen" component={ThreeAvatarScreen} />
         <Stack.Screen name="BodyTypeScreen" component={BodyTypeScreen} />
         <Stack.Screen name="AvatarScreen" component={AvatarScreen} />
         <Stack.Screen name="SelectOptionScreen" component={SelectOptionScreen} />
         <Stack.Screen name="SelectWeightGender" component={SelectWeightGender} />
         <Stack.Screen name="SelectLocation" component={SelectLocation} />
         <Stack.Screen name="FinalScreen" component={FinalScreen} />
+        <Stack.Screen name="GameSelection" component={GameSelection} />
 
         <Stack.Screen name="DrawerStack" component={HomeScreen} />
         <Stack.Screen name="EditableAvatarScreen" component={EditableAvatarScreen} />

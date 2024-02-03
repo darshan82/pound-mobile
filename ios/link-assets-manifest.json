@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "src/assets/fonts/CursedTimerULiL.ttf",
+      "sha1": "52c7b4233488e7e7251307eaf7e705adb2c5cc62"
+    },
+    {
       "path": "src/assets/fonts/Montserrat-Black.ttf",
       "sha1": "ad9c434705a52d90ac5a770e591c2325fb48c2dc"
     },

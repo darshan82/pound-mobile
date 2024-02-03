@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         ...fontSemiBold(3),
         opacity: 0.6,
-        marginTop: getWidth(6)
+        marginTop: getWidth(6),
+        textDecorationLine:"underline"
     },
     orText: {
         alignSelf: "center",

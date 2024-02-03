@@ -28,9 +28,9 @@ export default function SelectLocation() {
 
     return (
       <SafeAreaView style={styles.container}>
-        <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+         <LogoWithBack />
+        <KeyboardAwareScrollView >
           <View style={styles.innerContainer}>
-            <LogoWithBack />
 
             <Text style={styles.loginText}>{'Tell us about yourself.'}</Text>
             <Text style={styles.discText}>
@@ -61,24 +61,20 @@ export default function SelectLocation() {
               labelTitle="What is your time zone?"
               placeholder="Insert answer"
             />
-
-            <View style={{flex: 1}} />
-
-            <InputButton
-              onPress={() => navigation.navigate('FinalScreen')}
-              textColor={Colors.gray1}
-              style={[
-                styles.continueBtn,
-                {
-                  marginTop: getWidth(5),
-                  marginBottom: getWidth(5),
-                  borderRadius: getWidth(4),
-                },
-              ]}
-              labelTitle="CONTINUE"
-            />
           </View>
         </KeyboardAwareScrollView>
+        <InputButton
+          onPress={() => navigation.navigate('FinalScreen')}
+          textColor={Colors.gray1}
+          style={[
+            styles.continueBtn,
+            {
+              marginTop: getWidth(2),
+              borderRadius: getWidth(2),
+            },
+          ]}
+          labelTitle="Continue"
+        />
       </SafeAreaView>
     );
 }
@@ -86,7 +82,7 @@ export default function SelectLocation() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(8),
+        padding: getWidth(4),
         backgroundColor: Colors.gray1,
     },
     innerContainer: {

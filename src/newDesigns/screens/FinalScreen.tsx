@@ -15,12 +15,13 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
-import { fontBold, fontRegular, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { fontBold, fontRegular, fontSemiBold, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
 import { ToggleSwitch } from "../components/ToggleSwitch";
 import LogoWithBack from "../components/LogoWithBack";
 import Colors from "../components/Colors";
+import { color } from "native-base/lib/typescript/theme/styled-system";
 
 
 export default function FinalScreen() {
@@ -36,106 +37,67 @@ export default function FinalScreen() {
 
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <View style={styles.innerContainer}>
+        <ScrollView style={{flex:1}}>
+          
             <LogoWithBack />
 
-            <Text style={styles.loginText}>{'Enable Connections'}</Text>
+            <Text style={styles.loginText}>{'What games do you play?'}</Text>
             <Text style={styles.discText}>
               {
-                'We use your health data to provide\npersonalized and highly effective\nworkouts and suggestions.'
+                'We are compatible with the top AAA\ngames to bring you a uniques and\npersonalized experience.'
               }
             </Text>
 
-            <View style={{flexDirection:"row", backgroundColor:Colors.gray2, alignItems:"center", paddingHorizontal:getWidth(5), paddingVertical:getWidth(2),borderRadius:getWidth(3)}}>
-             
-                <Text
-                  style={{
-                    ...fontBold(5),
-                    alignSelf: 'flex-start',
-                    marginVertical: getWidth(2),
-                  }}>
-                  {'Step Counting '}
-                </Text>
-                <Image
-                  style={styles.infoImage}
-                  source={require('../assets/images/question.png')}
-                />
-                <View style={{flex:1}}/>
-              <ToggleSwitch                
-                onToggleChange={() => {}}
-              />
-            </View>
-
-
-            <View style={{flexDirection:"row", marginTop:getWidth(4), backgroundColor:Colors.gray2, alignItems:"center", paddingHorizontal:getWidth(5), paddingVertical:getWidth(2),borderRadius:getWidth(3)}}>
-             
-             <Text
-               style={{
-                 ...fontBold(5),
-                 alignSelf: 'flex-start',
-                 marginVertical: getWidth(2),
-               }}>
-               {'Motion Detection '}
-             </Text>
-             <Image
-               style={styles.infoImage}
-               source={require('../assets/images/question.png')}
-             />
-             <View style={{flex:1}}/>
-           <ToggleSwitch                
-             onToggleChange={() => {}}
-           />
-         </View>
-
-            <View style={{marginTop: getWidth(5), flexDirection:"row", alignItems:"center"}}>
-              <Text style={{...fontBold(5)}}>
-                {'Heart Rate Detection '}
-              </Text>
-              <Image
-                style={styles.infoImage}
-                source={require('../assets/images/question.png')}
-              />
-            </View>
-
             <FlatList
-              data={['WATCH', 'Google Fit', 'Fit Bit']}
+              data={["Apex Legends" , "dummytext" , "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext"]}
               nestedScrollEnabled={false}
-              style={{marginTop: getWidth(3), flex:1}}
+              style={{marginTop: getWidth(3), flex: 1}}
               numColumns={2}
               renderItem={({item, index}) => {
                 return (
                   <TouchableOpacity
-                  onPress={()=>{
-                    setSelectedIndex(index)
-                  }}
-                    style={[{
-                      width: getWidth(40),
-                      height: getWidth(13),
-                      borderRadius: getWidth(2.5),
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderColor: 'white',
-                      marginLeft: getWidth(3),
-                      marginBottom: getWidth(3),
-                      backgroundColor:Colors.gray2
-                    },selectedIndex == index ? { backgroundColor: Colors.lightGreen+30, borderWidth:2, borderColor:Colors.lightGreen} : {}]}>
-                    <Text style={{...fontBold(4)}}>{item}</Text>
+                    onPress={() => {
+                      setSelectedIndex(index);
+                    }}
+                    style={[
+                      {
+                        width: getWidth(40),
+                        height: getWidth(13),
+                        borderRadius: getWidth(2.5),
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderColor: 'white',
+                        marginLeft: getWidth(3),
+                        marginBottom: getWidth(3),
+                        flexDirection:"row",
+                        backgroundColor: Colors.gray2,
+                      },
+                      selectedIndex == index
+                        ? {
+                            backgroundColor: Colors.lightGreen + 30,
+                            borderWidth: 2,
+                            borderColor: Colors.lightGreen,
+                          }
+                        : {},
+                    ]}>
+                    <Image
+                      style={{width: "30%",
+                        height: "70%", resizeMode:"contain"}}
+                      source={require('../assets/images/dummylogo.png')}
+                    />
+                    <Text style={[fontBold(3.5, selectedIndex == index ? Colors.lightGreen : Colors.white), {flex:1}]}>{item}</Text>
                   </TouchableOpacity>
                 );
               }}
             />
-
-        
-
-            <InputButton
-              onPress={() => navigation.navigate('BodyTypeScreen')}
-              style={styles.continueBtn}
-              textColor={Colors.gray1}
-              labelTitle="CONTINUE"
-            />
-          </View>
-        </ScrollView>
+              </ScrollView>
+          <InputButton
+            onPress={() => navigation.navigate('GameSelection')}
+            style={styles.continueBtn}
+            textColor={Colors.gray1}
+            labelTitle="Continue"
+          />
+      
       </SafeAreaView>
     );
 }
@@ -143,7 +105,7 @@ export default function FinalScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(5),
+        padding: getWidth(4),
         backgroundColor: Colors.gray1,
     },
     innerContainer: {
@@ -165,7 +127,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         alignSelf: "center",
-        ...fontBold(7),
+        ...fontBold(6),
         textAlign: "center"
     },
     discText: {

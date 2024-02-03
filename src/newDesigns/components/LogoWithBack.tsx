@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     innerContainer: {
-        justifyContent: "center"
+        justifyContent: "center",
+        marginBottom:getWidth(3)
     },
     logoImage: {
         width: "100%",

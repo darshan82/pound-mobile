@@ -63,6 +63,7 @@ export default function SelectOptionScreen() {
                 : {backgroundColor: Colors.gray2},
             ]}
             labelTitle="Lose Weight"
+            textColor={weight == 0 ? Colors.lightGreen : Colors.white}
           />
 
           <InputButton
@@ -78,6 +79,7 @@ export default function SelectOptionScreen() {
                 : {backgroundColor: Colors.gray2},
             ]}
             labelTitle="Maintain Weight"
+            textColor={weight == 1 ? Colors.lightGreen : Colors.white}
           />
 
           <InputButton
@@ -93,6 +95,7 @@ export default function SelectOptionScreen() {
                 : {backgroundColor: Colors.gray2},
             ]}
             labelTitle="Gain Weight"
+            textColor={weight == 2 ? Colors.lightGreen : Colors.white}
           />
 
           <Text style={[fontBold(5), {marginTop: getWidth(3)}]}>
@@ -112,6 +115,7 @@ export default function SelectOptionScreen() {
                 : {backgroundColor: Colors.gray2},
             ]}
             labelTitle="Tone Up"
+            textColor={power.includes(0) ? Colors.lightGreen : Colors.white}
           />
 
           <InputButton
@@ -127,6 +131,7 @@ export default function SelectOptionScreen() {
                 : {backgroundColor: Colors.gray2},
             ]}
             labelTitle="Bulk Up"
+            textColor={power.includes(1) ? Colors.lightGreen : Colors.white}
           />
 
           <InputButton
@@ -142,6 +147,7 @@ export default function SelectOptionScreen() {
                 : {backgroundColor: Colors.gray2},
             ]}
             labelTitle="Get Strong"
+            textColor={power.includes(2) ? Colors.lightGreen : Colors.white}
           />
 
           <View style={{flex: 1}} />
@@ -153,7 +159,7 @@ export default function SelectOptionScreen() {
               {
                 marginTop: getWidth(5),
                 marginBottom: getWidth(5),
-                borderRadius: getWidth(5),
+                borderRadius: getWidth(2),
               },
             ]}
             labelTitle="CONTINUE"

@@ -44,7 +44,7 @@ export default function PlayerTagScreen() {
                   lineHeight: getWidth(7),
                 },
               ]}>
-              {'You are now on a journey to reach\nthe Avatar State'}
+              {'Unlock the Avatar State by\nforging a digital identity'}
             </Text>
 
             <InputText
@@ -58,7 +58,7 @@ export default function PlayerTagScreen() {
             </Text>
 
             <Image
-              style={{flex: 1, resizeMode: 'contain', width: '100%', marginVertical: getWidth(5)}}
+              style={{flex: 1, resizeMode: 'contain', width: '90%', marginVertical: getWidth(5), marginLeft:"10%"}}
               source={require('../assets/images/avatar.png')}
             />
 

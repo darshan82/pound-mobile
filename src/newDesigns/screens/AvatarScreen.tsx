@@ -13,7 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { InputButton } from "../components/InputButton";
-import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
+import { fontBold, fontRegular, fontSemiBold, getWidth } from "../../modules/dashboard/helpers/tabs";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { InputText } from "../components/InputText";
 import Colors from "../components/Colors";
@@ -37,11 +37,11 @@ export default function AvatarScreen() {
 
                     <Image
                         style={styles.logoImage}
-                        source={require('../assets/images/smalllogo.png')}
+                        source={require('../assets/images/justLogo.png')}
                     />
 
                     <Text style={styles.loginText}>{"Welcome, Patrick"}</Text>
-                    <Text style={styles.discText}>{"You are now on a journey to reach the Avatar State"}</Text>
+                    <Text style={styles.discText}>{"You are now on a journey to reach\nthe Avatar State"}</Text>
                     
 
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.gray1,
     },
     logoImage: {
-        width: getWidth(18),
+        width: getWidth(30),
         height: getWidth(10),
         marginVertical: getWidth(2),
         resizeMode: "contain",
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
         flex:1,
         marginVertical: getWidth(5),
         resizeMode: "contain",
-        alignSelf: "center"
+        alignSelf: "center",
+        marginLeft:getWidth(10),
     },
     loginText: {
         alignSelf: "center",
@@ -97,14 +98,17 @@ const styles = StyleSheet.create({
     },
     discText: {
         alignSelf: "center",
-        ...fontBold(3),
+        ...fontRegular(3.5, Colors.gray3),
         textAlign: "center",
-        marginTop:getWidth(2)
+        marginTop:getWidth(3),
+        lineHeight: getWidth(6),
+    
     }, 
     continueBtn: {
         marginTop: getWidth(2),
         borderWidth:0,
         backgroundColor:Colors.lightGreen,
-        borderRadius:getWidth(3)
+        borderRadius:getWidth(3),
     },
 });
+

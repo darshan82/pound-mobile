@@ -69,7 +69,7 @@ export default function ConfirmationPass() {
             <Text style={styles.forgetText}>Forgot Password?</Text>
 
             <InputButton
-              onPress={() => navigation.navigate('PlayerTagScreen')}
+              onPress={() => navigation.navigate('ThreeAvatarScreen')}
               style={styles.continueBtn}
               labelTitle="CONTINUE"
               textColor={Colors.gray1}
@@ -130,7 +130,8 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         ...fontSemiBold(3),
         opacity: 0.6,
-        marginTop: getWidth(6)
+        marginTop: getWidth(6),
+        textDecorationLine:"underline"
     },
     orText: {
         alignSelf: "center",
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     imgBtn: {
         marginTop: getWidth(4),
         backgroundColor:Colors.gray1,
-        borderColor:Colors.gray3
+        borderColor:Colors.gray2_0
     },
 });
 
