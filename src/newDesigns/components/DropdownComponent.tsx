@@ -2,40 +2,43 @@ import React, { useState } from 'react';
   import { StyleSheet, Text, View } from 'react-native';
   import { Dropdown } from 'react-native-element-dropdown';
 import Colors from './Colors';
-import { fontRegular, getWidth } from '../../modules/dashboard/helpers/tabs';
+import { fontBold, fontRegular, getWidth } from '../../modules/dashboard/helpers/tabs';
 
 
 
-  const DropdownComponent = ({containerStyle, data = []}) => {
+  const DropdownComponent = ({containerStyle, data = [], labelTitle=""}) => {
     const [value, setValue] = useState(null);
 
 
 
     return (
-      <View style={[styles.container,containerStyle]}>
-        <Dropdown
-          style={[styles.dropdown]}
-          itemContainerStyle={styles.itemContainerStyle}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          // itemTextStyle={fontRegular(3.5, "white")}
-          iconStyle={styles.iconStyle}
-          data={data}
-          search
-          maxHeight={getWidth(80)}
-          labelField="label"
-          valueField="value"
-          placeholder={'Select item'}
-          searchPlaceholder="Search..."
-          value={value}
-          onChange={item => {
-            
-            setValue(item.value);
-            // setIsFocus(false);
-          }}
-         
-        />
+      <View style={containerStyle}>
+        <Text style={[fontBold(4), {marginBottom: getWidth(2)}]} color="white">
+          {labelTitle}
+        </Text>
+        <View style={[styles.container]}>
+          <Dropdown
+            style={[styles.dropdown]}
+            itemContainerStyle={styles.itemContainerStyle}
+            placeholderStyle={styles.placeholderStyle}
+            selectedTextStyle={styles.selectedTextStyle}
+            inputSearchStyle={styles.inputSearchStyle}
+            // itemTextStyle={fontRegular(3.5, "white")}
+            iconStyle={styles.iconStyle}
+            data={data}
+            search
+            maxHeight={getWidth(80)}
+            labelField="label"
+            valueField="value"
+            placeholder={'Select item'}
+            searchPlaceholder="Search..."
+            value={value}
+            onChange={item => {
+              setValue(item.value);
+              // setIsFocus(false);
+            }}
+          />
+        </View>
       </View>
     );
   };
@@ -71,7 +74,7 @@ import { fontRegular, getWidth } from '../../modules/dashboard/helpers/tabs';
       fontSize: 14,
     },
     placeholderStyle: {
-      ...fontRegular(3.5, Colors.gray3)
+      ...fontRegular(4.5, Colors.gray3)
     },
     selectedTextStyle: {
       ...fontRegular(3.5, 'white')

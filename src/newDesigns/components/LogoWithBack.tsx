@@ -41,8 +41,8 @@ export default function LogoWithBack() {
 
 const styles = StyleSheet.create({
     leftErrow: {
-        width: getWidth(5.5),
-        height: getWidth(5.5),
+        width: getWidth(7),
+        height: getWidth(7),
         resizeMode: "contain",
         alignSelf: "center",
     },
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     logoImage: {
         width: "100%",
-        height: getWidth(7),
+        height: getWidth(8.5),
         marginVertical: getWidth(2),
         resizeMode: "contain",
         alignSelf: "center"

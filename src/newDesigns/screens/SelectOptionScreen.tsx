@@ -12,7 +12,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
-import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import {fontBold, fontSemiBold, getWidth} from '../../modules/dashboard/helpers/tabs';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InputText} from '../components/InputText';
 import LogoWithBack from '../components/LogoWithBack';
@@ -48,7 +48,7 @@ export default function SelectOptionScreen() {
             {'Lets start with identifying your goals'}
           </Text>
 
-          <Text style={fontBold(5)}>{'Pick one'}</Text>
+          <Text style={fontBold(4.5)}>{'Pick one goal'}</Text>
 
           <InputButton
             onPress={() => setWeight(0)}
@@ -98,8 +98,8 @@ export default function SelectOptionScreen() {
             textColor={weight == 2 ? Colors.lightGreen : Colors.white}
           />
 
-          <Text style={[fontBold(5), {marginTop: getWidth(3)}]}>
-            {'Pick up to two'}
+          <Text style={[fontBold(4.5), {marginTop: getWidth(9)}]}>
+            {'Pick up to two goal'}
           </Text>
 
           <InputButton
@@ -158,11 +158,10 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               {
                 marginTop: getWidth(5),
-                marginBottom: getWidth(5),
                 borderRadius: getWidth(2),
               },
             ]}
-            labelTitle="CONTINUE"
+            labelTitle="Continue"
             textColor={Colors.gray1}
           />
         </View>
@@ -171,15 +170,15 @@ export default function SelectOptionScreen() {
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: getWidth(8),
-    backgroundColor: Colors.gray1,
+    padding: getWidth(5),
+    paddingVertical: getWidth(2),
   },
   innerContainer: {
-    flex: 1,
-    backgroundColor: Colors.gray1,
+    flex: 1
   },
   logoImage: {
     width: getWidth(18),
@@ -196,12 +195,12 @@ const styles = StyleSheet.create({
   },
   loginText: {
     alignSelf: 'center',
-    ...fontBold(7),
+    ...fontBold(6.5),
     textAlign: 'center',
   },
   discText: {
     alignSelf: 'center',
-    ...fontBold(3, Colors.gray3),
+    ...fontSemiBold(4.2, Colors.gray3),
     textAlign: 'center',
     marginVertical: getWidth(5),
   },
@@ -223,7 +222,7 @@ const styles = StyleSheet.create({
     marginTop: getWidth(3),
   },
   continueBtn: {
-    marginTop: getWidth(2),
+    marginTop: getWidth(4),
     borderWidth: 0,
     backgroundColor: Colors.lightGreen,
     borderRadius: getWidth(3),

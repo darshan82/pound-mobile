@@ -37,7 +37,7 @@ export default function ThreeAvatarScreen() {
 
             <Text
               style={[
-                fontRegular(4, Colors.gray3),
+                fontRegular(4.5, Colors.gray3),
                 {
                   textAlign: 'center',
                   marginVertical: getWidth(5),
@@ -58,7 +58,7 @@ export default function ThreeAvatarScreen() {
               onPress={() => navigation.navigate('PlayerTagScreen')}
               style={styles.continueBtn}
               textColor={Colors.gray1}
-              labelTitle="CONTINUE"
+              labelTitle="Continue"
             />
           </View>
         </KeyboardAwareScrollView>
@@ -69,12 +69,11 @@ export default function ThreeAvatarScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(8),
-        backgroundColor: Colors.gray1,
+        padding: getWidth(5),
+        paddingVertical: getWidth(2)
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: Colors.gray1,
     },
     logoImage: {
         width: getWidth(40),

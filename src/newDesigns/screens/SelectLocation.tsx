@@ -82,12 +82,11 @@ export default function SelectLocation() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(4),
-        backgroundColor: Colors.gray1,
+        padding: getWidth(5),
+        paddingVertical: getWidth(5)
     },
     innerContainer: {
-        flex: 1,
-        backgroundColor: Colors.gray1,
+        flex: 1
     },
     logoImage: {
         width: getWidth(18),
@@ -104,14 +103,14 @@ const styles = StyleSheet.create({
     },
     loginText: {
         alignSelf: "center",
-        ...fontBold(7),
+        ...fontBold(6.2),
         textAlign: "center"
     },
     discText: {
         alignSelf: "center",
-        ...fontRegular(4, Colors.gray3),
+        ...fontRegular(4.4, Colors.gray3),
         textAlign: "center",
-        lineHeight:getWidth(8),
+        lineHeight:getWidth(7),
         marginVertical: getWidth(5)
     },
     infoText: {

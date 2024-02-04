@@ -37,7 +37,7 @@ export default function PlayerTagScreen() {
 
             <Text
               style={[
-                fontRegular(4, Colors.gray3),
+                fontRegular(4.5, Colors.gray3),
                 {
                   textAlign: 'center',
                   marginVertical: getWidth(5),
@@ -77,12 +77,11 @@ export default function PlayerTagScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(8),
-        backgroundColor: Colors.gray1,
+        padding: getWidth(5),
+        paddingVertical: getWidth(2)
     },
     innerContainer: {
         flex: 1,
-        backgroundColor: Colors.gray1,
     },
     logoImage: {
         width: getWidth(40),

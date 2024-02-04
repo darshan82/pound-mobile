@@ -55,7 +55,7 @@ export default function AvatarScreen() {
                     <InputButton
                         onPress={() => navigation.navigate("SelectOptionScreen")}
                         style={[styles.continueBtn]}
-                        labelTitle="CONTINUE"
+                        labelTitle="Continue"
                         textColor={Colors.gray1}
                     />
 
@@ -69,15 +69,14 @@ export default function AvatarScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(8),
-        backgroundColor: Colors.gray1,
+        padding: getWidth(5),
+        paddingVertical: getWidth(2)
     },
     innerContainer: {
-        flex: 1,
-        backgroundColor: Colors.gray1,
+        flex: 1
     },
     logoImage: {
-        width: getWidth(30),
+        width: getWidth(40),
         height: getWidth(10),
         marginVertical: getWidth(2),
         resizeMode: "contain",
@@ -86,22 +85,23 @@ const styles = StyleSheet.create({
     avatarImage: {
         width: "80%",
         flex:1,
-        marginVertical: getWidth(5),
+        marginVertical: getWidth(7),
         resizeMode: "contain",
         alignSelf: "center",
         marginLeft:getWidth(10),
     },
     loginText: {
         alignSelf: "center",
-        ...fontBold(7),
-        textAlign: "center"
+        ...fontBold(6.5),
+        textAlign: "center",
+        marginVertical: getWidth(1)
     },
     discText: {
         alignSelf: "center",
-        ...fontRegular(3.5, Colors.gray3),
+        ...fontRegular(4.5, Colors.gray3),
         textAlign: "center",
         marginTop:getWidth(3),
-        lineHeight: getWidth(6),
+        lineHeight: getWidth(7),
     
     }, 
     continueBtn: {

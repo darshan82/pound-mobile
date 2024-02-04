@@ -93,7 +93,7 @@ export default function BodyTypeScreen() {
                   backgroundColor: Colors.lightGreen,
                 },
               ]}
-              labelTitle="CONTINUE"
+              labelTitle="Continue"
             />
           </View>
         </KeyboardAwareScrollView>
@@ -104,12 +104,11 @@ export default function BodyTypeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: getWidth(8),
-        backgroundColor: Colors.gray1,
+        padding: getWidth(5),
+        paddingVertical: getWidth(2)
     },
     innerContainer: {
-        flex: 1,
-        backgroundColor: Colors.gray1,
+        flex: 1
     },
     logoImage: {
         width: getWidth(40),

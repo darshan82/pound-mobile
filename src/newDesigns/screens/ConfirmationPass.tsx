@@ -76,18 +76,21 @@ export default function ConfirmationPass() {
             />
 
             <InputButton
+            imageStyle={{height: getWidth(7)}}
               image={require('../assets/images/discord.png')}
               style={styles.imgBtn}
               labelTitle="Discord"
             />
 
             <InputButton
+            imageStyle={{height: getWidth(7)}}
               image={require('../assets/images/twter.png')}
               style={styles.imgBtn}
               labelTitle="Twitter"
             />
 
             <InputButton
+            imageStyle={{height: getWidth(7)}}
               image={require('../assets/images/google.png')}
               style={styles.imgBtn}
               labelTitle="Google"
@@ -100,13 +103,11 @@ export default function ConfirmationPass() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.gray1,
         flex: 1,
         padding: getWidth(8),
     },
     innerContainer: {
         // flex:1,
-        backgroundColor: Colors.gray1,
         justifyContent: 'center',
         alignItems: 'center',
     },

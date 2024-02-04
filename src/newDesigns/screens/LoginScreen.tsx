@@ -35,7 +35,7 @@ export default function LoginScreen() {
             <Text style={styles.loginText}>Log In</Text>
 
             <InputText
-              containerStyle={{marginTop: getWidth(3), width: '100%'}}
+              containerStyle={{marginTop: getWidth(6), width: '100%'}}
               labelTitle="Email Address"
               placeholder="username@hotmail.com"
             />
@@ -51,26 +51,29 @@ export default function LoginScreen() {
 
             <InputButton
               onPress={() => navigation.navigate('DrawerStack')}
-              style={styles.continueBtn}
-              labelTitle="CONTINUE"
+              style={[styles.continueBtn,{marginTop: getWidth(7)}]}
+              labelTitle="Continue"
               textColor={Colors.gray1}
             />
 
-            <InputButton style={styles.imgBtn} labelTitle="FORGE MY IDENTITY" />
+            <InputButton style={styles.imgBtn} labelTitle="Forge my identity" />
 
             <InputButton
+              imageStyle={{height: getWidth(7)}}
               image={require('../assets/images/discord.png')}
               style={styles.imgBtn}
               labelTitle="Discord"
             />
 
             <InputButton
+            imageStyle={{height: getWidth(7)}}
               image={require('../assets/images/twter.png')}
               style={styles.imgBtn}
               labelTitle="Twitter"
             />
 
             <InputButton
+            imageStyle={{height: getWidth(7)}}
               image={require('../assets/images/google.png')}
               style={styles.imgBtn}
               labelTitle="Google"
@@ -83,21 +86,18 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.gray1,
         flex: 1,
-        padding: getWidth(8),
+        padding: getWidth(3),
     },
     innerContainer: {
         // flex:1,
-        backgroundColor: Colors.gray1,
         justifyContent: 'center',
         alignItems: 'center',
     },
     logoImage: {
-        width: getWidth(50),
+        width: getWidth(40),
         height: getWidth(20),
-        resizeMode: "contain",
-        marginVertical: getWidth(5)
+        resizeMode: "contain"
     },
     powerdByImage: {
         width: "100%",
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     },
     forgetText: {
         alignSelf: "center",
-        ...fontSemiBold(3),
+        ...fontSemiBold(4),
         opacity: 0.6,
         marginTop: getWidth(6),
         textDecorationLine:"underline"
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
     imgBtn: {
         marginTop: getWidth(4),
-        backgroundColor:Colors.gray1,
+        backgroundColor:Colors.transparent,
         borderColor:Colors.gray2_0
     },
 });

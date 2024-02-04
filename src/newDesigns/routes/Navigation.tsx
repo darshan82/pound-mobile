@@ -116,7 +116,7 @@ function HomeScreen() {
     // Your Home screen content here
     // Include the TopTab navigator here for "journal", "progress", "oracle" tabs
     <View style={{flex:1}}>
-      <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center", backgroundColor:Colors.gray2}}>
+      <View style={{flexDirection:"row", alignItems:"center", justifyContent:"center"}}>
         <Image
           style={{ width: getWidth(10), height: getWidth(10), left: getWidth(1), resizeMode: "contain" , marginLeft:getWidth(6), position:"absolute"}}
           source={require('../assets/images/dp.png')}

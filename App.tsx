@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppProvider } from './src/app/context/AppProvider';
 import { configureNativeAppEventEmitter } from './src/modules/wearables/helpers/appleSamples';
 import { Navigation } from './src/newDesigns/routes/Navigation';
+import LinearGradient from 'react-native-linear-gradient';
 
 const theme = extendTheme({
   fontConfig: {
@@ -54,15 +55,17 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaProvider
-    style={{backgroundColor:"#2E2E2E"}}
-    >
-      <StatusBar backgroundColor={'black'} barStyle="light-content"/>
-      <AppProvider>
-        <NativeBaseProvider theme={theme}>
-          <Navigation />
-        </NativeBaseProvider>
-      </AppProvider>
+    <SafeAreaProvider style={{}}>
+      <LinearGradient
+        colors={['#1F1F1F', '#0B0B0B']}
+        style={{flex:1}}>
+        <StatusBar backgroundColor={'#1F1F1F'} barStyle="light-content" />
+        <AppProvider>
+          <NativeBaseProvider theme={theme}>
+            <Navigation />
+          </NativeBaseProvider>
+        </AppProvider>
+      </LinearGradient>
     </SafeAreaProvider>
   );
 };

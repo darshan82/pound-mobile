@@ -68,9 +68,9 @@ export default function FirstScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: getWidth(5),
+        paddingBottom: getWidth(2),
         paddingHorizontal: getWidth(4),
-        backgroundColor: Colors.gray1,
+        // backgroundColor: 'transparent',
         justifyContent: 'center',
         alignItems: 'center',
         height: "100%"

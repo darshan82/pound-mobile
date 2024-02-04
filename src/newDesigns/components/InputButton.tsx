@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from 'react';
-import { StyleSheet, StyleProp, TextStyle, Image, ImageSourcePropType, ViewStyle } from 'react-native';
+import { StyleSheet, StyleProp, TextStyle, Image, ImageSourcePropType, ViewStyle, ImageStyle } from 'react-native';
 import { Button, Spinner, Text, View } from 'native-base';
 import { If } from 'react-haiku';
 import { fontSemiBold, getWidth } from '../../modules/dashboard/helpers/tabs';
@@ -12,7 +12,8 @@ type InputButtonProps = {
   onPress: () => void;
   labelTitle: string,
   image: ImageSourcePropType,
-  textColor:string
+  textColor:string,
+  imageStyle: StyleProp<ImageStyle>
 };
 
 export const InputButton: FC<InputButtonProps> = ({
@@ -22,7 +23,8 @@ export const InputButton: FC<InputButtonProps> = ({
   labelTitle = "",
   onPress = () => { },
   image,
-  textColor
+  textColor,
+  imageStyle,
 }) => {
   return (
     <Button
@@ -35,7 +37,7 @@ export const InputButton: FC<InputButtonProps> = ({
 
         <If isTrue={image ? true : false}>
           <Image
-            style={styles.logoImage}
+            style={[styles.logoImage,imageStyle]}
             source={image}
           />
         </If>

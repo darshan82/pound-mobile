@@ -89,7 +89,7 @@ export const InputText: FC<InputTextProps> = ({
           colorBlurred:Colors.gray3
         }}
         inputStyles={{
-          ...fontRegular(3.2),
+          ...fontRegular(4.5),
           color:"white",
           
         }}
