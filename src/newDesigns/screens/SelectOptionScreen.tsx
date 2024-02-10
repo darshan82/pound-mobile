@@ -1,27 +1,27 @@
 import React, {useState} from 'react';
 
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
-import {fontBold, fontSemiBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import {
+  fontBold,
+  fontSemiBold,
+  getWidth,
+} from '../../modules/dashboard/helpers/tabs';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
 import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
+import {getPower, getWeight} from '../../app/helpers';
+import {useGlobalDataContext} from '../../context';
+import axios from 'axios';
 
 export default function SelectOptionScreen() {
   const navigation = useNavigation();
   const [weight, setWeight] = useState(1);
   const [power, setPower] = useState([]);
+  const {data, setData} = useGlobalDataContext();
 
   const setPowerState = value => {
     const _power = [...power];
@@ -35,6 +35,36 @@ export default function SelectOptionScreen() {
         _power.push(value);
         setPower(_power);
       }
+    }
+  };
+
+  const WeightGoal = getWeight(weight);
+  const PhysiqueGoal = getPower(power);
+
+  const UpdateGoal = async () => {
+    try {
+      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const headers = {
+        Authorization: `${data.token}`,
+        'Content-Type': 'application/json',
+      };
+      const updateBody = {
+        PhysiqueGoal,
+        WeightGoal,
+      };
+
+      const res = await axios.put(updateUrl, updateBody, {
+        headers,
+      });
+      console.log('Physique Response -->', res.data);
+      setData(prevData => ({
+        ...prevData,
+        weightGoal: res.data.weightGoal,
+        physiqueGoal: res.data.physiqueGoal,
+      }));
+      navigation.navigate('SelectWeightGender');
+    } catch (err) {
+      console.log('Error -->', err);
     }
   };
 
@@ -153,7 +183,7 @@ export default function SelectOptionScreen() {
           <View style={{flex: 1}} />
 
           <InputButton
-            onPress={() => navigation.navigate('SelectWeightGender')}
+            onPress={UpdateGoal}
             style={[
               styles.continueBtn,
               {
@@ -170,7 +200,6 @@ export default function SelectOptionScreen() {
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -178,7 +207,7 @@ const styles = StyleSheet.create({
     paddingVertical: getWidth(2),
   },
   innerContainer: {
-    flex: 1
+    flex: 1,
   },
   logoImage: {
     width: getWidth(18),

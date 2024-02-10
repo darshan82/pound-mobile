@@ -8,11 +8,13 @@ import {
   TextStyle,
   StyleSheet,
   ViewStyle,
-  TouchableOpacity,
-  Image,
 } from 'react-native';
-import { fontBold, fontRegular, getWidth } from '../../modules/dashboard/helpers/tabs';
-import { FloatingLabelInput } from 'react-native-floating-label-input';
+import {
+  fontBold,
+  fontRegular,
+  getWidth,
+} from '../../modules/dashboard/helpers/tabs';
+import {FloatingLabelInput} from 'react-native-floating-label-input';
 import Colors from './Colors';
 
 interface InputTextProps {
@@ -23,16 +25,16 @@ interface InputTextProps {
   isInvalid?: boolean;
   keyboardType?: KeyboardTypeOptions | undefined;
   labelTitle?: string;
-  placeholder: string;
+  placeholder?: string;
   style?: StyleProp<TextStyle>;
   styleControl?: StyleProp<TextStyle>;
-  type: 'text' | 'password';
-  value: string;
+  type?: 'text' | 'password';
+  value?: string;
   containerStyle?: StyleProp<ViewStyle>;
   onChangeText?: (text: string) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  isPassword: boolean;
-  isFloating: boolean;
+  isPassword?: boolean;
+  isFloating?: boolean;
 }
 
 export const InputText: FC<InputTextProps> = ({
@@ -42,64 +44,60 @@ export const InputText: FC<InputTextProps> = ({
   errorMessage,
   isInvalid = false,
   keyboardType,
-  labelTitle = "",
+  labelTitle = '',
   placeholder,
   style,
   styleControl,
   type,
   value,
   containerStyle,
-  onChangeText = ()=>{},
+  onChangeText = () => {},
   isPassword,
   onBlur,
-  isFloating = true
+  isFloating = true,
 }) => {
-  const [valueInput, setValue] = useState(value ?? "")
+  const [valueInput, setValue] = useState(value ?? '');
   return (
     <View style={containerStyle}>
       <FormControl isInvalid={isInvalid} style={styleControl}>
-
-      {labelTitle && !isFloating ? (
+        {labelTitle && !isFloating ? (
           <FormControl.Label>
-            <Text style={[fontBold(4) ,{marginBottom:getWidth(2)}]} color="white">
+            <Text
+              style={[fontBold(4), {marginBottom: getWidth(2)}]}
+              color="white">
               {labelTitle}
             </Text>
           </FormControl.Label>
         ) : null}
 
-      <FloatingLabelInput
-      staticLabel={!isFloating}
-        label={isFloating ? labelTitle : ''}
-        hintTextColor={'#aaa'}
-       hint={placeholder}
-        containerStyles={[
-          styles.baseInput,
-          style
-        ]}
-        value={valueInput}
-        labelStyles={{
-          ...fontRegular(3.2),
-          color:"white",
-          marginBottom: getWidth(2)
-        }}
-        isPassword={isPassword}
-        placeholderTextColor={Colors.gray3}
-        customLabelStyles={{
-          colorFocused: Colors.gray3,
-          colorBlurred:Colors.gray3
-        }}
-        inputStyles={{
-          ...fontRegular(4.5),
-          color:"white",
-          
-        }}
-        onChangeText={value => {
-          setValue(value)
-          onChangeText(value)
-        }}
-      />
-
-     
+        <FloatingLabelInput
+          staticLabel={!isFloating}
+          label={isFloating ? labelTitle : ''}
+          hintTextColor={'#aaa'}
+          hint={placeholder}
+          keyboardType={keyboardType}
+          containerStyles={[styles.baseInput, style]}
+          value={valueInput}
+          labelStyles={{
+            ...fontRegular(3.2),
+            color: 'white',
+            marginBottom: getWidth(2),
+          }}
+          isPassword={isPassword}
+          placeholderTextColor={Colors.gray3}
+          customLabelStyles={{
+            colorFocused: Colors.gray3,
+            colorBlurred: Colors.gray3,
+          }}
+          inputStyles={{
+            ...fontRegular(4.5),
+            color: 'white',
+          }}
+          onChangeText={value => {
+            setValue(value);
+            onChangeText(value);
+          }}
+        />
 
         <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
       </FormControl>
@@ -107,18 +105,16 @@ export const InputText: FC<InputTextProps> = ({
   );
 };
 
-
-
 const styles = StyleSheet.create({
   baseInput: {
-    height:getWidth(13),
+    height: getWidth(13),
     paddingLeft: getWidth(3),
     paddingRight: getWidth(3),
-    backgroundColor:Colors.gray2,
-    borderRadius:getWidth(2.5),
+    backgroundColor: Colors.gray2,
+    borderRadius: getWidth(2.5),
     ...fontRegular(3.2),
-    color:"white",
-    borderWidth:0,
-    borderColor:Colors.gray2
+    color: 'white',
+    borderWidth: 0,
+    borderColor: Colors.gray2,
   },
 });

@@ -28,7 +28,6 @@ export default function FitnessChallage() {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
 
-
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -42,8 +41,12 @@ export default function FitnessChallage() {
             <Text style={[fontBold(4), {}]}>Push-Up Prowess Challenge</Text>
             <View style={{flex: 1}} />
             <TouchableOpacity
-            style={{backgroundColor:Colors.gray3+30, paddingHorizontal: getWidth(3), paddingVertical:getWidth(1), borderRadius:getWidth(4)}}
-            >
+              style={{
+                backgroundColor: Colors.gray3 + 30,
+                paddingHorizontal: getWidth(3),
+                paddingVertical: getWidth(1),
+                borderRadius: getWidth(4),
+              }}>
               <Image
                 style={{
                   width: getWidth(6),
@@ -244,7 +247,12 @@ export default function FitnessChallage() {
               <Text
                 style={[
                   fontRegular(3.5, Colors.gray3),
-                  {marginTop: getWidth(1), flex: 1, lineHeight: getWidth(5.5), letterSpacing: getWidth(0.3)},
+                  {
+                    marginTop: getWidth(1),
+                    flex: 1,
+                    lineHeight: getWidth(5.5),
+                    letterSpacing: getWidth(0.3),
+                  },
                 ]}>
                 {item}
               </Text>
@@ -255,8 +263,11 @@ export default function FitnessChallage() {
         <InputButton
           onPress={() => {}}
           style={[
-           
-            {borderWidth: 0, backgroundColor: 'transparent', height:getWidth(5)},
+            {
+              borderWidth: 0,
+              backgroundColor: 'transparent',
+              height: getWidth(5),
+            },
           ]}
           labelTitle="Accept Challenge"
         />

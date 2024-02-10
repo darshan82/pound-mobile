@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-native-community/geolocation": "^3.1.0",
     "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/material-top-tabs": "^6.2.1",
@@ -20,7 +21,9 @@
     "@xstate/react": "^3.0.1",
     "axios": "^1.2.0",
     "dayjs": "^1.11.6",
+    "install": "^0.13.0",
     "native-base": "^3.4.21",
+    "npm": "^10.4.0",
     "patch-package": "^6.5.0",
     "react": "18.2.0",
     "react-haiku": "^2.0.3",

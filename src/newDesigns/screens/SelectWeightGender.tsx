@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
 
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Text, Alert} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -21,21 +14,56 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InputText} from '../components/InputText';
 import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
+import {useGlobalDataContext} from '../../context';
+import axios from 'axios';
 
 export default function SelectWeightGender() {
   const navigation = useNavigation();
   const [gender, setGender] = useState('male');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const {data, setData} = useGlobalDataContext();
+
+  const handlePhysique = async () => {
+    try {
+      if (!gender || !height || !weight) {
+        Alert.alert('Missing Information', 'Please provide all data');
+        return;
+      }
+      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const headers = {
+        Authorization: `${data.token}`,
+        'Content-Type': 'application/json',
+      };
+      const updateBody = {
+        physicalAttributes: {
+          gender: gender,
+          height: height,
+          weight: weight,
+        },
+      };
+      const res = await axios.put(updateUrl, updateBody, {
+        headers,
+      });
+      console.log('Update Physique -->', res.data);
+      setData(prevData => ({
+        ...prevData,
+        gender: res.data.physicalAttributes.gender,
+        height: res.data.physicalAttributes.height,
+        weight: res.data.physicalAttributes.weight,
+      }));
+      navigation.navigate('SelectLocation');
+    } catch (err) {
+      console.log('Error -->', err);
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={{flex: 1}}>
-
-      <LogoWithBack />
-        <KeyboardAwareScrollView 
-        
-        >
+        <LogoWithBack />
+        <KeyboardAwareScrollView>
           <View style={styles.innerContainer}>
-
             <Text style={styles.loginText}>{'Tell us about yourself.'}</Text>
             <Text style={styles.discText}>
               {
@@ -49,6 +77,9 @@ export default function SelectWeightGender() {
               isFloating={false}
               labelTitle="How tall are you?"
               placeholder="Insert answer"
+              value={height}
+              onChangeText={setHeight}
+              keyboardType="numeric"
             />
 
             <InputText
@@ -57,6 +88,9 @@ export default function SelectWeightGender() {
               isFloating={false}
               labelTitle="How much do you weight?"
               placeholder="Insert answer"
+              value={weight}
+              onChangeText={setWeight}
+              keyboardType="numeric"
             />
 
             <Text style={[fontBold(4), {marginTop: getWidth(8)}]}>
@@ -80,7 +114,7 @@ export default function SelectWeightGender() {
                 labelTitle="Male"
               />
               <InputButton
-                onPress={() => setGender('fe-male')}
+                onPress={() => setGender('female')}
                 style={[
                   styles.continueBtn,
                   {
@@ -88,7 +122,7 @@ export default function SelectWeightGender() {
                     marginLeft: '4%',
                     backgroundColor: Colors.gray2,
                   },
-                  gender == 'fe-male'
+                  gender == 'female'
                     ? {
                         backgroundColor: Colors.lightGreen + '30',
                         borderWidth: 2,
@@ -103,7 +137,7 @@ export default function SelectWeightGender() {
         </KeyboardAwareScrollView>
 
         <InputButton
-          onPress={() => navigation.navigate('SelectLocation')}
+          onPress={handlePhysique}
           textColor={Colors.gray1}
           style={[
             styles.continueBtn,
@@ -123,10 +157,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(4),
-    paddingVertical: getWidth(4)
+    paddingVertical: getWidth(4),
   },
   innerContainer: {
-    flex: 1
+    flex: 1,
   },
   logoImage: {
     width: getWidth(18),
