@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
 import {
-  Dimensions,
   Image,
   StyleSheet,
   View,
@@ -11,8 +9,6 @@ import {
 } from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
 import {
   fontBold,
   fontSemiBold,
@@ -144,7 +140,9 @@ export default function ProgressScreen() {
           paddingBottom: getWidth(6),
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[fontBold(5), {flex: 1}]}>{userData?.username}</Text>
+          <Text style={[fontBold(5), {flex: 1}]}>
+            {userData?.username ? userData?.username : 'Guest'}
+          </Text>
           <View
             style={{
               flexDirection: 'row',
@@ -163,7 +161,7 @@ export default function ProgressScreen() {
               source={require('../assets/images/tokenpound.png')}
             />
             <Text style={[fontBold(3.5), {marginLeft: getWidth(2)}]}>
-              {userData?.streaks}
+              {userData?.streaks ? userData?.streaks : 0}
             </Text>
           </View>
         </View>
@@ -176,7 +174,7 @@ export default function ProgressScreen() {
               </Text>
 
               <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
-                {userData?.level}
+                {userData?.level ? userData?.level : 0}
               </Text>
             </View>
 
@@ -239,7 +237,7 @@ export default function ProgressScreen() {
               }}>
               <Text style={[fontBold(2.6, Colors.gray1)]}>
                 {' '}
-                {`#${userData?.ranking}`}{' '}
+                {`#${userData?.ranking ? userData?.ranking : 0}`}{' '}
               </Text>
             </View>
           </View>
