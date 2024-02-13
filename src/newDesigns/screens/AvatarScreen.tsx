@@ -31,7 +31,7 @@ export default function AvatarScreen() {
             source={require('../assets/images/justLogo.png')}
           />
 
-          <Text style={styles.loginText}>{'Welcome, Patrick'}</Text>
+          <Text style={styles.loginText}>{`Welcome, ${data.playerTag}`}</Text>
           <Text style={styles.discText}>
             {'You are now on a journey to reach\nthe Avatar State'}
           </Text>
@@ -43,7 +43,7 @@ export default function AvatarScreen() {
           />
 
           <InputButton
-            onPress={() => navigation.navigate('SelectOptionScreen')}
+            onPress={() => navigation.navigate('ConfirmationPass')}
             style={[styles.continueBtn]}
             labelTitle="Continue"
             textColor={Colors.gray1}

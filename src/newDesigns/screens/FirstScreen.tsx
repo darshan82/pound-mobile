@@ -8,7 +8,6 @@ import {InputButton} from '../components/InputButton';
 import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
 import Colors from '../components/Colors';
 
-
 export default function FirstScreen() {
   const navigation = useNavigation();
 
@@ -32,7 +31,7 @@ export default function FirstScreen() {
       <View style={{flex: 1}} />
 
       <InputButton
-        onPress={() => navigation.navigate('EditableAvatarScreen')}
+        onPress={() => navigation.navigate('ThreeAvatarAfterFirst')}
         textColor={'#0B0B0B'}
         style={{
           ...styles.loginBtn,
@@ -49,7 +48,7 @@ export default function FirstScreen() {
           backgroundColor: '#0B0B0B',
           borderColor: Colors.gray2_0,
         }}
-        labelTitle="Sign in"
+        labelTitle="Player Login"
       />
     </SafeAreaView>
   );

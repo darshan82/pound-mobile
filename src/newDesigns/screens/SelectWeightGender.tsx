@@ -23,11 +23,24 @@ export default function SelectWeightGender() {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const {data, setData} = useGlobalDataContext();
+  const [isError, setIsError] = useState(false);
+
+  const handleInputChange = (value, fieldName) => {
+    switch (fieldName) {
+      case 'height':
+        setHeight(value);
+        break;
+      case 'weight':
+        setWeight(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const handlePhysique = async () => {
     try {
       if (!gender || !height || !weight) {
-        Alert.alert('Missing Information', 'Please provide all data');
         return;
       }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
@@ -78,8 +91,10 @@ export default function SelectWeightGender() {
               labelTitle="How tall are you?"
               placeholder="Insert answer"
               value={height}
-              onChangeText={setHeight}
+              onChangeText={text => handleInputChange(text, 'height')}
               keyboardType="numeric"
+              errorMessage="Please enter your height"
+              isInvalid={isError}
             />
 
             <InputText
@@ -89,8 +104,10 @@ export default function SelectWeightGender() {
               labelTitle="How much do you weight?"
               placeholder="Insert answer"
               value={weight}
-              onChangeText={setWeight}
+              onChangeText={text => handleInputChange(text, 'weight')}
               keyboardType="numeric"
+              errorMessage="Please enter your weight"
+              isInvalid={isError}
             />
 
             <Text style={[fontBold(4), {marginTop: getWidth(8)}]}>

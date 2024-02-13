@@ -41,18 +41,14 @@ export default function SelectLocation() {
   const [age, setAge] = useState('');
   const [location, setLocation] = useState(null);
   const [timeZone, setTimeZone] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  useEffect(() => {
-    requestLocationPermission();
-    getLocation();
-  }, []);
-
-  const requestLocationPermission = () => {
-    Geolocation.requestAuthorization();
+  const requestLocationPermission = async () => {
+    await Geolocation.requestAuthorization();
   };
 
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
+  const getLocation = async () => {
+    await Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
         setLat(latitude);
@@ -67,10 +63,13 @@ export default function SelectLocation() {
     );
   };
 
+  const handleAgeChange = (text: string) => {
+    setAge(text);
+  };
+
   const handlePhysique = async () => {
     try {
       if (!age || !location || !timeZone) {
-        Alert.alert('Missing Information', 'Please provide all data');
         return;
       }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
@@ -99,11 +98,16 @@ export default function SelectLocation() {
         timeZone: res.data.timezones.default,
         userIp: res.data.timezones.fromIp,
       }));
-      navigation.navigate('FinalScreen')
+      navigation.navigate('FinalScreen');
     } catch (err) {
       console.log('Error -->', err);
     }
   };
+
+  useEffect(() => {
+    requestLocationPermission();
+    getLocation();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -125,7 +129,9 @@ export default function SelectLocation() {
             placeholder="Insert answer"
             value={age}
             keyboardType="numeric"
-            onChangeText={setAge}
+            errorMessage="Please enter your height"
+            isInvalid={isError}
+            onChangeText={handleAgeChange}
           />
 
           <DropdownComponent
@@ -136,6 +142,7 @@ export default function SelectLocation() {
             placeholder="Insert answer"
             data={LocationData}
             onSelectValue={setLocation}
+            errorMessage="Please Select Location"
           />
           <DropdownComponent
             containerStyle={{marginTop: getWidth(10), width: '100%'}}
@@ -145,6 +152,7 @@ export default function SelectLocation() {
             placeholder="Insert answer"
             data={TimeZone}
             onSelectValue={setTimeZone}
+            errorMessage="Please Select TimeZone"
           />
         </View>
       </KeyboardAwareScrollView>

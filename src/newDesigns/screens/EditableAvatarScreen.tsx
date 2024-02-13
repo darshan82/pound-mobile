@@ -2,7 +2,7 @@ import React, {useMemo, useRef} from 'react';
 import WebView from 'react-native-webview';
 import {Alert} from 'react-native';
 import {useGlobalDataContext} from '../../context';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {useNavigation} from '@react-navigation/native';
 
 export type BodyType = 'halfbody' | 'fullbody';
@@ -88,53 +88,6 @@ export default function EditableAvatarScreen() {
     console.log('onAvatarExported --->', message);
   }
 
-  const createAvatar = async (avatarUrl: string) => {
-    console.log('Create Avatar Function Call');
-    try {
-      const apiUrl = 'http://18.217.10.162/api/users/create-avatar';
-      const response = await axios.post(apiUrl, {avatar: avatarUrl});
-      console.log('response of createAvatarAPI', response.data);
-      setData(prevData => ({
-        ...prevData,
-        token: response.data.token,
-        avatarURL: response.data.data.avatar,
-      }));
-      navigation.navigate('SignUpScreen');
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  function onAssetUnlocked(message: any) {
-    Alert.alert(`Asset Unlocked | Asset ID = ${message.data?.assetId}`);
-  }
-
-  function onUserAuthorized(message: any) {
-    Alert.alert(`User Authorized | User ID = ${message.data?.id}`);
-  }
-
-  function onUserSet(message: any) {
-    Alert.alert(`User Set | User ID = ${message.data?.id}`);
-  }
-
-  function onUserUpdated(message: any) {
-    // Alert.alert(`User Updated | User ID = ${message.data?.id}`);
-  }
-
-  function onUserLoggedOut(message: any) {
-    Alert.alert('User Logged Out');
-  }
-
-  function onWebViewLoaded() {
-    webView.current?.postMessage(
-      JSON.stringify({
-        target: 'readyplayerme',
-        type: 'subscribe',
-        eventName: 'v1.**',
-      }),
-    );
-  }
-
   async function onMessageReceived(message: any) {
     const msgData = JSON.parse(message.nativeEvent.data);
     console.log('msgData.action -->', msgData.data?.url);
@@ -148,6 +101,55 @@ export default function EditableAvatarScreen() {
     }
 
     supportedEvents[msgData.eventName]?.(msgData);
+  }
+
+  const createAvatar = async (avatarUrl: string) => {
+    console.log('Create Avatar Function Call');
+    try {
+      const apiUrl = 'http://18.217.10.162/api/users/create-avatar';
+      const response = await axios.post(apiUrl, {avatar: avatarUrl});
+      console.log('response of createAvatarAPI', response.data);
+      setData(prevData => ({
+        ...prevData,
+        token: response.data.token,
+        avatarURL: response.data.data.avatar,
+      }));
+      navigation.navigate('PlayerTagScreen');
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.log(axiosError)
+      console.error('Error:', axiosError.response?.data);
+    }
+  };
+
+  function onAssetUnlocked(message: any) {
+    console.log(`Asset Unlocked | Asset ID = ${message.data?.assetId}`);
+  }
+
+  function onUserAuthorized(message: any) {
+    console.log(`User Authorized | User ID = ${message.data?.id}`);
+  }
+
+  function onUserSet(message: any) {
+    console.log(`User Set | User ID = ${message.data?.id}`);
+  }
+
+  function onUserUpdated(message: any) {
+    // Alert.alert(`User Updated | User ID = ${message.data?.id}`);
+  }
+
+  function onUserLoggedOut(message: any) {
+    Alert.alert('User Logged Out', 'Please Login Again');
+  }
+
+  function onWebViewLoaded() {
+    webView.current?.postMessage(
+      JSON.stringify({
+        target: 'readyplayerme',
+        type: 'subscribe',
+        eventName: 'v1.**',
+      }),
+    );
   }
 
   return (

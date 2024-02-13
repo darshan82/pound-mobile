@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Dimensions,
@@ -10,28 +10,41 @@ import {
   FlatList,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { InputButton } from '../components/InputButton';
-import { fontBold, fontSemiBold, getWidth } from '../../modules/dashboard/helpers/tabs';
-import { RoundProgress } from '../components/RoundProgress';
+import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {InputButton} from '../components/InputButton';
+import {
+  fontBold,
+  fontSemiBold,
+  getWidth,
+} from '../../modules/dashboard/helpers/tabs';
+import {RoundProgress} from '../components/RoundProgress';
 import SimpleGradientProgressbarView from 'react-native-simple-gradient-progressbar-view';
 import Colors from '../components/Colors';
+import {useGlobalDataContext} from '../../context';
+import axios from 'axios';
 
-
-const ProgressBar = ({ progress = 0.1, style, progressHeight = getWidth(2), toColor = "#AEFF03" }) => {
+const ProgressBar = ({
+  progress = 0.1,
+  style,
+  progressHeight = getWidth(2),
+  toColor = '#AEFF03',
+}) => {
   return (
     <View
-      style={[{
-        marginTop: getWidth(1),
-        overflow: 'hidden',
-      }, style]}>
+      style={[
+        {
+          marginTop: getWidth(1),
+          overflow: 'hidden',
+        },
+        style,
+      ]}>
       <Image
-        style={{ position: 'absolute' }}
+        style={{position: 'absolute'}}
         source={require('../assets/images/progressBG.png')}
       />
       <SimpleGradientProgressbarView
-        style={{ width: '100%', height: progressHeight }}
+        style={{width: '100%', height: progressHeight}}
         fromColor="#FFFFFF"
         toColor={toColor}
         progress={progress}
@@ -51,12 +64,73 @@ const ProgressBar = ({ progress = 0.1, style, progressHeight = getWidth(2), toCo
   );
 };
 
+type UserData = {
+  Energy: number;
+  HRV: number;
+  Recovery: number;
+  Strain: number;
+  __v: number;
+  _id: string;
+  age: number;
+  avatar: string;
+  email: string;
+  fitnessTracking: {
+    heartRateDetection: string;
+    motionDetection: boolean;
+    stepCounting: boolean;
+  };
+  gamesToplay: string[];
+  isVerified: boolean;
+  language: string;
+  level: number;
+  location: {
+    country: string;
+  };
+  notification: boolean;
+  physicalAttributes: {
+    gender: string;
+    height: number;
+    weight: number;
+  };
+  physiqueGoal: string;
+  poundScore: number;
+  ranking: number;
+  sleepingMode: boolean;
+  sound: boolean;
+  streaks: number;
+  timezones: {
+    default: string;
+    fromIp: string;
+  };
+  username: string;
+  weightGoal: string;
+};
+
 export default function ProgressScreen() {
   const navigation = useNavigation();
 
   const [isColored, setIsColor] = useState(true);
+  const {data} = useGlobalDataContext();
+  const [userData, setUserData] = useState<UserData | null>(null);
 
-
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const userToken = data.loginToken;
+        const apiUrl = 'http://18.217.10.162/api/users/profile';
+        const headers = {
+          Authorization: `${userToken}`,
+          'Content-Type': 'application/json',
+        };
+        const res = await axios.get(apiUrl, {headers});
+        console.log('res -->', res.data);
+        setUserData(res.data);
+      } catch (e) {
+        console.log('Error ->', e);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -69,8 +143,8 @@ export default function ProgressScreen() {
           paddingHorizontal: getWidth(5),
           paddingBottom: getWidth(6),
         }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={[fontBold(5), { flex: 1 }]}>Patrick</Text>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Text style={[fontBold(5), {flex: 1}]}>{userData?.username}</Text>
           <View
             style={{
               flexDirection: 'row',
@@ -88,38 +162,42 @@ export default function ProgressScreen() {
               }}
               source={require('../assets/images/tokenpound.png')}
             />
-            <Text style={[fontBold(3.5), {marginLeft:getWidth(2)}]}>1,345</Text>
+            <Text style={[fontBold(3.5), {marginLeft: getWidth(2)}]}>
+              {userData?.streaks}
+            </Text>
           </View>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View style={{ flex: 1 }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flex: 1}}>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[fontBold(3.2), { marginVertical: getWidth(2) }]}>
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
                 LEVEL
               </Text>
 
-              <Text style={[fontBold(3.2), { marginVertical: getWidth(2) }]}>
-                345
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
+                {userData?.level}
               </Text>
             </View>
 
-            <ProgressBar progress={0.6} 
-            progressHeight={getWidth(1.5)}
+            <ProgressBar
+              progress={userData ? userData.level / 10 : 0}
+              progressHeight={getWidth(1.5)}
             />
 
             <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Text style={[fontBold(3.2), { marginVertical: getWidth(2) }]}>
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
                 STREAK
               </Text>
 
-              <Text style={[fontBold(3.2), { marginVertical: getWidth(2) }]}>
-                64 days
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
+                64 Days
               </Text>
             </View>
-            <ProgressBar progress={0.9}
-            progressHeight={getWidth(1.5)}
+            <ProgressBar
+              progress={userData ? userData?.streaks / 10 : 0}
+              progressHeight={getWidth(1.5)}
             />
           </View>
 
@@ -141,9 +219,11 @@ export default function ProgressScreen() {
               }}
               source={require('../assets/images/trophy.png')}
             />
-            <Text onPress={() => {
-              navigation.navigate('LeaderboardScreen')
-            }} style={[fontSemiBold(2.8), { marginVertical: getWidth(2) }]}>
+            <Text
+              onPress={() => {
+                navigation.navigate('LeaderboardScreen');
+              }}
+              style={[fontSemiBold(2.8), {marginVertical: getWidth(2)}]}>
               Ranking
             </Text>
 
@@ -157,54 +237,64 @@ export default function ProgressScreen() {
                 borderWidth: 3,
                 borderColor: Colors.gray1,
               }}>
-              <Text style={[fontBold(2.6, Colors.gray1)]}> #23 </Text>
+              <Text style={[fontBold(2.6, Colors.gray1)]}>
+                {' '}
+                {`#${userData?.ranking}`}{' '}
+              </Text>
             </View>
           </View>
         </View>
       </View>
-      <View style={{ flex: 1, flexDirection: 'row', paddingHorizontal: getWidth(5) }}>
-        <View style={{ alignItems: 'center', height: '100%', justifyContent: "space-around", paddingTop:getWidth(3) }}>
+      <View
+        style={{flex: 1, flexDirection: 'row', paddingHorizontal: getWidth(5)}}>
+        <View
+          style={{
+            alignItems: 'center',
+            height: '100%',
+            justifyContent: 'space-around',
+            paddingTop: getWidth(3),
+          }}>
           <RoundProgress
             size={getWidth(20)}
             progress={90}
             progressText={25}
-            color={"#FA00FF"}
+            color={'#FA00FF'}
             centerImg={require('../assets/images/img5.png')}
             isloacked={false}
           />
 
           <RoundProgress
             size={getWidth(20)}
-            progress={80}
+            progress={userData ? userData?.HRV : 0}
             progressText={25}
-            color={"#2450FD"}
+            color={'#2450FD'}
             centerImg={require('../assets/images/img4.png')}
             isloacked={false}
           />
 
           <RoundProgress
-             size={getWidth(20)}
-            progress={70}
+            size={getWidth(20)}
+            progress={userData ? userData?.Strain : 0}
             progressText={25}
-            color={"#F82003"}
+            color={'#F82003'}
             centerImg={require('../assets/images/img3.png')}
             isloacked={false}
           />
 
           <RoundProgress
             size={getWidth(20)}
-            progress={100}
+            progress={userData ? userData.Recovery : 0}
             progressText={25}
-            color={"#AEFF03"}
+            color={'#AEFF03'}
             centerImg={require('../assets/images/img2.png')}
             isloacked={true}
           />
 
           <RoundProgress
-             size={getWidth(20)}
-            progress={70}
+            size={getWidth(20)}
+            progress={userData ? userData.Energy : 0}
             progressText={25}
-            color={"#FFC700"}
+            color={'#FFC700'}
             centerImg={require('../assets/images/img1.png')}
             isloacked={false}
           />
@@ -217,30 +307,72 @@ export default function ProgressScreen() {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          activeOpacity={1}
-          onPress={() => {
-            navigation.navigate('EditableAvatarScreen');
-          }}>
+          activeOpacity={1}>
           <Image
             style={styles.avatarImage}
-            source={isColored ? require('../assets/images/CapsuleColor.png') : require('../assets/images/Capsule.png') }
+            source={
+              isColored
+                ? require('../assets/images/CapsuleColor.png')
+                : require('../assets/images/Capsule.png')
+            }
           />
           <Image
             style={{
               position: 'absolute',
-              width: '50%',
-              height: '50%',
+              width: '90%',
+              height: '100%',
               resizeMode: 'contain',
             }}
-            source={require('../assets/images/avatar.png')}
+            source={{
+              uri: `${userData?.avatar.replace(
+                'glb',
+                'png',
+              )}?pose=relaxed&expression=happy&camera=fullbody`,
+            }}
           />
 
           <FlatList
-            style={{ position: "absolute", width: getWidth(32), height: getWidth(19), bottom: getWidth(9), right: getWidth(25), backgroundColor: "black", padding: getWidth(1), paddingRight: getWidth(2) }}
-            data={[{ image: require(`../assets/images/STRENGTH.png`), color: "#80B310" }, { image: require(`../assets/images/DEFENSE.png`), color: "#C50CCA" }, { image: require(`../assets/images/AGILITY.png`), color: "#0783E9" }, { image: require(`../assets/images/VITALITY.png`), color: "#D10F13" }, { image: require(`../assets/images/INTELLECT.png`), color: "#C3C218" }, { image: require(`../assets/images/Luck.png`), color: "#12BF89" }]}
-            renderItem={({ item }) => {
+            style={{
+              position: 'absolute',
+              width: getWidth(32),
+              height: getWidth(19),
+              bottom: getWidth(9),
+              right: getWidth(25),
+              backgroundColor: 'black',
+              padding: getWidth(1),
+              paddingRight: getWidth(2),
+            }}
+            data={[
+              {
+                image: require('../assets/images/STRENGTH.png'),
+                color: '#80B310',
+              },
+              {
+                image: require('../assets/images/DEFENSE.png'),
+                color: '#C50CCA',
+              },
+              {
+                image: require('../assets/images/AGILITY.png'),
+                color: '#0783E9',
+              },
+              {
+                image: require('../assets/images/VITALITY.png'),
+                color: '#D10F13',
+              },
+              {
+                image: require('../assets/images/INTELLECT.png'),
+                color: '#C3C218',
+              },
+              {image: require('../assets/images/Luck.png'), color: '#12BF89'},
+            ]}
+            renderItem={({item}) => {
               return (
-                <View style={{ flexDirection: 'row', width: "100%", alignItems: "center" }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    width: '100%',
+                    alignItems: 'center',
+                  }}>
                   <Image
                     style={{
                       width: getWidth(2.7),
@@ -249,11 +381,16 @@ export default function ProgressScreen() {
                     }}
                     source={item.image}
                   />
-                  <View style={{ flex: 1, width: "100%" }}>
-                    <ProgressBar progress={0.5}
+                  <View style={{flex: 1, width: '100%'}}>
+                    <ProgressBar
+                      progress={0.5}
                       progressHeight={getWidth(1)}
                       toColor={item.color}
-                      style={{ borderWidth: 1, borderColor: item.color, borderRadius: getWidth(2) }}
+                      style={{
+                        borderWidth: 1,
+                        borderColor: item.color,
+                        borderRadius: getWidth(2),
+                      }}
                     />
                   </View>
                 </View>
@@ -261,9 +398,36 @@ export default function ProgressScreen() {
             }}
           />
         </TouchableOpacity>
-        <View style={{width:getWidth(28), height:getWidth(12), backgroundColor:"black", position:"absolute", right:getWidth(24), top:getWidth(6), alignItems:"center", justifyContent:"center", borderTopWidth:1, borderTopColor:Colors.gray2_0}}>
-          <Text style={{color:Colors.white, ...fontSemiBold(1.8), letterSpacing:getWidth(0.5)}}>POUND SCORE</Text>
-          <Text style={{color:Colors.lightGreen, fontSize:getWidth(4), fontFamily:"CursedTimerULiL", marginTop:getWidth(1)}}>20:30</Text>
+        <View
+          style={{
+            width: getWidth(28),
+            height: getWidth(12),
+            backgroundColor: 'black',
+            position: 'absolute',
+            right: getWidth(24),
+            top: getWidth(6),
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderTopWidth: 1,
+            borderTopColor: Colors.gray2_0,
+          }}>
+          <Text
+            style={{
+              color: Colors.white,
+              ...fontSemiBold(1.8),
+              letterSpacing: getWidth(0.5),
+            }}>
+            POUND SCORE
+          </Text>
+          <Text
+            style={{
+              color: Colors.lightGreen,
+              fontSize: getWidth(4),
+              fontFamily: 'CursedTimerULiL',
+              marginTop: getWidth(1),
+            }}>
+            {userData ? userData?.poundScore : 0}
+          </Text>
         </View>
       </View>
     </View>
@@ -272,8 +436,8 @@ export default function ProgressScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, backgroundColor: Colors.gray0
-
+    flex: 1,
+    backgroundColor: Colors.gray0,
   },
   innerContainer: {
     flex: 1,

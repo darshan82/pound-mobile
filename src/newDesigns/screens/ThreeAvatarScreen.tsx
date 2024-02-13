@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {Image, StyleSheet, View, Text} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -18,15 +11,10 @@ import {
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
-import LinearGradient from 'react-native-linear-gradient';
 import Colors from '../components/Colors';
-import {useGlobalDataContext} from '../../context';
 
 export default function ThreeAvatarScreen() {
   const navigation = useNavigation();
-  const {data} = useGlobalDataContext();
-  console.log(data.avatarURL)
 
   return (
     <SafeAreaView style={styles.container}>

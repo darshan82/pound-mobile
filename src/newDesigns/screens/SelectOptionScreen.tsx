@@ -22,6 +22,7 @@ export default function SelectOptionScreen() {
   const [weight, setWeight] = useState(1);
   const [power, setPower] = useState([]);
   const {data, setData} = useGlobalDataContext();
+  const [error, setError] = useState('');
 
   const setPowerState = value => {
     const _power = [...power];
@@ -40,9 +41,18 @@ export default function SelectOptionScreen() {
 
   const WeightGoal = getWeight(weight);
   const PhysiqueGoal = getPower(power);
+  const trueCount = Object.values(PhysiqueGoal).filter(
+    goal => goal === true,
+  ).length;
+
+  console.log({trueCount});
 
   const UpdateGoal = async () => {
     try {
+      if (trueCount !== 2) {
+        setError('Exactly two goals must be selected');
+        return;
+      }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
       const headers = {
         Authorization: `${data.token}`,
@@ -133,7 +143,10 @@ export default function SelectOptionScreen() {
           </Text>
 
           <InputButton
-            onPress={() => setPowerState(0)}
+            onPress={() => {
+              setPowerState(0);
+              setError('');
+            }}
             style={[
               styles.continueBtn,
               power.includes(0)
@@ -149,7 +162,10 @@ export default function SelectOptionScreen() {
           />
 
           <InputButton
-            onPress={() => setPowerState(1)}
+            onPress={() => {
+              setPowerState(1);
+              setError('');
+            }}
             style={[
               styles.continueBtn,
               power.includes(1)
@@ -165,7 +181,10 @@ export default function SelectOptionScreen() {
           />
 
           <InputButton
-            onPress={() => setPowerState(2)}
+            onPress={() => {
+              setPowerState(2);
+              setError('');
+            }}
             style={[
               styles.continueBtn,
               power.includes(2)
@@ -179,6 +198,11 @@ export default function SelectOptionScreen() {
             labelTitle="Get Strong"
             textColor={power.includes(2) ? Colors.lightGreen : Colors.white}
           />
+
+          <Text
+            style={{color: 'red', paddingHorizontal: 8, paddingVertical: 5}}>
+            {error}
+          </Text>
 
           <View style={{flex: 1}} />
 

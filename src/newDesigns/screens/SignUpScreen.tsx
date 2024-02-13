@@ -21,9 +21,8 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {useGlobalDataContext} from '../../context';
-import {isStrongPassword} from '../../app/helpers';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -56,7 +55,11 @@ export default function LoginScreen() {
       setPassword('');
       navigation.navigate('DrawerStack');
     } catch (error) {
-      console.error('Error:', error);
+      const axiosError = error as AxiosError;
+      console.error('Error:', axiosError);
+      if (axiosError.response && axiosError.response.status === 401) {
+        Alert.alert('Oops!', 'Email or password incorrect');
+      }
     }
   };
 

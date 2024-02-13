@@ -5,6 +5,7 @@ type GlobalDataContextType = {
   data: {
     avatarURL: string;
     token: string;
+    loginToken: string;
     email: string;
     playerTag: string;
     gender: string;
@@ -25,6 +26,7 @@ type GlobalDataContextType = {
     React.SetStateAction<{
       avatarURL: string;
       token: string;
+      loginToken: string;
       email: string;
       playerTag: string;
       gender: string;
@@ -47,6 +49,7 @@ type GlobalDataContextType = {
 const initialData = {
   avatarURL: '',
   token: '',
+  loginToken: '',
   email: '',
   playerTag: '',
   gender: '',
@@ -82,6 +85,7 @@ export const GlobalDataProvider: React.FC<{children: React.ReactNode}> = ({
   const [data, setData] = useState<{
     avatarURL: string;
     token: string;
+    loginToken: string;
     email: string;
     playerTag: string;
     gender: string;

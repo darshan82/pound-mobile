@@ -13,9 +13,8 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {useGlobalDataContext} from '../../context';
-import { isStrongPassword } from '../../app/helpers';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -39,16 +38,20 @@ export default function LoginScreen() {
       };
       const body = {email, password};
       const response = await axios.post(apiUrl, body, {headers});
-      console.log('Login API Response:', response.data);
       setData(prevData => ({
         ...prevData,
         email: email,
+        loginToken: response.data.token,
       }));
       setEmail('');
       setPassword('');
       navigation.navigate('DrawerStack');
     } catch (error) {
-      console.error('Error:', error);
+      const axiosError = error as AxiosError;
+      console.error('Error:', axiosError);
+      if (axiosError.response && axiosError.response.status === 401) {
+        Alert.alert('Oops!', 'Email or password incorrect');
+      }
     }
   };
 
@@ -89,9 +92,13 @@ export default function LoginScreen() {
             textColor={Colors.gray1}
           />
 
-          <InputButton style={styles.imgBtn} labelTitle="Forge my identity" />
-
           <InputButton
+            onPress={() => navigation.navigate('ThreeAvatarAfterFirst')}
+            style={styles.imgBtn}
+            labelTitle="Forge my identity"
+          />
+
+          {/* <InputButton
             imageStyle={{height: getWidth(7)}}
             image={require('../assets/images/discord.png')}
             style={styles.imgBtn}
@@ -110,7 +117,7 @@ export default function LoginScreen() {
             image={require('../assets/images/google.png')}
             style={styles.imgBtn}
             labelTitle="Google"
-          />
+          /> */}
         </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>

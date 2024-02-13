@@ -32,19 +32,26 @@ export default function GameSelection() {
   const [isStepCounting, setIsStepCounting] = useState(false);
   const [isMotionDetected, setIsMotionDetected] = useState(false);
   const {data, setData} = useGlobalDataContext();
+  const [error, setError] = useState('');
 
   const handleStepCount = isOn => {
     setIsStepCounting(isOn);
+    setError('');
   };
 
   const handleMotionDetected = isOn => {
     setIsMotionDetected(isOn);
+    setError('');
   };
 
   const WatchName = getWatchName(selectedIndex);
 
   const handleUpdate = async () => {
     try {
+      if (isMotionDetected === false && isStepCounting === false) {
+        setError('Please Select at least one option');
+        return;
+      }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
       const headers = {
         Authorization: `${data.token}`,
@@ -67,7 +74,7 @@ export default function GameSelection() {
         motionDetection: res.data.fitnessTracking.motionDetection,
         heartRateDetection: res.data.fitnessTracking.heartRateDetection,
       }));
-      navigation.navigate('DrawerStack');
+      navigation.navigate('SelectOptionScreen');
     } catch (err) {
       console.log('Error -->', err);
     }
@@ -142,6 +149,10 @@ export default function GameSelection() {
           <ToggleSwitch onToggleChange={handleMotionDetected} />
         </View>
 
+        <Text style={{color: 'red', paddingHorizontal: 8, paddingVertical: 5}}>
+          {error}
+        </Text>
+
         <View
           style={{
             marginTop: getWidth(5),
@@ -203,7 +214,6 @@ export default function GameSelection() {
       </ScrollView>
       <InputButton
         onPress={handleUpdate}
-        // onPress={() => navigation.navigate('BodyTypeScreen')}
         style={styles.continueBtn}
         textColor={Colors.gray1}
         labelTitle="Continue"

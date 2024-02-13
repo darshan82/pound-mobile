@@ -13,6 +13,7 @@ const DropdownComponent = ({
   data = [],
   labelTitle = '',
   onSelectValue,
+  errorMessage,
 }) => {
   const [value, setValue] = useState(null);
 
@@ -41,11 +42,14 @@ const DropdownComponent = ({
           onChange={item => {
             setValue(item.value);
             if (onSelectValue) {
-              onSelectValue(item.value)
-            } // Call onSelectValue if it's provided
+              onSelectValue(item.value);
+            }
           }}
         />
       </View>
+      {errorMessage && !value && (
+        <Text style={{color: 'red', marginTop: 5, paddingHorizontal:10}}>{errorMessage}</Text>
+      )}
     </View>
   );
 };

@@ -25,9 +25,14 @@ import axios, {AxiosError} from 'axios';
 
 export default function PlayerTagScreen() {
   const navigation = useNavigation();
+  const [isError, setIsError] = useState(false);
   const {data, setData} = useGlobalDataContext();
   const [playerTag, setPlayerTag] = useState('');
   const imageId = useId();
+
+  const handleInputChange = (text: string) => {
+    setPlayerTag(text);
+  };
 
   const handleSaveName = async () => {
     try {
@@ -40,7 +45,7 @@ export default function PlayerTagScreen() {
       const res = await axios.post(apiUrl, userName, {headers});
       console.log('Check User', res);
 
-      if (res.data.isAvailable) {
+      if (res.data.isAvailable && isError === false) {
         try {
           const updateUrl = 'http://18.217.10.162/api/users/update-user';
           const updateBody = {username: playerTag};
@@ -53,7 +58,7 @@ export default function PlayerTagScreen() {
             playerTag: playerTag,
           }));
 
-          navigation.navigate('BodyTypeScreen');
+          navigation.navigate('AvatarScreen');
         } catch (updateError) {
           console.error('Error:', updateError);
         }
@@ -103,7 +108,9 @@ export default function PlayerTagScreen() {
             labelTitle="Player Tag"
             placeholder="John Doe"
             value={playerTag}
-            onChangeText={setPlayerTag}
+            onChangeText={handleInputChange}
+            errorMessage="Please enter a player tag"
+            isInvalid={isError}
           />
 
           <Text style={styles.infoText}>{'Must be xx characters and xxx'}</Text>

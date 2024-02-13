@@ -32,6 +32,7 @@ export default function FinalScreen() {
     try {
       if (!selectedItems.length) {
         Alert.alert('Oops', 'Select the games you play to continue');
+        return;
       }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
       const headers = {
@@ -49,7 +50,7 @@ export default function FinalScreen() {
         ...prevData,
         gamesToPlay: res.data.gamesToplay,
       }));
-      navigation.navigate('GameSelection');
+      navigation.navigate('DrawerStack');
     } catch (err) {
       console.log('Error -->', err);
     }

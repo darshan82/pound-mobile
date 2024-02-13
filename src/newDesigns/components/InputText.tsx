@@ -57,9 +57,21 @@ export const InputText: FC<InputTextProps> = ({
   isFloating = true,
 }) => {
   const [valueInput, setValue] = useState(value ?? '');
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    setIsError(!valueInput.trim());
+  }, [valueInput]);
+
+  const handleInputChange = (text: string) => {
+    setValue(text);
+    setIsError(!text.trim());
+    onChangeText(text);
+  };
+
   return (
     <View style={containerStyle}>
-      <FormControl isInvalid={isInvalid} style={styleControl}>
+      <FormControl isInvalid={isError || isInvalid} style={styleControl}>
         {labelTitle && !isFloating ? (
           <FormControl.Label>
             <Text
@@ -93,13 +105,13 @@ export const InputText: FC<InputTextProps> = ({
             ...fontRegular(4.5),
             color: 'white',
           }}
-          onChangeText={value => {
-            setValue(value);
-            onChangeText(value);
-          }}
+          onChangeText={handleInputChange}
+          onBlur={onBlur}
         />
 
-        <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+        <Text style={{color: 'red', marginTop: 5, paddingHorizontal:10}}>
+          {isError ? errorMessage : null}
+        </Text>
       </FormControl>
     </View>
   );
