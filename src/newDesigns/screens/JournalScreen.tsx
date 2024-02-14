@@ -1,40 +1,91 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 
 import {
-  Dimensions,
   Image,
   StyleSheet,
   View,
   TouchableOpacity,
   Text,
   FlatList,
-  TextInput,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
 import JornalDetaileModal from '../components/JornalDetaileModal';
-import LockView from '../components/LockView';
+import {useGlobalDataContext} from '../../context';
+import axios from 'axios';
+
+interface Journal {
+  attributes: string[];
+  date: string;
+  enemies: string[];
+  totalTokens: number;
+  totalXps: number;
+}
+
+const attributeImages = {
+  Strength: require('../assets/images/STRENGTH.png'),
+  Luck: require('../assets/images/Luck.png'),
+  Defense: require('../assets/images/DEFENSE.png'),
+  Vitality: require('../assets/images/VITALITY.png'),
+  Intellect: require('../assets/images/INTELLECT.png'),
+  Agility: require('../assets/images/AGILITY.png'),
+};
+
+const enemyImage = {
+  Apathy: require('../assets/images/Ene1.png'),
+  Fatigue: require('../assets/images/Ene2.png'),
+  Procrastination: require('../assets/images/Ene3.png'),
+  Stress: require('../assets/images/Ene4.png'),
+  Inconsistency: require('../assets/images/Ene5.png'),
+  Injury: require('../assets/images/Ene6.png'),
+  Plateaus: require('../assets/images/Ene7.png'),
+};
 
 export default function RankingScreen() {
-  const navigation = useNavigation();
   const jornalDetaileModalRef = useRef();
+  const {data} = useGlobalDataContext();
+  const [journalData, setJournalData] = useState<Journal[]>([]);
+
+  useEffect(() => {
+    const getJournalData = async () => {
+      const apiUrl =
+        'http://18.217.10.162/api/challenges/user-challenges-bydate';
+      const headers = {
+        Authorization: `${data.loginToken}`,
+        'Content-Type': 'application/json',
+      };
+      const res = await axios.get(apiUrl, {headers});
+      setJournalData(res.data);
+      console.log('Response Of Journal API -->', res.data);
+    };
+
+    getJournalData();
+  }, [data.loginToken]);
+
+  console.log('date -->', journalData[0]?.date);
+
+  const formattedDate = new Date(journalData[0]?.date).toLocaleDateString(
+    'en-US',
+    {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    },
+  );
+
+  const [monthPart, yearPart] = formattedDate.split(', ');
 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <FlatList
           style={{marginTop: getWidth(3), paddingHorizontal: getWidth(4)}}
-          data={['', '', '']}
+          data={journalData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => {
             return (
@@ -55,8 +106,8 @@ export default function RankingScreen() {
                     alignItems: 'center',
                   }}>
                   <View style={{alignItems: 'center'}}>
-                    <Text style={fontBold(3.5)}>July 16</Text>
-                    <Text style={fontRegular(3.5)}>2023</Text>
+                    <Text style={fontBold(3.5)}>{monthPart}</Text>
+                    <Text style={fontRegular(3.5)}>{yearPart}</Text>
                   </View>
                   <View
                     style={{
@@ -66,7 +117,7 @@ export default function RankingScreen() {
                     }}
                   />
                   <View style={{alignItems: 'center'}}>
-                    <Text style={fontBold(3.5)}>July 16</Text>
+                    <Text style={fontBold(3.5)}>{item.totalXps}</Text>
                     <Text
                       style={[
                         fontRegular(3.5, Colors.gray3),
@@ -84,14 +135,9 @@ export default function RankingScreen() {
                       }}>
                       <View
                         style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                        {[
-                          {
-                            image: require(`../assets/images/Ene1.png`),
-                            color: '#80B310',
-                          },
-                          {image: require(`../assets/images/Ene2.png`)},
-                        ].map((item, index) => (
+                        {item.enemies.slice(0, 3).map((enemy, index) => (
                           <View
+                            key={index}
                             style={[
                               styles.image,
                               {
@@ -100,14 +146,14 @@ export default function RankingScreen() {
                               },
                             ]}>
                             <Image
-                              style={[
-                                {
-                                  width: '70%',
-                                  height: '70%',
-                                  resizeMode: 'contain',
-                                },
-                              ]}
-                              source={item.image}
+                              style={{
+                                width: '70%',
+                                height: '70%',
+                                resizeMode: 'contain',
+                              }}
+                              source={
+                                enemyImage[enemy as keyof typeof enemyImage]
+                              }
                             />
                           </View>
                         ))}
@@ -130,7 +176,7 @@ export default function RankingScreen() {
                   />
                   <View style={{alignItems: 'center'}}>
                     <View style={{flexDirection: 'row'}}>
-                      <Text style={fontBold(3.5)}>23</Text>
+                      <Text style={fontBold(3.5)}>{item.totalTokens}</Text>
                       <Image
                         style={[
                           {
@@ -153,15 +199,9 @@ export default function RankingScreen() {
                       }}>
                       <View
                         style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                        {[
-                          {
-                            image: require(`../assets/images/INTELLECT.png`),
-                            color: '#80B310',
-                          },
-                          {image: require(`../assets/images/STRENGTH.png`)},
-                          {image: require(`../assets/images/VITALITY.png`)},
-                        ].map((item, index) => (
+                        {item.attributes.slice(0, 3).map((attribute, index) => (
                           <View
+                            key={index}
                             style={[
                               styles.image,
                               {
@@ -177,7 +217,11 @@ export default function RankingScreen() {
                                   resizeMode: 'contain',
                                 },
                               ]}
-                              source={item.image}
+                              source={
+                                attributeImages[
+                                  attribute as keyof typeof attributeImages
+                                ]
+                              }
                             />
                           </View>
                         ))}
@@ -200,7 +244,14 @@ export default function RankingScreen() {
       {/* <LockView
       btnText="text"
       /> */}
-      <JornalDetaileModal ref={jornalDetaileModalRef} />
+      <JornalDetaileModal
+        journalData={journalData}
+        monthPart={monthPart}
+        attributeImages={attributeImages}
+        enemyImage={enemyImage}
+        yearPart={yearPart}
+        ref={jornalDetaileModalRef}
+      />
     </View>
   );
 }

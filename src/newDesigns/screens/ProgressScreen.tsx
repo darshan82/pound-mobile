@@ -91,6 +91,7 @@ type UserData = {
   physiqueGoal: string;
   poundScore: number;
   ranking: number;
+  Steps: number;
   sleepingMode: boolean;
   sound: boolean;
   streaks: number;
@@ -254,7 +255,7 @@ export default function ProgressScreen() {
           }}>
           <RoundProgress
             size={getWidth(20)}
-            progress={90}
+            progress={userData ? userData?.Steps / 100 : 0}
             progressText={25}
             color={'#FA00FF'}
             centerImg={require('../assets/images/img5.png')}
@@ -322,10 +323,7 @@ export default function ProgressScreen() {
               resizeMode: 'contain',
             }}
             source={{
-              uri: `${userData?.avatar.replace(
-                'glb',
-                'png',
-              )}?pose=relaxed&expression=happy&camera=fullbody`,
+              uri: `${userData?.avatar}?pose=relaxed&expression=happy&camera=fullbody`,
             }}
           />
 

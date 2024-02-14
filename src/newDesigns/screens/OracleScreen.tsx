@@ -1,22 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Text, FlatList} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
-import RankingScreen from './RankingScreen';
 import OracleScreenChild from './OracleScreenChild';
 import Colors from '../components/Colors';
 import FitnessChallage from './FitnessChallage';
@@ -39,10 +28,10 @@ function MyTabBar({state, descriptors, navigation}) {
       style={{
         justifyContent: 'center',
         paddingHorizontal: getWidth(3),
-        backgroundColor:Colors.gray2,
-        paddingBottom:getWidth(3),
-        borderBottomLeftRadius:  getWidth(8) ,
-        borderBottomRightRadius:  getWidth(8) 
+        backgroundColor: Colors.gray2,
+        paddingBottom: getWidth(3),
+        borderBottomLeftRadius: getWidth(8),
+        borderBottomRightRadius: getWidth(8),
       }}>
       <FlatList
         ref={ref}
@@ -92,7 +81,9 @@ function MyTabBar({state, descriptors, navigation}) {
               onPress={onPress}
               onLongPress={onLongPress}
               style={{
-                backgroundColor: isFocused ? Colors.lightGreen+"30" : Colors.gray2_0,
+                backgroundColor: isFocused
+                  ? Colors.lightGreen + '30'
+                  : Colors.gray2_0,
                 height: getWidth(9),
                 paddingHorizontal: getWidth(3),
                 marginHorizontal: getWidth(1.5),
@@ -120,7 +111,7 @@ export default function OracleScreen() {
       // style={{marginTop:-getWidth(10)}}
       backBehavior="none"
       tabBar={props => <MyTabBar {...props} />}
-      initialRouteName='Fitness Challenges'
+      initialRouteName="Fitness Challenges"
       screenOptions={{
         tabBarActiveTintColor: '#AEFF03',
         tabBarInactiveTintColor: 'white',
@@ -136,7 +127,6 @@ export default function OracleScreen() {
           textTransform: 'none',
         },
       }}>
-
       <Tab.Screen name={'Game Quests'} component={OracleScreenChild} />
 
       <Tab.Screen name={'Fitness Challenges'} component={FitnessChallage} />

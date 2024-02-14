@@ -1,31 +1,23 @@
-import React, {useRef, useState} from 'react';
+import React, {useState} from 'react';
 
 import {
-  Dimensions,
   Image,
   StyleSheet,
   View,
   TouchableOpacity,
   Text,
-  FlatList,
-  TextInput,
   ScrollView,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Colors from '../components/Colors';
-import FitnessDetaileModal from '../components/FitnessDetaileModal';
 
 export default function FitnessChallage() {
-  const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
 
   return (
@@ -107,6 +99,7 @@ export default function FitnessChallage() {
                 <Text style={fontRegular(3.5, Colors.gray3)}>Token</Text>
               </View>
             </View>
+            {/* <BlurModal /> */}
             <View
               style={{
                 flexDirection: 'row',
