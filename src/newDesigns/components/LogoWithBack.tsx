@@ -4,15 +4,15 @@ import {
     Image,
     StyleSheet,
     TouchableOpacity,
-    View
+    View,
+    Text
 } from "react-native";
 
 
 import { useNavigation } from '@react-navigation/native';;
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
 
-
-export default function LogoWithBack() {
+export default function LogoWithBack({ title }) {
 
     const navigation = useNavigation();
 
@@ -21,10 +21,13 @@ export default function LogoWithBack() {
         <View
             style={styles.innerContainer}
         >
-            <Image
-                style={styles.logoImage}
-                source={require('../assets/images/justLogo.png')}
-            />
+            {title && <View style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                <Text
+                    style={styles.logoImage}
+                >
+                    {title}
+                </Text>
+            </View>}
 
             <TouchableOpacity
                 onPress={() => navigation.goBack()}
@@ -48,13 +51,13 @@ const styles = StyleSheet.create({
     },
     innerContainer: {
         justifyContent: "center",
-        marginBottom:getWidth(3)
+        marginBottom: getWidth(3),
     },
     logoImage: {
-        width: "100%",
-        height: getWidth(8.5),
-        marginVertical: getWidth(2),
-        resizeMode: "contain",
-        alignSelf: "center"
+        color: "white",
+        fontSize: 25,
+        fontWeight: "bold",
+        justifyContent: "center",
+        alignContent: "center"
     }
 });

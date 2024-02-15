@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
-import {NavigationContainer, DarkTheme} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import React, { useContext } from 'react';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import {AppContext} from '../../app/context';
+import { AppContext } from '../../app/context';
 import FirstScreen from '../screens/FirstScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignUpScreen from '../screens/SignUpScreen';
@@ -22,9 +22,9 @@ import WalletScreen from '../screens/WalletScreen';
 import JournalScreen from '../screens/JournalScreen';
 import ProgressScreen from '../screens/ProgressScreen';
 import OracleScreen from '../screens/OracleScreen';
-import {View} from 'native-base';
-import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
-import {Animated, Image, TouchableOpacity} from 'react-native';
+import { View } from 'native-base';
+import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
+import { Animated, Image, TouchableOpacity } from 'react-native';
 import ChatScreen from '../screens/ChatScreen';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import EditableAvatarScreen from '../screens/EditableAvatarScreen';
@@ -36,7 +36,7 @@ import GameSelection from '../screens/GameSelection';
 import SettingScreen from '../screens/SettingScreen';
 
 
-export function MyTabBar({state, descriptors, navigation, position, isHome}) {
+export function MyTabBar({ state, descriptors, navigation, position, isHome }) {
   return (
     <View
       style={{
@@ -57,13 +57,13 @@ export function MyTabBar({state, descriptors, navigation, position, isHome}) {
           alignItems: 'center',
         }}>
         {state.routes.map((route, index) => {
-          const {options} = descriptors[route.key];
+          const { options } = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-              ? options.title
-              : route.name;
+                ? options.title
+                : route.name;
 
           const isFocused = state.index === index;
 
@@ -95,7 +95,7 @@ export function MyTabBar({state, descriptors, navigation, position, isHome}) {
           return (
             <TouchableOpacity
               accessibilityRole="button"
-              accessibilityState={isFocused ? {selected: true} : {}}
+              accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
               onPress={onPress}
@@ -132,24 +132,28 @@ function HomeScreen() {
   return (
     // Your Home screen content here
     // Include the TopTab navigator here for "journal", "progress", "oracle" tabs
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Image
-          style={{
-            width: getWidth(10),
-            height: getWidth(10),
-            left: getWidth(1),
-            resizeMode: 'contain',
-            marginLeft: getWidth(6),
-            position: 'absolute',
-          }}
-          source={require('../assets/images/dp.png')}
-        />
+        <TouchableOpacity onPress={() => {
+
+        }}>
+          <Image
+            style={{
+              width: getWidth(10),
+              height: getWidth(10),
+              left: getWidth(1),
+              resizeMode: 'contain',
+              marginLeft: getWidth(6),
+              position: 'absolute',
+            }}
+            source={require('../assets/images/dp.png')}
+          />
+        </TouchableOpacity>
         <Image
           style={{
             width: getWidth(40),
@@ -161,13 +165,13 @@ function HomeScreen() {
           source={require('../assets/images/justLogo.png')}
         />
       </View>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <TopTab.Navigator
           tabBar={props => <MyTabBar {...props} isHome={true} />}
           initialRouteName={'Dashboard'}
           screenOptions={{
             headerShown: false,
-            tabBarIndicatorStyle: {backgroundColor: '#AEFF03'},
+            tabBarIndicatorStyle: { backgroundColor: '#AEFF03' },
           }}>
           <TopTab.Screen name="Journal" component={JournalScreen} />
           <TopTab.Screen name="Dashboard" component={ProgressScreen} />
@@ -191,7 +195,7 @@ function BottomTabNavigator() {
         name="Chat"
         component={ChatScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             return (
               <Image
                 style={{
@@ -209,7 +213,7 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="Home"
         options={{
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             return (
               <Image
                 style={{
@@ -229,7 +233,7 @@ function BottomTabNavigator() {
         name="Wallet"
         component={WalletScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             return (
               <Image
                 style={{
@@ -256,7 +260,7 @@ function DrawerStack() {
         name="BottomTab"
         options={{
           title: 'Home',
-          header: ({options, navigation}) => {
+          header: ({ options, navigation }) => {
             // navigation.openDrawer();
             return (
               <View
@@ -268,7 +272,7 @@ function DrawerStack() {
                   alignItems: 'center',
                 }}>
                 <Image
-                  style={{width: '90%', height: '40%', resizeMode: 'contain'}}
+                  style={{ width: '90%', height: '40%', resizeMode: 'contain' }}
                   source={require('../assets/images/smalllogo.png')}
                 />
 
@@ -284,7 +288,7 @@ function DrawerStack() {
                     left: getWidth(3),
                   }}>
                   <Image
-                    style={{width: '90%', height: '40%', resizeMode: 'contain'}}
+                    style={{ width: '90%', height: '40%', resizeMode: 'contain' }}
                     source={require('../assets/images/drawerIcon.png')}
                   />
                 </TouchableOpacity>
@@ -300,7 +304,7 @@ function DrawerStack() {
 }
 
 export const Navigation = () => {
-  const {headerShown} = useContext(AppContext);
+  const { headerShown } = useContext(AppContext);
 
   return (
     <NavigationContainer theme={DarkTheme}>

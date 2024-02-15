@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, Switch, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import LogoWithBack from "../components/LogoWithBack";
+import { getWidth } from '../../modules/dashboard/helpers/tabs';
+
+
+const BottomBorder = () => {
+  return <View style={styles.bottomBorder} />;
+};
 
 const SettingsScreen = () => {
   const [isFirstSwitchEnabled, setIsFirstSwitchEnabled] = useState(false);
@@ -14,79 +21,117 @@ const SettingsScreen = () => {
   const toggleThirdSwitch = () => setIsThirdSwitchEnabled(previousState => !previousState);
 
   const handleLogout = () => {
-    // Perform logout operations
     console.log('User logged out');
     // navigate to login screen or perform other operations
   };
 
+  const SettingOption = ({ icon, label, switchValue, onToggle }) => (
+    <View style={styles.settingOption}>
+      <View style={styles.optionContent}>
+        <Image style={styles.icon} source={icon} />
+        <Text style={styles.optionLabel}>{label}</Text>
+      </View>
+      <Switch
+        trackColor={{ false: "black", true: "#AEFF03" }}
+        thumbColor={switchValue ? "white" : "#3B3B3B"}
+        onValueChange={onToggle}
+        value={switchValue}
+      />
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.settingOption}>
-        <Text style={styles.optionLabel}>Test</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isFirstSwitchEnabled ? "#f5dd4b" : "#f4f3f4"}
-          onValueChange={toggleFirstSwitch}
-          value={isFirstSwitchEnabled}
+      <LogoWithBack title="Settings" />
+      <View style={styles.settingsContainer}>
+        <SettingOption
+          icon={require("../assets/images/moon.png")}
+          label="Sleep"
+          switchValue={isFirstSwitchEnabled}
+          onToggle={toggleFirstSwitch}
         />
-      </View>
-      <View style={styles.settingOption}>
-        <Text style={styles.optionLabel}>Test</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isSecondSwitchEnabled ? "#f5dd4b" : "#f4f3f4"}
-          onValueChange={toggleSecondSwitch}
-          value={isSecondSwitchEnabled}
+        <BottomBorder />
+        <SettingOption
+          icon={require("../assets/images/notification.png")}
+          label="Notification"
+          switchValue={isSecondSwitchEnabled}
+          onToggle={toggleSecondSwitch}
         />
-      </View>
-      <View style={styles.settingOption}>
-        <Text style={styles.optionLabel}>Test</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isThirdSwitchEnabled ? "#f5dd4b" : "#f4f3f4"}
-          onValueChange={toggleThirdSwitch}
-          value={isThirdSwitchEnabled}
+        <BottomBorder />
+        <SettingOption
+          icon={require("../assets/images/speaker.png")}
+          label="Sound"
+          switchValue={isThirdSwitchEnabled}
+          onToggle={toggleThirdSwitch}
         />
-      </View>
-      <View style={styles.settingOption}>
-        <Text style={styles.optionLabel}>Language</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('LanguageSettings')}>
-          <Text style={styles.navigateForward}>></Text>
+        <BottomBorder />
+        <TouchableOpacity>
+          <View style={styles.settingOption}>
+            <View style={styles.optionContent}>
+              <Image style={styles.icon} source={require("../assets/images/world.png")} />
+              <Text style={styles.optionLabel}>Language</Text>
+            </View>
+            <Text style={styles.navigateForward}>{'>'}</Text>
+          </View>
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-        <Text style={styles.logoutText}>Logout</Text>
+        <View style={styles.settingOption}>
+          <View style={styles.optionContent}>
+            <Image style={styles.icon} source={require("../assets/images/rightArrow2.png")} />
+            <Text style={styles.optionLabel}>Logout</Text>
+          </View>
+        </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  bottomBorder: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+    marginLeft: 52,
+  },
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    padding: getWidth(5),
+    backgroundColor: "#1f1f1f"
+  },
+  settingsContainer: {
+    backgroundColor: "#2c2c2c",
+    marginTop: 30,
+    borderRadius: 20,
   },
   settingOption: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+    padding: 15,
+  },
+  optionContent: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   optionLabel: {
     color: '#fff',
+    marginLeft: 20,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
   navigateForward: {
     color: '#fff',
-    fontSize: 24,
+    fontSize: 34,
+    marginRight: 10,
   },
   logoutButton: {
-    padding: 20,
+    backgroundColor: "#2c2c2c",
+    marginTop: 20,
+    borderRadius: 20,
+    padding: 15,
   },
-  logoutText: {
-    color: 'red',
-  }
 });
 
 export default SettingsScreen;
