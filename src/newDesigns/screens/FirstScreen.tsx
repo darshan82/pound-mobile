@@ -7,9 +7,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
 import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
 import Colors from '../components/Colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function FirstScreen() {
   const navigation = useNavigation();
+
+  // const clearLS = async () => {
+  //   await AsyncStorage.clear();
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -43,6 +48,7 @@ export default function FirstScreen() {
 
       <InputButton
         onPress={() => navigation.navigate('LoginScreen')}
+        // onPress={clearLS}
         style={{
           ...styles.loginBtn,
           backgroundColor: '#0B0B0B',

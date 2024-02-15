@@ -22,8 +22,8 @@ import QuestionWithOptions from './QuestionWithOptions';
 const JornalDetaileModal = forwardRef(
   ({journalData, monthPart, yearPart, enemyImage, attributeImages}, ref) => {
     const [isVisible, setIsVisible] = useState(false);
-    const enemies = journalData[0]?.enemies;
-    const attributes = journalData[0]?.attributes;
+    const enemies = journalData[0]?.EnemiesList;
+    const attributes = journalData[0]?.AttributesList;
 
     useImperativeHandle(ref, () => ({
       showModal(value) {
@@ -125,7 +125,7 @@ const JornalDetaileModal = forwardRef(
                   }}
                 />
                 <View style={{alignItems: 'center'}}>
-                  <Text style={fontBold(3.5)}>{journalData[0]?.totalXps}</Text>
+                  <Text style={fontBold(3.5)}>{journalData[0]?.xp}</Text>
                   <Text
                     style={[
                       fontRegular(3.5, Colors.gray3),
@@ -143,9 +143,7 @@ const JornalDetaileModal = forwardRef(
                 />
                 <View style={{alignItems: 'center'}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={fontBold(3.5)}>
-                      {journalData[0]?.totalTokens}
-                    </Text>
+                    <Text style={fontBold(3.5)}>{journalData[0]?.Token}</Text>
                     <Image
                       style={[
                         {
@@ -257,12 +255,7 @@ const JornalDetaileModal = forwardRef(
                   fontRegular(3.5, Colors.gray3),
                   {marginVertical: getWidth(8), lineHeight: getWidth(7)},
                 ]}>
-                Today, I took my first step toward the Avatar State by embracing
-                the Push-Up Prowess Challenge. Apathy and Fatigue, like shadowy
-                specters, attempted to discourage me. Yet, my resolve to prove
-                my strength and commitment remained unshaken. As I performed
-                each flawless push-up, I sensed my upper body and core growing
-                more robust with every motion.
+                {journalData[0]?.ChallangeJournal}
               </Text>
 
               <QuestionWithOptions

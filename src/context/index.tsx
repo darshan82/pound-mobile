@@ -3,6 +3,7 @@ import React, {createContext, useState, useContext, useEffect} from 'react';
 
 type GlobalDataContextType = {
   data: {
+    userId: string;
     avatarURL: string;
     token: string;
     loginToken: string;
@@ -24,6 +25,7 @@ type GlobalDataContextType = {
   };
   setData: React.Dispatch<
     React.SetStateAction<{
+      userId: string;
       avatarURL: string;
       token: string;
       loginToken: string;
@@ -47,6 +49,7 @@ type GlobalDataContextType = {
 };
 
 const initialData = {
+  userId: '',
   avatarURL: '',
   token: '',
   loginToken: '',
@@ -83,6 +86,7 @@ export const GlobalDataProvider: React.FC<{children: React.ReactNode}> = ({
   children,
 }) => {
   const [data, setData] = useState<{
+    userId: string;
     avatarURL: string;
     token: string;
     loginToken: string;

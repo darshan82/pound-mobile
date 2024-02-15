@@ -20,11 +20,26 @@ import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
 
 interface Journal {
-  attributes: string[];
-  date: string;
-  enemies: string[];
-  totalTokens: number;
-  totalXps: number;
+  _id: string;
+  ActivityLevel: number;
+  AttributesList: string[];
+  ChallangeDescription: string;
+  ChallangeJournal: string;
+  ChallengeName: string;
+  EnemiesList: string[];
+  ExercisesList: string[];
+  ReadinessScore: number;
+  Reps: number;
+  Sets: number;
+  Token: number;
+  xp: number;
+  status: string;
+  userId: string;
+  accuracy: string;
+  difficultyLevel: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 const attributeImages = {
@@ -53,30 +68,26 @@ export default function RankingScreen() {
 
   useEffect(() => {
     const getJournalData = async () => {
-      const apiUrl =
-        'http://18.217.10.162/api/challenges/user-challenges-bydate';
+      const apiUrl = 'http://18.217.10.162/api/challenges';
       const headers = {
         Authorization: `${data.loginToken}`,
         'Content-Type': 'application/json',
       };
       const res = await axios.get(apiUrl, {headers});
       setJournalData(res.data);
-      console.log('Response Of Journal API -->', res.data);
+      // console.log('Response Of Journal API -->', res.data);
     };
 
     getJournalData();
   }, [data.loginToken]);
 
-  console.log('date -->', journalData[0]?.date);
+  const createdAtDate = new Date(journalData[0]?.createdAt);
 
-  const formattedDate = new Date(journalData[0]?.date).toLocaleDateString(
-    'en-US',
-    {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    },
-  );
+  const formattedDate = createdAtDate.toLocaleString('en-US', {
+    month: 'long',
+    day: '2-digit',
+    year: 'numeric',
+  });
 
   const [monthPart, yearPart] = formattedDate.split(', ');
 
@@ -85,7 +96,7 @@ export default function RankingScreen() {
       <View style={styles.innerContainer}>
         <FlatList
           style={{marginTop: getWidth(3), paddingHorizontal: getWidth(4)}}
-          data={journalData}
+          data={journalData.slice(0, 1)}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item, index}) => {
             return (
@@ -117,7 +128,7 @@ export default function RankingScreen() {
                     }}
                   />
                   <View style={{alignItems: 'center'}}>
-                    <Text style={fontBold(3.5)}>{item.totalXps}</Text>
+                    <Text style={fontBold(3.5)}>{item.xp}</Text>
                     <Text
                       style={[
                         fontRegular(3.5, Colors.gray3),
@@ -135,7 +146,7 @@ export default function RankingScreen() {
                       }}>
                       <View
                         style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                        {item.enemies.slice(0, 3).map((enemy, index) => (
+                        {item?.EnemiesList?.map((enemy, index) => (
                           <View
                             key={index}
                             style={[
@@ -176,7 +187,7 @@ export default function RankingScreen() {
                   />
                   <View style={{alignItems: 'center'}}>
                     <View style={{flexDirection: 'row'}}>
-                      <Text style={fontBold(3.5)}>{item.totalTokens}</Text>
+                      <Text style={fontBold(3.5)}>{item.Token}</Text>
                       <Image
                         style={[
                           {
@@ -199,7 +210,7 @@ export default function RankingScreen() {
                       }}>
                       <View
                         style={{flexDirection: 'row', marginTop: getWidth(2)}}>
-                        {item.attributes.slice(0, 3).map((attribute, index) => (
+                        {item.AttributesList.map((attribute, index) => (
                           <View
                             key={index}
                             style={[
@@ -241,9 +252,6 @@ export default function RankingScreen() {
           }}
         />
       </View>
-      {/* <LockView
-      btnText="text"
-      /> */}
       <JornalDetaileModal
         journalData={journalData}
         monthPart={monthPart}

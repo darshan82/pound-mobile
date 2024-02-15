@@ -1,5 +1,5 @@
-import React, {FC, useEffect, useState} from 'react';
-import {Input, FormControl, Text, View} from 'native-base';
+import React, {FC, useState} from 'react';
+import {FormControl, Text, View} from 'native-base';
 import {
   KeyboardTypeOptions,
   NativeSyntheticEvent,
@@ -38,9 +38,6 @@ interface InputTextProps {
 }
 
 export const InputText: FC<InputTextProps> = ({
-  autoCapitalize,
-  autoCorrect,
-  editable = true,
   errorMessage,
   isInvalid = false,
   keyboardType,
@@ -48,20 +45,14 @@ export const InputText: FC<InputTextProps> = ({
   placeholder,
   style,
   styleControl,
-  type,
   value,
   containerStyle,
   onChangeText = () => {},
   isPassword,
-  onBlur,
   isFloating = true,
 }) => {
   const [valueInput, setValue] = useState(value ?? '');
   const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    setIsError(!valueInput.trim());
-  }, [valueInput]);
 
   const handleInputChange = (text: string) => {
     setValue(text);
@@ -106,12 +97,13 @@ export const InputText: FC<InputTextProps> = ({
             color: 'white',
           }}
           onChangeText={handleInputChange}
-          onBlur={onBlur}
         />
 
-        <Text style={{color: 'red', marginTop: 5, paddingHorizontal:5}}>
-          {isError ? errorMessage : null}
-        </Text>
+        {isError ? (
+          <Text style={{color: 'red', marginTop: 5, paddingHorizontal: 5}}>
+            {errorMessage}
+          </Text>
+        ) : null}
       </FormControl>
     </View>
   );

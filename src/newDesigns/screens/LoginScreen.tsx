@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-import { Image, StyleSheet, View, Text, Alert } from 'react-native';
+import {Image, StyleSheet, View, Text, Alert} from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { InputButton } from '../components/InputButton';
+import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {InputButton} from '../components/InputButton';
 import {
   fontBold,
   fontSemiBold,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { InputText } from '../components/InputText';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
-import axios, { AxiosError } from 'axios';
-import { useGlobalDataContext } from '../../context';
+import axios, {AxiosError} from 'axios';
+import {useGlobalDataContext} from '../../context';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { data, setData } = useGlobalDataContext();
+  const {data, setData} = useGlobalDataContext();
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -36,12 +36,13 @@ export default function LoginScreen() {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',
       };
-      const body = { email, password };
-      const response = await axios.post(apiUrl, body, { headers });
+      const body = {email, password};
+      const response = await axios.post(apiUrl, body, {headers});
       setData(prevData => ({
         ...prevData,
         email: email,
         loginToken: response.data.token,
+        userId: response.data.user._id,
       }));
       setEmail('');
       setPassword('');
@@ -57,7 +58,7 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView style={{ flex: 1, height: '100%' }}>
+      <KeyboardAwareScrollView style={{flex: 1, height: '100%'}}>
         <View style={styles.innerContainer}>
           <Image
             style={styles.logoImage}
@@ -67,7 +68,7 @@ export default function LoginScreen() {
           <Text style={styles.loginText}>Log In</Text>
 
           <InputText
-            containerStyle={{ marginTop: getWidth(6), width: '100%' }}
+            containerStyle={{marginTop: getWidth(6), width: '100%'}}
             labelTitle="Email Address"
             placeholder="username@hotmail.com"
             value={email}
@@ -75,7 +76,7 @@ export default function LoginScreen() {
           />
 
           <InputText
-            containerStyle={{ width: '100%' }}
+            containerStyle={{width: '100%'}}
             labelTitle="Password"
             placeholder="Password123"
             isPassword={true}
@@ -87,7 +88,7 @@ export default function LoginScreen() {
 
           <InputButton
             onPress={handleLogin}
-            style={[styles.continueBtn,]}
+            style={[styles.continueBtn]}
             labelTitle="Continue"
             textColor={Colors.gray1}
           />
@@ -133,7 +134,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-
   },
   logoImage: {
     width: getWidth(40),

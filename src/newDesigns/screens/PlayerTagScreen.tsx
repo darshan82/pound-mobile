@@ -1,4 +1,4 @@
-import React, {useEffect, useId, useState} from 'react';
+import React, {useId, useState} from 'react';
 
 import {
   Image,
@@ -28,14 +28,22 @@ export default function PlayerTagScreen() {
   const [isError, setIsError] = useState(false);
   const {data, setData} = useGlobalDataContext();
   const [playerTag, setPlayerTag] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const imageId = useId();
 
   const handleInputChange = (text: string) => {
     setPlayerTag(text);
+    setIsError(false);
   };
 
   const handleSaveName = async () => {
     try {
+      setIsLoading(true);
+      if (!playerTag) {
+        setIsLoading(false);
+        return;
+      }
       const userName = {userName: playerTag};
       const apiUrl = 'http://18.217.10.162/api/users/check-username';
       const headers = {
@@ -74,6 +82,8 @@ export default function PlayerTagScreen() {
       } else {
         console.log('Error -->', error);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -110,10 +120,12 @@ export default function PlayerTagScreen() {
             value={playerTag}
             onChangeText={handleInputChange}
             errorMessage="Please enter a player tag"
-            isInvalid={isError}
+            isInvalid={false}
           />
 
-          <Text style={styles.infoText}>{'Must contain between 5 & 15 alphanumeric characters'}</Text>
+          <Text style={styles.infoText}>
+            {'Must contain between 5 & 15 alphanumeric characters'}
+          </Text>
 
           <Image
             style={{
@@ -130,7 +142,9 @@ export default function PlayerTagScreen() {
             onPress={handleSaveName}
             style={styles.continueBtn}
             textColor={Colors.gray1}
+            isLoading={isLoading}
             labelTitle="CONTINUE"
+            isDisabled={playerTag.length < 3}
           />
         </View>
       </KeyboardAwareScrollView>
