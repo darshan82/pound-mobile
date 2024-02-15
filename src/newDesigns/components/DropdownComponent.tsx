@@ -47,7 +47,7 @@ const DropdownComponent = ({
           }}
         />
       </View>
-      {errorMessage && !value && (
+      {errorMessage && (
         <Text style={{color: 'red', marginTop: 5, paddingHorizontal:10}}>{errorMessage}</Text>
       )}
     </View>

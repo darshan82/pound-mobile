@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Platform, AppState} from 'react-native';
+import {AppState, LogBox} from 'react-native';
 import {NativeBaseProvider, StatusBar, extendTheme} from 'native-base';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {AppProvider} from './src/app/context/AppProvider';
@@ -7,6 +7,9 @@ import {configureNativeAppEventEmitter} from './src/modules/wearables/helpers/ap
 import {Navigation} from './src/newDesigns/routes/Navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import {GlobalDataProvider} from './src/context';
+
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
 
 const theme = extendTheme({
   fontConfig: {

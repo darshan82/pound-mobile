@@ -23,11 +23,30 @@ import Colors from '../components/Colors';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
 
+// prettier-ignore
+const gameImages = {
+  'Apex Legend': require('../assets/images/GamesImage/ApexLegend.png'),
+  'Dota 2': require('../assets/images/GamesImage/Dota2.png'),
+  'Escape From Tarkov': require('../assets/images/GamesImage/EscapeFromTaka.png'),
+  'Fortnite': require('../assets/images/GamesImage/Fortnite.png'),
+  'League Of Legends': require('../assets/images/GamesImage/LeagueOfLegend.png'),
+  'Minecraft': require('../assets/images/GamesImage/Minecraft.png'),
+  'Overwatch 2': require('../assets/images/GamesImage/Overwatch2.png'),
+  'Rocket League': require('../assets/images/GamesImage/RocketLeague.png'),
+  'Valorant': require('../assets/images/GamesImage/Valorant.png'),
+  'Star Craft II': require('../assets/images/GamesImage/starCraft2.png'),
+  'World of Tanks': require('../assets/images/GamesImage/WorldOfTanks.png'),
+  'World Of War Craft': require('../assets/images/GamesImage/WorldOfWarCraft.png'),
+  'Rainbow Six Seige': require('../assets/images/GamesImage/RainbowSixSeige.png'),
+  'Hearthstone' : require('../assets/images/GamesImage/heartstone.png'),
+};
+
+
 export default function FinalScreen() {
   const navigation = useNavigation();
   const [selectedItems, setSelectedItems] = useState([]);
   const {data, setData} = useGlobalDataContext();
-
+  
   const updateGame = async () => {
     try {
       if (!selectedItems.length) {
@@ -87,24 +106,20 @@ export default function FinalScreen() {
 
         <FlatList
           data={[
-            'League Of Legends',
-            'Call Of Duty',
-            'Fortnite',
-            'Dota 2',
-            'Valorant',
             'Apex Legend',
-            'Diablo 4',
-            'Genshin Impact',
-            'Halo Infinite',
-            'Counter-Strike',
+            'Dota 2',
+            'Escape From Tarkov',
+            'Fortnite',
+            'League Of Legends',
             'Minecraft',
+            'Overwatch 2',
             'Rocket League',
+            'Valorant',
+            'Star Craft II',
+            'World of Tanks',
+            'World Of War Craft',
             'Rainbow Six Seige',
             'Hearthstone',
-            'Final Fantasy',
-            'New Worlds',
-            'Warframe',
-            'Others',
           ]}
           nestedScrollEnabled={false}
           style={{marginTop: getWidth(3), flex: 1}}
@@ -135,7 +150,7 @@ export default function FinalScreen() {
                 ]}>
                 <Image
                   style={{width: '30%', height: '70%', resizeMode: 'contain'}}
-                  source={require('../assets/images/dummylogo.png')}
+                  source={gameImages[item]}
                 />
                 <Text
                   style={[

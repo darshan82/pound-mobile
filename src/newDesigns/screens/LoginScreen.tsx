@@ -76,7 +76,7 @@ export default function LoginScreen() {
           />
 
           <InputText
-            containerStyle={{width: '100%'}}
+            containerStyle={{marginTop: getWidth(6), width: '100%'}}
             labelTitle="Password"
             placeholder="Password123"
             isPassword={true}
@@ -154,6 +154,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     ...fontSemiBold(4),
     opacity: 0.6,
+    marginTop: getWidth(2),
     textDecorationLine: 'underline',
   },
   orText: {

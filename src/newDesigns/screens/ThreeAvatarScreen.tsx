@@ -12,9 +12,15 @@ import {
 } from '../../modules/dashboard/helpers/tabs';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Colors from '../components/Colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ThreeAvatarScreen() {
   const navigation = useNavigation();
+
+  const handleNavigation = async () => {
+    await AsyncStorage.clear();
+    navigation.navigate('PlayerTagScreen');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +51,7 @@ export default function ThreeAvatarScreen() {
           />
 
           <InputButton
-            onPress={() => navigation.navigate('PlayerTagScreen')}
+            onPress={handleNavigation}
             style={styles.continueBtn}
             textColor={Colors.gray1}
             labelTitle="Continue"

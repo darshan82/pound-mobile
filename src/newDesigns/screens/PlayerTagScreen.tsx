@@ -1,14 +1,6 @@
 import React, {useId, useState} from 'react';
 
-import {
-  Image,
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
-
+import {Image, StyleSheet, View, Text, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
