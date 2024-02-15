@@ -113,7 +113,7 @@ export default function PlayerTagScreen() {
             isInvalid={isError}
           />
 
-          <Text style={styles.infoText}>{'Must be xx characters and xxx'}</Text>
+          <Text style={styles.infoText}>{'Must contain between 5 & 15 alphanumeric characters'}</Text>
 
           <Image
             style={{
@@ -179,9 +179,9 @@ const styles = StyleSheet.create({
     marginTop: getWidth(2),
   },
   infoText: {
-    ...fontBold(3),
-    opacity: 0.6,
-    marginLeft: getWidth(4),
+    ...fontBold(2.8),
+    opacity: 0.5,
+    marginLeft: getWidth(1),
     marginTop: getWidth(2),
   },
   forgetText: {

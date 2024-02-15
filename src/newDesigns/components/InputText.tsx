@@ -109,7 +109,7 @@ export const InputText: FC<InputTextProps> = ({
           onBlur={onBlur}
         />
 
-        <Text style={{color: 'red', marginTop: 5, paddingHorizontal:10}}>
+        <Text style={{color: 'red', marginTop: 5, paddingHorizontal:5}}>
           {isError ? errorMessage : null}
         </Text>
       </FormControl>
