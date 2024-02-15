@@ -33,6 +33,8 @@ import Colors from '../components/Colors';
 import ThreeAvatarScreen from '../screens/ThreeAvatarScreen';
 import ThreeAvatarAfterFirst from '../screens/AfterFirstScreenThreeAvatar';
 import GameSelection from '../screens/GameSelection';
+import SettingScreen from '../screens/SettingScreen';
+
 
 export function MyTabBar({state, descriptors, navigation, position, isHome}) {
   return (
@@ -339,6 +341,8 @@ export const Navigation = () => {
         />
         <Stack.Screen name="MotionSency" component={MotionSency} />
         <Stack.Screen name="LeaderboardScreen" component={LeaderboardScreen} />
+        <Stack.Screen name="SettingScreen" component={SettingScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
