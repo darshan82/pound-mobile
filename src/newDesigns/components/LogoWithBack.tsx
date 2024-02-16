@@ -8,8 +8,6 @@ import {getWidth} from '../../modules/dashboard/helpers/tabs';
 export default function LogoWithBack({title}) {
   const navigation = useNavigation();
 
-  console.log({title});
-
   return (
     <View style={styles.innerContainer}>
       {title ? (
@@ -31,6 +29,7 @@ export default function LogoWithBack({title}) {
           <Text style={styles.logoImageWithoutText}>{title}</Text>
         </View>
       )}
+
 
       <TouchableOpacity
         onPress={() => navigation.goBack()}

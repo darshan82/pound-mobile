@@ -1,6 +1,6 @@
-import React, {useId, useState} from 'react';
+import React, {useEffect, useId, useState} from 'react';
 
-import {Image, StyleSheet, View, Text, Alert} from 'react-native';
+import {Image, StyleSheet, View, Text, TextInput} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
@@ -21,12 +21,14 @@ export default function PlayerTagScreen() {
   const {data, setData} = useGlobalDataContext();
   const [playerTag, setPlayerTag] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const [error, setError] = useState('');
   const imageId = useId();
 
   const handleInputChange = (text: string) => {
     setPlayerTag(text);
     setIsError(false);
+    setError('')
+  
   };
 
   const handleSaveName = async () => {
@@ -43,7 +45,6 @@ export default function PlayerTagScreen() {
         'Content-Type': 'application/json',
       };
       const res = await axios.post(apiUrl, userName, {headers});
-      console.log('Check User', res);
 
       if (res.data.isAvailable && isError === false) {
         try {
@@ -66,13 +67,12 @@ export default function PlayerTagScreen() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError;
-        if (axiosError.response && axiosError.response.status === 409) {
-          Alert.alert('Oops!', 'Username already taken');
+        if (axiosError?.response?.status === 409) {
+          setIsError(true);
+          setError('Tag Name Not Available');
         } else {
           console.log('Error -->', axiosError);
         }
-      } else {
-        console.log('Error -->', error);
       }
     } finally {
       setIsLoading(false);
@@ -111,9 +111,15 @@ export default function PlayerTagScreen() {
             placeholder="John Doe"
             value={playerTag}
             onChangeText={handleInputChange}
-            errorMessage="Please enter a player tag"
-            isInvalid={false}
+            errorMessage="Tag Name Not Available"
+            showError={error !== ''}
+            isInvalid={error.length !== 0}
           />
+          {error && isError ? (
+            <Text style={{color: 'red', paddingHorizontal: 8, marginTop: 5}}>
+              {error}
+            </Text>
+          ) : null}
 
           <Text style={styles.infoText}>
             {'Must contain between 5 & 15 alphanumeric characters'}
@@ -136,7 +142,7 @@ export default function PlayerTagScreen() {
             textColor={Colors.gray1}
             isLoading={isLoading}
             labelTitle="CONTINUE"
-            isDisabled={playerTag.length < 3}
+            isDisabled={playerTag.length < 3 || isLoading}
           />
         </View>
       </KeyboardAwareScrollView>
