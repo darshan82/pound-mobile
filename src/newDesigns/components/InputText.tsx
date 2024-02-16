@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {FormControl, Text, View} from 'native-base';
 import {
   KeyboardTypeOptions,
@@ -16,6 +16,7 @@ import {
 } from '../../modules/dashboard/helpers/tabs';
 import {FloatingLabelInput} from 'react-native-floating-label-input';
 import Colors from './Colors';
+import {useIsFocused} from '@react-navigation/native';
 
 interface InputTextProps {
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters' | undefined;
@@ -35,6 +36,7 @@ interface InputTextProps {
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   isPassword?: boolean;
   isFloating?: boolean;
+  showError?: boolean;
 }
 
 export const InputText: FC<InputTextProps> = ({
@@ -45,18 +47,26 @@ export const InputText: FC<InputTextProps> = ({
   placeholder,
   style,
   styleControl,
-  value,
+  value = '',
   containerStyle,
   onChangeText = () => {},
   isPassword,
   isFloating = true,
+  showError = false,
 }) => {
-  const [valueInput, setValue] = useState(value ?? '');
+  const [valueInput, setValue] = useState('');
   const [isError, setIsError] = useState(false);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      setValue('');
+    }
+  }, [isFocused]);
 
   const handleInputChange = (text: string) => {
     setValue(text);
-    setIsError(!text.trim());
+    setIsError(false);
     onChangeText(text);
   };
 
@@ -98,8 +108,7 @@ export const InputText: FC<InputTextProps> = ({
           }}
           onChangeText={handleInputChange}
         />
-
-        {isError ? (
+        {showError && (isError || isInvalid) ? (
           <Text style={{color: 'red', marginTop: 5, paddingHorizontal: 5}}>
             {errorMessage}
           </Text>

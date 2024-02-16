@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import {Image, StyleSheet, View, Text, Alert} from 'react-native';
+import {Image, StyleSheet, View, Text} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
 import {
@@ -20,14 +24,17 @@ export default function LoginScreen() {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const {data, setData} = useGlobalDataContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const isFocused = useIsFocused();
+  const [key, setKey] = useState(0);
 
   const handleLogin = async () => {
+    setIsLoading(true);
     if (!email || !password) {
-      Alert.alert(
-        'Missing Information',
-        'Please enter both email and password.',
-      );
+      setError('Email and password are required');
+      setIsLoading(false);
       return;
     }
     try {
@@ -46,20 +53,23 @@ export default function LoginScreen() {
       }));
       setEmail('');
       setPassword('');
+      setError('');
       navigation.navigate('DrawerStack');
     } catch (error) {
       const axiosError = error as AxiosError;
       console.error('Error:', axiosError);
       if (axiosError.response && axiosError.response.status === 401) {
-        Alert.alert('Oops!', 'Email or password incorrect');
+        setError('Email or password incorrect');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAwareScrollView style={{flex: 1, height: '100%'}}>
-        <View style={styles.innerContainer}>
+        <View key={key} style={styles.innerContainer}>
           <Image
             style={styles.logoImage}
             source={require('../assets/images/justLogo.png')}
@@ -73,6 +83,8 @@ export default function LoginScreen() {
             placeholder="username@hotmail.com"
             value={email}
             onChangeText={setEmail}
+            errorMessage="Email a required field"
+            showError={error !== ''}
           />
 
           <InputText
@@ -82,6 +94,8 @@ export default function LoginScreen() {
             isPassword={true}
             value={password}
             onChangeText={setPassword}
+            errorMessage="Password is a required field"
+            showError={error !== ''}
           />
 
           <Text style={styles.forgetText}>Forgot Password?</Text>
@@ -91,6 +105,10 @@ export default function LoginScreen() {
             style={[styles.continueBtn]}
             labelTitle="Continue"
             textColor={Colors.gray1}
+            isLoading={isLoading}
+            isDisabled={
+              email.length === 0 || password.length === 0 || isLoading
+            }
           />
 
           <InputButton

@@ -200,7 +200,10 @@ export default function ProgressScreen() {
             />
           </View>
 
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('LeaderboardScreen');
+            }}
             style={{
               height: getWidth(21),
               backgroundColor: Colors.gray2_0,
@@ -218,11 +221,7 @@ export default function ProgressScreen() {
               }}
               source={require('../assets/images/trophy.png')}
             />
-            <Text
-              onPress={() => {
-                navigation.navigate('LeaderboardScreen');
-              }}
-              style={[fontSemiBold(2.8), {marginVertical: getWidth(2)}]}>
+            <Text style={[fontSemiBold(2.8), {marginVertical: getWidth(2)}]}>
               Ranking
             </Text>
 
@@ -241,7 +240,7 @@ export default function ProgressScreen() {
                 {`#${userData?.ranking ? userData?.ranking : 0}`}{' '}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
       <View
