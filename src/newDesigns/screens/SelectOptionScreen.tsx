@@ -43,7 +43,7 @@ export default function SelectOptionScreen() {
       <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         <View style={styles.innerContainer}>
           <LogoWithBack />
-          <Text style={styles.loginText}>{'It’s your name.\nOwn it.'}</Text>
+          <Text style={styles.loginText}>{'It’s your journey.\nOwn it.'}</Text>
           <Text style={styles.discText}>
             {'Lets start with identifying your goals'}
           </Text>

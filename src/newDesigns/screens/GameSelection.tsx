@@ -144,7 +144,7 @@ export default function GameSelection() {
                     ]}>
                     <Image
                       style={{width: "100%",
-                        height: "40%", resizeMode:"contain"}}
+                        height: "35%", resizeMode:"contain"}}
                       source={item}
                     />
                   </TouchableOpacity>

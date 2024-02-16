@@ -42,7 +42,8 @@ export default function RankingScreen() {
                 onPress={() => jornalDetaileModalRef.current?.showModal(true)}
                 style={{
                   alignItems: 'center',
-                  padding: getWidth(5),
+                  paddingVertical: getWidth(3),
+                  paddingHorizontal: getWidth(5),
                   backgroundColor: Colors.gray2,
                   borderRadius: getWidth(4),
                   marginTop: getWidth(3),
@@ -55,8 +56,8 @@ export default function RankingScreen() {
                     alignItems: 'center',
                   }}>
                   <View style={{alignItems: 'center'}}>
-                    <Text style={fontBold(3.5)}>July 16</Text>
-                    <Text style={fontRegular(3.5)}>2023</Text>
+                    <Text style={fontBold(3.3)}>July 16</Text>
+                    <Text style={fontRegular(3.3)}>2023</Text>
                   </View>
                   <View
                     style={{
@@ -66,10 +67,10 @@ export default function RankingScreen() {
                     }}
                   />
                   <View style={{alignItems: 'center'}}>
-                    <Text style={fontBold(3.5)}>July 16</Text>
+                    <Text style={fontBold(3.3)}>146</Text>
                     <Text
                       style={[
-                        fontRegular(3.5, Colors.gray3),
+                        fontRegular(3.3, Colors.gray3),
                         {marginTop: getWidth(1)},
                       ]}>
                       XP Gain
@@ -80,10 +81,10 @@ export default function RankingScreen() {
                         width: '100%',
                         borderRadius: getWidth(3),
                         alignItems: 'center',
-                        marginTop: getWidth(3),
+                        marginTop: getWidth(2),
                       }}>
                       <View
-                        style={{flexDirection: 'row', marginTop: getWidth(2)}}>
+                        style={{flexDirection: 'row', marginTop: getWidth(1)}}>
                         {[
                           {
                             image: require(`../assets/images/Ene1.png`),
@@ -95,7 +96,7 @@ export default function RankingScreen() {
                             style={[
                               styles.image,
                               {
-                                marginLeft: index ? -getWidth(3) : 0,
+                                marginLeft: index ? -getWidth(2) : 0,
                                 overflow: 'hidden',
                               },
                             ]}>
@@ -114,7 +115,7 @@ export default function RankingScreen() {
                       </View>
                       <Text
                         style={[
-                          fontRegular(3.5, Colors.gray3),
+                          fontRegular(3.3, Colors.gray3),
                           {marginTop: getWidth(1)},
                         ]}>
                         Enemies
@@ -130,7 +131,7 @@ export default function RankingScreen() {
                   />
                   <View style={{alignItems: 'center'}}>
                     <View style={{flexDirection: 'row'}}>
-                      <Text style={fontBold(3.5)}>23</Text>
+                      <Text style={fontBold(3.3)}>23</Text>
                       <Image
                         style={[
                           {
@@ -143,16 +144,16 @@ export default function RankingScreen() {
                         source={require('../assets/images/tokenpound.png')}
                       />
                     </View>
-                    <Text style={fontRegular(3.5, Colors.gray3)}>Token</Text>
+                    <Text style={fontRegular(3.3, Colors.gray3)}>Token</Text>
                     <View
                       style={{
                         width: '100%',
                         borderRadius: getWidth(3),
                         alignItems: 'center',
-                        marginTop: getWidth(3),
+                        marginTop: getWidth(2),
                       }}>
                       <View
-                        style={{flexDirection: 'row', marginTop: getWidth(2)}}>
+                        style={{flexDirection: 'row', marginTop: getWidth(1)}}>
                         {[
                           {
                             image: require(`../assets/images/INTELLECT.png`),
@@ -165,7 +166,7 @@ export default function RankingScreen() {
                             style={[
                               styles.image,
                               {
-                                marginLeft: index ? -getWidth(3) : 0,
+                                marginLeft: index ? -getWidth(2) : 0,
                                 overflow: 'hidden',
                               },
                             ]}>
@@ -184,7 +185,7 @@ export default function RankingScreen() {
                       </View>
                       <Text
                         style={[
-                          fontRegular(3.5, Colors.gray3),
+                          fontRegular(3.3, Colors.gray3),
                           {marginTop: getWidth(1)},
                         ]}>
                         Attributes
@@ -197,9 +198,9 @@ export default function RankingScreen() {
           }}
         />
       </View>
-      {/* <LockView
+      <LockView
       btnText="text"
-      /> */}
+      />
       <JornalDetaileModal ref={jornalDetaileModalRef} />
     </View>
   );
@@ -215,12 +216,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: getWidth(10),
-    height: getWidth(10),
+    width: getWidth(7),
+    height: getWidth(7),
     resizeMode: 'contain',
     backgroundColor: Colors.gray1,
     borderRadius: getWidth(10),
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: Colors.gray2_0,
     justifyContent: 'center',
     alignItems: 'center',

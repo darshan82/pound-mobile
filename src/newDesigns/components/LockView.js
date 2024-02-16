@@ -40,7 +40,7 @@ export default function LockView({ isVisible, text, subText , btnText}) {
                     {subText ? <Text style={[fontBold(4, Colors.lightGreen), { marginBottom: getWidth(4) }]}>{subText}</Text> : null}
 
                    {btnText ?  <TouchableOpacity
-                        style={{ backgroundColor: Colors.lightGreen, paddingHorizontal: getWidth(10) , borderRadius:getWidth(10)}}
+                        style={{ backgroundColor: Colors.lightGreen, paddingHorizontal: getWidth(10) , borderRadius:getWidth(3)}}
                     >
                         <Text style={[fontBold(4, Colors.gray2), { marginVertical: getWidth(3) }]}>{btnText}</Text>
                     </TouchableOpacity> : null}

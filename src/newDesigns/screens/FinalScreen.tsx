@@ -49,7 +49,19 @@ export default function FinalScreen() {
             </Text>
 
             <FlatList
-              data={["Apex Legends" , "dummytext" , "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext", "dummytext"]}
+              data={[{name: "Apex Legends", img: require('../assets/images/game1.png')} ,
+              {name: "Dota 2", img: require('../assets/images/game2.png')} ,
+              {name: "Escape From Tarkov", img: require('../assets/images/game3.png')} ,
+              {name: "Fortnite", img: require('../assets/images/game4.png')} ,
+              {name: "League of Legends", img: require('../assets/images/game5.png')} ,
+              {name: "Minecraft", img: require('../assets/images/game6.png')} ,
+              {name: "Overwatch 2", img: require('../assets/images/game7.png')} ,
+              {name: "Rocket League", img: require('../assets/images/game8.png')} ,
+              {name: "StarCraft II", img: require('../assets/images/game9.png')} ,
+              {name: "World of Tanks", img: require('../assets/images/game10.png')},
+              {name: "Rainbow Six Siege", img: require('../assets/images/game11.png')},
+              {name: "Hearthstone", img: require('../assets/images/game12.png')},
+                    ]}
               nestedScrollEnabled={false}
               style={{marginTop: getWidth(3), flex: 1}}
               numColumns={2}
@@ -83,9 +95,9 @@ export default function FinalScreen() {
                     <Image
                       style={{width: "30%",
                         height: "70%", resizeMode:"contain"}}
-                      source={require('../assets/images/dummylogo.png')}
+                      source={item.img}
                     />
-                    <Text style={[fontBold(3.5, selectedIndex == index ? Colors.lightGreen : Colors.white), {flex:1}]}>{item}</Text>
+                    <Text style={[fontBold(3.3, selectedIndex == index ? Colors.lightGreen : Colors.white), {flex:1}]}>{item.name}</Text>
                   </TouchableOpacity>
                 );
               }}
@@ -93,7 +105,7 @@ export default function FinalScreen() {
               </ScrollView>
           <InputButton
             onPress={() => navigation.navigate('GameSelection')}
-            style={styles.continueBtn}
+            style={[styles.continueBtn, {borderWidth:0}]}
             textColor={Colors.gray1}
             labelTitle="Continue"
           />
