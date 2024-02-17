@@ -33,6 +33,7 @@ export default function GameSelection() {
   const [isMotionDetected, setIsMotionDetected] = useState(false);
   const {data, setData} = useGlobalDataContext();
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleStepCount = isOn => {
     setIsStepCounting(isOn);
@@ -47,6 +48,7 @@ export default function GameSelection() {
   const WatchName = getWatchName(selectedIndex);
 
   const handleUpdate = async () => {
+    setIsLoading(true);
     try {
       if (isMotionDetected === false && isStepCounting === false) {
         setError('Please Select at least one option');
@@ -77,6 +79,8 @@ export default function GameSelection() {
       navigation.navigate('SelectOptionScreen');
     } catch (err) {
       console.log('Error -->', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -217,6 +221,8 @@ export default function GameSelection() {
         style={styles.continueBtn}
         textColor={Colors.gray1}
         labelTitle="Continue"
+        isLoading={isLoading}
+        isDisabled={isLoading}
       />
     </SafeAreaView>
   );

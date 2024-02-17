@@ -41,16 +41,16 @@ const gameImages = {
   'Hearthstone' : require('../assets/images/GamesImage/heartstone.png'),
 };
 
-
 export default function FinalScreen() {
   const navigation = useNavigation();
   const [selectedItems, setSelectedItems] = useState([]);
   const {data, setData} = useGlobalDataContext();
-  
+  const [isLoading, setIsLoading] = useState(false);
+
   const updateGame = async () => {
+    setIsLoading(true);
     try {
       if (!selectedItems.length) {
-        Alert.alert('Oops', 'Select the games you play to continue');
         return;
       }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
@@ -72,6 +72,8 @@ export default function FinalScreen() {
       navigation.navigate('DrawerStack');
     } catch (err) {
       console.log('Error -->', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -172,6 +174,8 @@ export default function FinalScreen() {
         style={styles.continueBtn}
         textColor={Colors.gray1}
         labelTitle="Continue"
+        isLoading={isLoading}
+        isDisabled={!selectedItems.length || isLoading}
       />
     </SafeAreaView>
   );

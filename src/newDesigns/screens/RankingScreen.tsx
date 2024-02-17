@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 interface PlayerRanking {
@@ -30,9 +31,11 @@ import axios from 'axios';
 export default function RankingScreen() {
   const [playerRanking, setPlayerRanking] = useState<PlayerRanking[]>([]);
   const {data} = useGlobalDataContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const getPlayerRanking = async () => {
+      setIsLoading(true);
       try {
         const apiUrl = 'http://18.217.10.162/api/users/ranking';
         const headers = {
@@ -45,12 +48,14 @@ export default function RankingScreen() {
             'rank' in player &&
             'firstName' in player &&
             'lastName' in player &&
-            'avatar' in player
+            'avatar' in player,
         );
         setPlayerRanking(filteredPlayerRanking);
         console.log('Get Player Ranking -->', filteredPlayerRanking);
       } catch (e) {
         console.log('Error In Get Player Ranking', e);
+      } finally {
+        setIsLoading(false);
       }
     };
     getPlayerRanking();
@@ -59,35 +64,43 @@ export default function RankingScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
-        <FlatList
-          data={playerRanking}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item, index}) => {
-            return (
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  marginTop: getWidth(3),
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  paddingVertical: getWidth(3),
-                  backgroundColor: Colors.gray2,
-                  paddingHorizontal: getWidth(4),
-                  borderRadius: getWidth(3),
-                }}>
-                <Text style={fontBold(4, '#AEFF03')}>{item.rank}</Text>
-                <Image
-                  style={styles.image}
-                  source={{uri: item.avatar.replace('.glb', '.png')}}
-                />
-                <Text style={[fontRegular(4), {width: '50%'}]}>
-                  {`${item.firstName} ${item.lastName}`}
-                </Text>
-                <Text style={fontBold(4, '#AEFF03')}>{`${item.xps ? item.xps : 0} xp`}</Text>
-              </TouchableOpacity>
-            );
-          }}
-        />
+        {isLoading ? (
+          <View style={styles.activityIndicatorContainer}>
+            <ActivityIndicator color="#AEFF03" size="large" />
+          </View>
+        ) : (
+          <FlatList
+            data={playerRanking}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({item, index}) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: getWidth(3),
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    paddingVertical: getWidth(3),
+                    backgroundColor: Colors.gray2,
+                    paddingHorizontal: getWidth(4),
+                    borderRadius: getWidth(3),
+                  }}>
+                  <Text style={fontBold(4, '#AEFF03')}>{item.rank}</Text>
+                  <Image
+                    style={styles.image}
+                    source={{uri: item.avatar.replace('.glb', '.png')}}
+                  />
+                  <Text style={[fontRegular(4), {width: '50%'}]}>
+                    {`${item.firstName} ${item.lastName}`}
+                  </Text>
+                  <Text style={fontBold(4, '#AEFF03')}>{`${
+                    item.xps ? item.xps : 0
+                  } xp`}</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        )}
       </View>
     </SafeAreaView>
   );
@@ -100,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray0,
   },
   innerContainer: {
-    // flex:1,
+    flex: 1,
     justifyContent: 'center',
   },
   image: {
@@ -109,5 +122,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     backgroundColor: 'white',
     borderRadius: getWidth(10),
+  },
+  activityIndicatorContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
   },
 });

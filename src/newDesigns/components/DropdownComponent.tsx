@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import Colors from './Colors';
@@ -7,6 +7,7 @@ import {
   fontRegular,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
+import {useIsFocused} from '@react-navigation/native';
 
 const DropdownComponent = ({
   containerStyle,
@@ -16,6 +17,13 @@ const DropdownComponent = ({
   errorMessage,
 }) => {
   const [value, setValue] = useState(null);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      setValue(null);
+    }
+  }, [isFocused]);
 
   return (
     <View style={containerStyle}>
@@ -29,10 +37,8 @@ const DropdownComponent = ({
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
-          // itemTextStyle={fontRegular(3.5, "white")}
           iconStyle={styles.iconStyle}
           data={data}
-          search
           maxHeight={getWidth(80)}
           labelField="label"
           valueField="value"
@@ -47,9 +53,11 @@ const DropdownComponent = ({
           }}
         />
       </View>
-      {errorMessage && (
-        <Text style={{color: 'red', marginTop: 5, paddingHorizontal:10}}>{errorMessage}</Text>
-      )}
+      {/* {errorMessage && (
+        <Text style={{color: 'red', marginTop: 5, paddingHorizontal: 10}}>
+          {errorMessage}
+        </Text>
+      )} */}
     </View>
   );
 };
@@ -62,13 +70,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.gray2,
   },
   itemContainerStyle: {
-    borderRadius: getWidth(4),
     overflow: 'hidden',
+    // backgroundColor: Colors.lightGreen //TODO: change color
   },
   dropdown: {
     height: 50,
     backgroundColor: Colors.gray2,
-
     borderRadius: 8,
     paddingHorizontal: getWidth(4),
   },

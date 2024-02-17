@@ -22,25 +22,29 @@ export default function ConfirmationPass() {
   const [isLoading, setIsLoading] = useState(false);
 
   const registerUser = async (values, actions) => {
+    setIsLoading(true);
     const apiUrl = 'http://18.217.10.162/api/users/update-user';
     const headers = {
       Authorization: `${data.token}`,
       'Content-Type': 'application/json',
     };
     const body = {...values};
-
     try {
+      console.log({body})
       const response = await axios.put(apiUrl, body, {headers});
       console.log('Register User -->:', response.data);
       setData(prevData => ({
         ...prevData,
         email: values.email,
       }));
+      actions.resetForm();
       navigation.navigate('GameSelection');
     } catch (error) {
       console.error('Error:', error);
       actions.setSubmitting(false);
-      Alert.alert('Registration failed. Please try again later.');
+      // Alert.alert('Registration failed. Please try again later.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,45 +82,48 @@ export default function ConfirmationPass() {
             }}
             validate={values => {
               const errors = {};
-              if (
-                !values.email ||
-                !values.password ||
-                !values.confirmPassword ||
-                !values.firstName ||
-                !values.lastName
-              ) {
-                errors.allFieldsRequired = 'All fields are required.';
+              if (!values.email) {
+                errors.email = 'Email is required';
               }
-              if (!isStrongPassword(values.password)) {
-                errors.strongPassword =
-                  'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.';
+              if (!values.password) {
+                errors.password = 'Password is required';
               }
-              if (values.password !== values.confirmPassword) {
-                errors.passwordMatch =
-                  'Password and Confirm Password do not match.';
+              if (!values.confirmPassword) {
+                errors.confirmPassword = 'Confirm Password is required';
               }
+              if (!values.firstName) {
+                errors.firstName = 'First Name is required';
+              }
+              if (!values.lastName) {
+                errors.lastName = 'Last Name is required';
+              }
+              // Additional validations...
               return errors;
             }}>
             {({handleChange, handleSubmit, values, errors, touched}) => (
-              <View>
-                <InputText
-                  containerStyle={{marginTop: getWidth(3), width: '48%'}}
-                  labelTitle="First name"
-                  placeholder="John"
-                  value={values.firstName}
-                  onChangeText={handleChange('firstName')}
-                  errorMessage={touched.firstName && errors.firstName}
-                  isInvalid={touched.firstName && errors.firstName}
-                />
-                <InputText
-                  containerStyle={{marginTop: getWidth(3), width: '48%'}}
-                  labelTitle="Last name"
-                  placeholder="Doe"
-                  value={values.lastName}
-                  onChangeText={handleChange('lastName')}
-                  errorMessage={touched.lastName && errors.lastName}
-                  isInvalid={touched.lastName && errors.lastName}
-                />
+              <View style={{flex: 1, width: '100%'}}>
+                <View style={{flexDirection: 'row', gap: 10}}>
+                  <InputText
+                    containerStyle={{marginTop: getWidth(3), width: '48%'}}
+                    labelTitle="First name"
+                    placeholder="John"
+                    value={values.firstName}
+                    onChangeText={handleChange('firstName')}
+                    errorMessage={touched.firstName && errors.firstName}
+                    showError={touched.firstName || errors.firstName}
+                    isInvalid={touched.firstName && errors.firstName}
+                  />
+                  <InputText
+                    containerStyle={{marginTop: getWidth(3), width: '48%'}}
+                    labelTitle="Last name"
+                    placeholder="Doe"
+                    value={values.lastName}
+                    onChangeText={handleChange('lastName')}
+                    errorMessage={touched.lastName && errors.lastName}
+                    showError={touched.lastName || errors.lastName}
+                    isInvalid={touched.lastName && errors.lastName}
+                  />
+                </View>
                 <InputText
                   containerStyle={{marginTop: getWidth(3), width: '100%'}}
                   labelTitle="Email"
@@ -124,6 +131,7 @@ export default function ConfirmationPass() {
                   value={values.email}
                   onChangeText={handleChange('email')}
                   errorMessage={touched.email && errors.email}
+                  showError={touched.email || errors.email}
                   isInvalid={touched.email && errors.email}
                 />
                 <InputText
@@ -134,6 +142,7 @@ export default function ConfirmationPass() {
                   value={values.password}
                   onChangeText={handleChange('password')}
                   errorMessage={touched.password && errors.password}
+                  showError={touched.password || errors.password}
                   isInvalid={touched.password && errors.password}
                 />
                 <InputText
@@ -146,6 +155,7 @@ export default function ConfirmationPass() {
                   errorMessage={
                     touched.confirmPassword && errors.confirmPassword
                   }
+                   showError={touched.confirmPassword || errors.confirmPassword}
                   isInvalid={touched.confirmPassword && errors.confirmPassword}
                 />
                 <InputButton

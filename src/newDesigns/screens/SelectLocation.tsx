@@ -42,6 +42,7 @@ export default function SelectLocation() {
   const [location, setLocation] = useState(null);
   const [timeZone, setTimeZone] = useState('');
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const requestLocationPermission = async () => {
     await Geolocation.requestAuthorization();
@@ -68,6 +69,7 @@ export default function SelectLocation() {
   };
 
   const handlePhysique = async () => {
+    setIsLoading(true);
     try {
       if (!age || !location || !timeZone) {
         return;
@@ -101,6 +103,8 @@ export default function SelectLocation() {
       navigation.navigate('FinalScreen');
     } catch (err) {
       console.log('Error -->', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -136,13 +140,12 @@ export default function SelectLocation() {
 
           <DropdownComponent
             containerStyle={{marginTop: getWidth(10), width: '100%'}}
-            style={{color: '#AEFF03'}}
+            style={{color: '#AEFF03', backgroundColor: 'black'}}
             isFloating={false}
             labelTitle="What is your location?"
             placeholder="Insert answer"
             data={LocationData}
             onSelectValue={setLocation}
-            errorMessage="Please Select Location"
           />
           <DropdownComponent
             containerStyle={{marginTop: getWidth(10), width: '100%'}}
@@ -152,7 +155,6 @@ export default function SelectLocation() {
             placeholder="Insert answer"
             data={TimeZone}
             onSelectValue={setTimeZone}
-            errorMessage="Please Select TimeZone"
           />
         </View>
       </KeyboardAwareScrollView>
@@ -167,6 +169,8 @@ export default function SelectLocation() {
           },
         ]}
         labelTitle="Continue"
+        isLoading={isLoading}
+        isDisabled={!age || !location?.length || !timeZone?.length || isLoading}
       />
     </SafeAreaView>
   );

@@ -98,6 +98,19 @@ export default function LoginScreen() {
             showError={error !== ''}
           />
 
+          {error ? (
+            <Text
+              style={{
+                color: 'red',
+                fontWeight: '700',
+                fontSize: 16,
+                marginTop: 5,
+                marginBottom: 4,
+              }}>
+              {error}
+            </Text>
+          ) : null}
+
           <Text style={styles.forgetText}>Forgot Password?</Text>
 
           <InputButton

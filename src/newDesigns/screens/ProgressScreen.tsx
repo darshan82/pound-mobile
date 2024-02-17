@@ -322,7 +322,10 @@ export default function ProgressScreen() {
               resizeMode: 'contain',
             }}
             source={{
-              uri: `${userData?.avatar}?pose=relaxed&expression=happy&camera=fullbody`,
+              uri: `${userData?.avatar.replace(
+                'glb',
+                'png',
+              )}?pose=relaxed&expression=happy&camera=fullbody`,
             }}
           />
 

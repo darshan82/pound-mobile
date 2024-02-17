@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {StyleSheet, View, Text, Alert} from 'react-native';
+import {StyleSheet, View, Text, Alert, ScrollView} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -23,6 +23,7 @@ export default function SelectOptionScreen() {
   const [power, setPower] = useState([]);
   const {data, setData} = useGlobalDataContext();
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const setPowerState = value => {
     const _power = [...power];
@@ -48,6 +49,7 @@ export default function SelectOptionScreen() {
   console.log({trueCount});
 
   const UpdateGoal = async () => {
+    setIsLoading(true);
     try {
       if (trueCount !== 2) {
         setError('Exactly two goals must be selected');
@@ -75,12 +77,14 @@ export default function SelectOptionScreen() {
       navigation.navigate('SelectWeightGender');
     } catch (err) {
       console.log('Error -->', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+      <ScrollView contentContainerStyle={{flex: 1}}>
         <View style={styles.innerContainer}>
           <LogoWithBack />
           <Text style={styles.loginText}>{'It’s your name.\nOwn it.'}</Text>
@@ -217,9 +221,11 @@ export default function SelectOptionScreen() {
             ]}
             labelTitle="Continue"
             textColor={Colors.gray1}
+            isLoading={isLoading}
+            isDisabled={isLoading}
           />
         </View>
-      </KeyboardAwareScrollView>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -228,7 +234,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(5),
-    paddingVertical: getWidth(2),
+    paddingVertical: getWidth(6),
   },
   innerContainer: {
     flex: 1,
@@ -255,7 +261,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     ...fontSemiBold(4.2, Colors.gray3),
     textAlign: 'center',
-    marginVertical: getWidth(5),
+    marginVertical: getWidth(4),
   },
   infoText: {
     alignSelf: 'center',

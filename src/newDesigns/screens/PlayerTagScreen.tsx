@@ -27,8 +27,7 @@ export default function PlayerTagScreen() {
   const handleInputChange = (text: string) => {
     setPlayerTag(text);
     setIsError(false);
-    setError('')
-  
+    setError('');
   };
 
   const handleSaveName = async () => {
@@ -142,7 +141,9 @@ export default function PlayerTagScreen() {
             textColor={Colors.gray1}
             isLoading={isLoading}
             labelTitle="CONTINUE"
-            isDisabled={playerTag.length < 3 || isLoading}
+            isDisabled={
+              playerTag.length < 5 || playerTag.length > 18 || isLoading
+            }
           />
         </View>
       </KeyboardAwareScrollView>

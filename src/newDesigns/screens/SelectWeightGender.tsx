@@ -24,6 +24,8 @@ export default function SelectWeightGender() {
   const [weight, setWeight] = useState('');
   const {data, setData} = useGlobalDataContext();
   const [isError, setIsError] = useState(false);
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (value, fieldName) => {
     switch (fieldName) {
@@ -39,8 +41,10 @@ export default function SelectWeightGender() {
   };
 
   const handlePhysique = async () => {
+    setIsLoading(true);
     try {
-      if (!gender || !height || !weight) {
+      if (!gender || !height.length || !weight.length) {
+        setError('Please fill all the fields');
         return;
       }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
@@ -68,6 +72,8 @@ export default function SelectWeightGender() {
       navigation.navigate('SelectLocation');
     } catch (err) {
       console.log('Error -->', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -94,7 +100,7 @@ export default function SelectWeightGender() {
               onChangeText={text => handleInputChange(text, 'height')}
               keyboardType="numeric"
               errorMessage="Please enter your height"
-              isInvalid={isError}
+              showError={error !== ''}
             />
 
             <InputText
@@ -164,6 +170,8 @@ export default function SelectWeightGender() {
             },
           ]}
           labelTitle="CONTINUE"
+          isLoading={isLoading}
+          isDisabled={isLoading || !height.length || !weight.length}
         />
       </View>
     </SafeAreaView>
