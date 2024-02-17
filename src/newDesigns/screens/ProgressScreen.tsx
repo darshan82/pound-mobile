@@ -127,7 +127,7 @@ export default function ProgressScreen() {
       }
     };
     getData();
-  }, []);
+  }, [data.loginToken]);
 
   return (
     <View style={styles.container}>

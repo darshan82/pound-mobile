@@ -37,7 +37,8 @@ import {
 import Colors from '../components/Colors';
 import LockView from '../components/LockView';
 import {useGlobalDataContext} from '../../context';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
+import {isLight} from 'native-base/lib/typescript/theme/tools';
 
 export default function FitnessChallage() {
   const {data} = useGlobalDataContext();
@@ -45,6 +46,9 @@ export default function FitnessChallage() {
   const [userChallenges, setUserChallenges] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const {userId, loginToken} = data;
+  const [isLoading,setIsLoading] = useState(false);
+  const [isChallengeCompleteLoading, setIsChallengeCompleteLoading] =
+    useState(false);
 
   const reloadChallenge = () => {
     setCurrentIndex(prevIndex => (prevIndex + 1) % userChallenges.length);
@@ -89,6 +93,7 @@ export default function FitnessChallage() {
   const [monthPart] = formattedDate.split(', ');
 
   const createChallenge = async () => {
+    setIsLoading(true)
     try {
       const apiUrl = 'http://18.217.10.162/api/challenges/create-challenge';
       const headers = {
@@ -101,10 +106,14 @@ export default function FitnessChallage() {
       setShowCreateScreen(true);
     } catch (error) {
       console.error('Error creating challenge:', error);
+    } finally {
+      setIsLoading(false)
     }
   };
 
   const completeChallenge = async id => {
+    console.log({id});
+    setIsChallengeCompleteLoading(true);
     try {
       const apiUrl = `http://18.217.10.162/api/challenges/complete-challenge/${id}`;
       console.log({apiUrl});
@@ -116,7 +125,10 @@ export default function FitnessChallage() {
       const res = await axios.put(apiUrl, {}, {headers});
       console.log('Challenge Completed -->', res.data);
     } catch (error) {
-      console.error('Error Completed challenge:', error);
+      const axiosError = error as AxiosError;
+      console.error('Error Completed challenge:', axiosError);
+    } finally {
+      setIsChallengeCompleteLoading(false);
     }
   };
 
@@ -127,6 +139,7 @@ export default function FitnessChallage() {
           text="Need a Challenge?"
           subText=""
           btnText="Generate Challenge"
+          isLoading={isLoading}
           handleBtnClick={createChallenge}
         />
       ) : (
@@ -368,7 +381,9 @@ export default function FitnessChallage() {
               </View>
 
               <InputButton
-                onPress={() => {}}
+                onPress={() =>
+                  completeChallenge(userChallenges[currentIndex]._id)
+                }
                 style={[
                   {
                     borderWidth: 0,
@@ -427,9 +442,6 @@ export default function FitnessChallage() {
               </TouchableOpacity>
 
               <InputButton
-                onPress={() =>
-                  completeChallenge(userChallenges[currentIndex]._id)
-                }
                 style={[
                   styles.continueBtn,
                   {
@@ -437,8 +449,12 @@ export default function FitnessChallage() {
                     borderColor: Colors.gray3,
                     backgroundColor: 'transparent',
                     marginBottom: getWidth(5),
+                    height: getWidth(10),
                   },
                 ]}
+                onPress={() =>
+                  completeChallenge(userChallenges[currentIndex]._id)
+                }
                 labelTitle="Heart rate detected"
               />
             </>

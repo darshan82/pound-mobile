@@ -84,7 +84,11 @@ export default function SelectOptionScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{flex: 1}}>
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          overflow: 'scroll',
+        }}>
         <View style={styles.innerContainer}>
           <LogoWithBack />
           <Text style={styles.loginText}>{'It’s your name.\nOwn it.'}</Text>
@@ -235,6 +239,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: getWidth(5),
     paddingVertical: getWidth(6),
+    marginTop: getWidth(-3),
   },
   innerContainer: {
     flex: 1,

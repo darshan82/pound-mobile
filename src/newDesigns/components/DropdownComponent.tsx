@@ -18,6 +18,7 @@ const DropdownComponent = ({
 }) => {
   const [value, setValue] = useState(null);
   const isFocused = useIsFocused();
+  const [itemTextStyle, setItemTextStyle] = useState({color: '#AEFF03'});
 
   useEffect(() => {
     if (isFocused) {
@@ -38,6 +39,7 @@ const DropdownComponent = ({
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
+          activeColor="#AEFF03"
           data={data}
           maxHeight={getWidth(80)}
           labelField="label"
@@ -45,11 +47,13 @@ const DropdownComponent = ({
           placeholder={'Select item'}
           searchPlaceholder="Search..."
           value={value}
+          itemTextStyle={itemTextStyle}
           onChange={item => {
             setValue(item.value);
             if (onSelectValue) {
               onSelectValue(item.value);
             }
+            setItemTextStyle({color: 'white'});
           }}
         />
       </View>
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
   },
   itemContainerStyle: {
     overflow: 'hidden',
-    // backgroundColor: Colors.lightGreen //TODO: change color
+    backgroundColor: 'black',
   },
   dropdown: {
     height: 50,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -25,6 +25,30 @@ const SettingsScreen = () => {
   const [isSecondSwitchEnabled, setIsSecondSwitchEnabled] = useState(false);
   const [isThirdSwitchEnabled, setIsThirdSwitchEnabled] = useState(false);
   const {data} = useGlobalDataContext();
+  const [userData, setUserData] = useState<any | null>(null);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const userToken = data.loginToken;
+        const apiUrl = 'http://18.217.10.162/api/users/profile';
+        const headers = {
+          Authorization: `${userToken}`,
+          'Content-Type': 'application/json',
+        };
+        const res = await axios.get(apiUrl, {headers});
+        console.log('res -->', res.data);
+        setUserData(res.data);
+
+        setIsFirstSwitchEnabled(res.data.sleepingMode);
+        setIsSecondSwitchEnabled(res.data.notification);
+        setIsThirdSwitchEnabled(res.data.sound);
+      } catch (e) {
+        console.log('Error ->', e);
+      }
+    };
+    getData();
+  }, [data.loginToken]);
 
   const navigation = useNavigation();
 
@@ -82,11 +106,6 @@ const SettingsScreen = () => {
         headers,
       });
       console.log('Update Setting -->', res.data);
-      // setData(prevData => ({
-      //   ...prevData,
-      //   gender: res.data.physicalAttributes.gender,
-      // }));
-      // navigation.navigate('AvatarScreen');
     } catch (err) {
       console.log('Error -->', err);
     }

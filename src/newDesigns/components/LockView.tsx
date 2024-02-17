@@ -4,6 +4,7 @@ import {Image, StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import {InputButton} from '../components/InputButton';
 
 export default function LockView({
   isVisible,
@@ -11,6 +12,8 @@ export default function LockView({
   subText,
   btnText,
   handleBtnClick,
+  isLoading,
+  isDisable,
 }) {
   const navigation = useNavigation();
 
@@ -46,21 +49,19 @@ export default function LockView({
           ) : null}
 
           {btnText ? (
-            <TouchableOpacity
+            <InputButton
               onPress={handleBtnClick}
+              isLoading={isLoading}
+              isDisabled={isLoading}
+              textColor="black"
               style={{
-                backgroundColor: Colors.lightGreen,
-                paddingHorizontal: getWidth(10),
+                backgroundColor: '#AEFF03',
+                width: getWidth(70),
                 borderRadius: getWidth(10),
-              }}>
-              <Text
-                style={[
-                  fontBold(4, Colors.gray2),
-                  {marginVertical: getWidth(3)},
-                ]}>
-                {btnText}
-              </Text>
-            </TouchableOpacity>
+                borderWidth: 0,
+              }}
+              labelTitle="Generate Challenge"
+            />
           ) : null}
         </View>
       </View>
