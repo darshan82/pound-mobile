@@ -134,6 +134,7 @@ export default function SelectWeightGender() {
                       }
                     : null,
                 ]}
+                textColor={gender == 'male' ? Colors.lightGreen : Colors.white}
                 labelTitle="Male"
               />
               <InputButton
@@ -153,6 +154,7 @@ export default function SelectWeightGender() {
                       }
                     : null,
                 ]}
+                textColor={gender == 'fe-male' ? Colors.lightGreen : Colors.white}
                 labelTitle="Female"
               />
             </View>

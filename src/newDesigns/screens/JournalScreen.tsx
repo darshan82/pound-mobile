@@ -122,8 +122,8 @@ export default function RankingScreen() {
                       alignItems: 'center',
                     }}>
                     <View style={{alignItems: 'center'}}>
-                      <Text style={fontBold(3.5)}>{monthPart}</Text>
-                      <Text style={fontRegular(3.5)}>{yearPart}</Text>
+                      <Text style={fontBold(3.3)}>{monthPart}</Text>
+                      <Text style={fontRegular(3.3)}>{yearPart}</Text>
                     </View>
                     <View
                       style={{
@@ -285,12 +285,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: getWidth(10),
-    height: getWidth(10),
+    width: getWidth(7),
+    height: getWidth(7),
     resizeMode: 'contain',
     backgroundColor: Colors.gray1,
     borderRadius: getWidth(10),
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: Colors.gray2_0,
     justifyContent: 'center',
     alignItems: 'center',
