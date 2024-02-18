@@ -170,11 +170,11 @@ export default function ProgressScreen() {
           <View style={{flex: 1}}>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
                 LEVEL
               </Text>
 
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
                 {userData?.level ? userData?.level : 0}
               </Text>
             </View>
@@ -185,12 +185,12 @@ export default function ProgressScreen() {
             />
 
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
+              style={{flexDirection: 'row', justifyContent: 'space-between',marginTop:getWidth(2)}}>
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
                 STREAK
               </Text>
 
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(2)}]}>
+              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
                 64 Days
               </Text>
             </View>
