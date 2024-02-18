@@ -12,7 +12,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
 import {useGlobalDataContext} from '../../context';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {Formik} from 'formik';
 import {isStrongPassword} from '../../app/helpers';
 
@@ -30,7 +30,7 @@ export default function ConfirmationPass() {
     };
     const body = {...values};
     try {
-      console.log({body})
+      console.log({body});
       const response = await axios.put(apiUrl, body, {headers});
       console.log('Register User -->:', response.data);
       setData(prevData => ({
@@ -40,9 +40,14 @@ export default function ConfirmationPass() {
       actions.resetForm();
       navigation.navigate('GameSelection');
     } catch (error) {
-      console.error('Error:', error);
+      console.log({error});
+      const axiosError = error as AxiosError;
+      console.error('Error While Registering User:', axiosError);
+      if (axiosError.response && axiosError.response.status === 400) {
+        console.log('Email Exist');
+        actions.setFieldError('email', 'Email Already Exists!');
+      }
       actions.setSubmitting(false);
-      // Alert.alert('Registration failed. Please try again later.');
     } finally {
       setIsLoading(false);
     }
@@ -84,12 +89,19 @@ export default function ConfirmationPass() {
               const errors = {};
               if (!values.email) {
                 errors.email = 'Email is required';
+              } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
+                errors.email = 'Invalid email address';
               }
               if (!values.password) {
                 errors.password = 'Password is required';
+              } else if (!isStrongPassword(values.password)) {
+                errors.password =
+                  'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character';
               }
               if (!values.confirmPassword) {
                 errors.confirmPassword = 'Confirm Password is required';
+              } else if (values.confirmPassword !== values.password) {
+                errors.confirmPassword = 'Passwords do not match';
               }
               if (!values.firstName) {
                 errors.firstName = 'First Name is required';
@@ -97,7 +109,6 @@ export default function ConfirmationPass() {
               if (!values.lastName) {
                 errors.lastName = 'Last Name is required';
               }
-              // Additional validations...
               return errors;
             }}>
             {({handleChange, handleSubmit, values, errors, touched}) => (
@@ -155,7 +166,7 @@ export default function ConfirmationPass() {
                   errorMessage={
                     touched.confirmPassword && errors.confirmPassword
                   }
-                   showError={touched.confirmPassword || errors.confirmPassword}
+                  showError={touched.confirmPassword || errors.confirmPassword}
                   isInvalid={touched.confirmPassword && errors.confirmPassword}
                 />
                 <InputButton

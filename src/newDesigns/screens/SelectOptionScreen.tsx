@@ -86,8 +86,7 @@ export default function SelectOptionScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={{
-          flex: 1,
-          overflow: 'scroll',
+          flexGrow: 1,
         }}>
         <View style={styles.innerContainer}>
           <LogoWithBack />
