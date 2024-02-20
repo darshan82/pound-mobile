@@ -1,75 +1,75 @@
 import React, { FC } from "react";
 
 import {
-    Dimensions,
-    Image,
-    StyleProp,
-    StyleSheet,
-    Text,
-    View,
-    ViewStyle,
+  Dimensions,
+  Image,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
 } from "react-native";
 
 
 import { useNavigation } from '@react-navigation/native';
 import { fontBold, getWidth } from "../../modules/dashboard/helpers/tabs";
-import  { CircularProgressBase } from 'react-native-circular-progress-indicator';
+import { CircularProgressBase } from 'react-native-circular-progress-indicator';
 
 interface RoundProgressProps {
-   progress: number,
-   style?: StyleProp<ViewStyle>;
-   size: number,
-   progressText: string | number,
-   centerImg : string ,
-   color: string,
-   isloacked:boolean
-  }
-  
-  export const RoundProgress: FC<RoundProgressProps> = ({
-    progress = 0,
-    style ,
-    size = getWidth(50),
-    progressText = 0,
-    centerImg,
-    color,
-    isloacked = true
-  }) => {
+  progress: number,
+  style?: StyleProp<ViewStyle>;
+  size: number,
+  progressText: string | number,
+  centerImg: string,
+  color: string,
+  isloacked: boolean
+}
 
-    const navigation = useNavigation();
+export const RoundProgress: FC<RoundProgressProps> = ({
+  progress = 0,
+  style,
+  size = getWidth(50),
+  progressText = 0,
+  centerImg,
+  color,
+  isloacked = true
+}) => {
 
-    return (
+  const navigation = useNavigation();
+
+  return (
+    <View
+      style={[
+        {
+          width: size,
+          height: size,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 1,
+          borderColor: color,
+          borderRadius: getWidth(10),
+        },
+        style,
+      ]}>
+      <Image
+        style={{
+          width: '70%',
+          height: '70%',
+          resizeMode: 'contain',
+          position: 'absolute',
+        }}
+        source={
+          !isloacked ? centerImg : require('../assets/images/lockround.png')
+        }
+      />
+
       <View
-        style={[
-          {
-            width: size,
-            height: size,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: color,
-            borderRadius: getWidth(10),
-          },
-          style,
-        ]}>
-        <Image
-          style={{
-            width: '70%',
-            height: '70%',
-            resizeMode: 'contain',
-            position: 'absolute',
-          }}
-          source={
-            !isloacked ? centerImg : require('../assets/images/lockround.png')
-          }
-        />
+        style={{
+          // marginTop: getWidth(1.3),
+          // transform: [{rotate: '340deg'}],
+        }}>
 
-        <View
-          style={{
-            // marginTop: getWidth(1.3),
-            // transform: [{rotate: '340deg'}],
-          }}>
-
-{/* <CircularProgress
+        {/* <CircularProgress
             backgroundColor={'rgba(0,0,0,0)'}
             radius={size / 2.25}
             strokeWidth={size / 10}
@@ -81,72 +81,72 @@ interface RoundProgressProps {
             onAnimationFinish={() => {}}
           /> */}
 
-          <CircularProgressBase
+        <CircularProgressBase
           radius={size / 2.25}
-            value={isloacked ? 100 : progress}
-            activeStrokeColor={isloacked ? '#000000' : color}
-            activeStrokeSecondaryColor={'#FFFFFF'}
-          />
-        </View>
+          value={isloacked ? 100 : progress}
+          activeStrokeColor={isloacked ? '#000000' : color}
+          activeStrokeSecondaryColor={'#FFFFFF'}
+        />
       </View>
-    );
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: getWidth(8),
-    },
-    innerContainer: {
-        flex: 1,
-        backgroundColor: "white",
-    },
-    logoImage: {
-        width: getWidth(18),
-        height: getWidth(18),
-        marginVertical: getWidth(5),
-        resizeMode: "contain",
-        alignSelf: "center"
-    },
-    powerdByImage: {
-        width: "100%",
-        height: getWidth(8),
-        resizeMode: "contain",
-        marginTop: getWidth(10)
-    },
-    loginText: {
-        alignSelf: "center",
-        ...fontBold(7),
-        textAlign: "center"
-    },
-    discText: {
-        alignSelf: "center",
-        ...fontBold(3),
-        textAlign: "center",
-        marginVertical: getWidth(5)
-    },
-    infoText: {
-        alignSelf: "center",
-        ...fontBold(2.5),
-        textAlign: "center",
-        opacity: 0.6,
-    },
-    forgetText: {
-        alignSelf: "center",
-        ...fontBold(3),
-        opacity: 0.6,
-        marginTop: getWidth(5)
-    },
-    orText: {
-        alignSelf: "center",
-        ...fontBold(4),
-        marginTop: getWidth(3)
-    },
-    continueBtn: {
-        marginTop: getWidth(2)
-    },
-    imgBtn: {
-        marginTop: getWidth(4),
-        backgroundColor: 'rgba(255,255,552,0.2)'
-    },
+  container: {
+    flex: 1,
+    padding: getWidth(8),
+  },
+  innerContainer: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  logoImage: {
+    width: getWidth(18),
+    height: getWidth(18),
+    marginVertical: getWidth(5),
+    resizeMode: "contain",
+    alignSelf: "center"
+  },
+  powerdByImage: {
+    width: "100%",
+    height: getWidth(8),
+    resizeMode: "contain",
+    marginTop: getWidth(10)
+  },
+  loginText: {
+    alignSelf: "center",
+    ...fontBold(7),
+    textAlign: "center"
+  },
+  discText: {
+    alignSelf: "center",
+    ...fontBold(3),
+    textAlign: "center",
+    marginVertical: getWidth(5)
+  },
+  infoText: {
+    alignSelf: "center",
+    ...fontBold(2.5),
+    textAlign: "center",
+    opacity: 0.6,
+  },
+  forgetText: {
+    alignSelf: "center",
+    ...fontBold(3),
+    opacity: 0.6,
+    marginTop: getWidth(5)
+  },
+  orText: {
+    alignSelf: "center",
+    ...fontBold(4),
+    marginTop: getWidth(3)
+  },
+  continueBtn: {
+    marginTop: getWidth(2)
+  },
+  imgBtn: {
+    marginTop: getWidth(4),
+    backgroundColor: 'rgba(255,255,552,0.2)'
+  },
 });

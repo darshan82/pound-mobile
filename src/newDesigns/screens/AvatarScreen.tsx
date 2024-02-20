@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(5),
+    backgroundColor: "#1f1f1f",
     paddingVertical: getWidth(2),
   },
   innerContainer: {

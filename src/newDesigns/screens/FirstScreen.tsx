@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {Image, StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
-import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
+import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
 import Colors from '../components/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,12 +28,12 @@ export default function FirstScreen() {
       />
 
       <Image
-        style={[styles.logoImage, {marginLeft: getWidth(8)}]}
+        style={[styles.logoImage, { marginLeft: getWidth(8) }]}
         source={require('../assets/images/logo.png')}
       />
       <Text style={fontBold(3.5)}>Reach the Avatar State</Text>
 
-      <View style={{flex: 1}} />
+      <View style={{ flex: 1 }} />
 
       <InputButton
         onPress={() => navigation.navigate('ThreeAvatarAfterFirst')}
@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: getWidth(2),
     paddingHorizontal: getWidth(4),
-    // backgroundColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',

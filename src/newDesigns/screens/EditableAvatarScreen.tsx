@@ -1,9 +1,9 @@
-import React, {useMemo, useRef} from 'react';
+import React, { useMemo, useRef } from 'react';
 import WebView from 'react-native-webview';
-import {Alert} from 'react-native';
-import {useGlobalDataContext} from '../../context';
-import axios, {AxiosError} from 'axios';
-import {useNavigation} from '@react-navigation/native';
+import { Alert, View, ScrollView } from 'react-native';
+import { useGlobalDataContext } from '../../context';
+import axios, { AxiosError } from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 export type BodyType = 'halfbody' | 'fullbody';
 
@@ -40,13 +40,13 @@ const useAvatarCreatorUrl = (
   config: AvatarCreatorConfig | undefined,
 ): string => {
   return useMemo(() => {
-    let url = `https://${subdomain || 'demo'}.readyplayer.me`;
+    let url = `https://pound-gaming.readyplayer.me`;
 
     if (config?.language) {
       url += `/${config.language}`;
     }
 
-    url += '/avatar?frameApi';
+    url += '?frameApi';
 
     if (config?.clearCache) {
       url += '&clearCache';
@@ -59,7 +59,7 @@ const useAvatarCreatorUrl = (
     if (config?.bodyType) {
       url += `&bodyType=${config?.bodyType}`;
     }
-
+    console.log("url", url)
     return url;
   }, [subdomain, config]);
 };
@@ -72,7 +72,12 @@ const subdomain = 'demo';
 export default function EditableAvatarScreen() {
   const webView = useRef<WebView | null>();
   const navigation = useNavigation();
-  const url = useAvatarCreatorUrl(subdomain, {});
+  const url = useAvatarCreatorUrl(subdomain, {
+    clearCache: true,
+    bodyType: "fullbody",
+    quickStart: false,
+    language: "en",
+  });
   const supportedEvents = {
     'v1.avatar.exported': onAvatarExported,
     'v1.user.set': onUserSet,
@@ -82,7 +87,7 @@ export default function EditableAvatarScreen() {
     'v1.user.logout': onUserLoggedOut,
   } as Record<string, any>;
 
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
 
   function onAvatarExported(message: any) {
     console.log('onAvatarExported --->', message);
@@ -107,7 +112,7 @@ export default function EditableAvatarScreen() {
     console.log('Create Avatar Function Call');
     try {
       const apiUrl = 'http://18.217.10.162/api/users/create-avatar';
-      const response = await axios.post(apiUrl, {avatar: avatarUrl});
+      const response = await axios.post(apiUrl, { avatar: avatarUrl });
       console.log('response of createAvatarAPI', response.data);
       setData(prevData => ({
         ...prevData,
@@ -153,14 +158,21 @@ export default function EditableAvatarScreen() {
   }
 
   return (
-    <WebView
-      ref={webView}
-      style={{marginTop: 30}}
-      onLoad={onWebViewLoaded}
-      onMessage={onMessageReceived}
-      source={{uri: url}}
-      domStorageEnabled={true}
-      javaScriptEnabled={true}
-    />
+    <View
+      style={{ flex: 1, }}
+    >
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <WebView
+          ref={webView}
+          onLoad={onWebViewLoaded}
+          onMessage={onMessageReceived}
+          source={{ uri: url }}
+          setDisplayZoomControls
+          domStorageEnabled={true}
+          javaScriptEnabled={true}
+        />
+      </ScrollView>
+    </View>
+
   );
 }

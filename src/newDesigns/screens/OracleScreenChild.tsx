@@ -10,16 +10,16 @@ import {
   FlatList,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { InputText } from '../components/InputText';
 import LockView from '../components/LockView';
 
 export default function OracleScreenChild() {

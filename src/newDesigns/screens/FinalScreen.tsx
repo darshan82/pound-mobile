@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Image,
@@ -10,9 +10,9 @@ import {
   Alert,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
@@ -20,7 +20,7 @@ import {
 } from '../../modules/dashboard/helpers/tabs';
 import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
-import {useGlobalDataContext} from '../../context';
+import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
 
 // prettier-ignore
@@ -38,13 +38,13 @@ const gameImages = {
   'World of Tanks': require('../assets/images/GamesImage/WorldOfTanks.png'),
   'World Of War Craft': require('../assets/images/GamesImage/WorldOfWarCraft.png'),
   'Rainbow Six Seige': require('../assets/images/GamesImage/RainbowSixSeige.png'),
-  'Hearthstone' : require('../assets/images/GamesImage/heartstone.png'),
+  'Hearthstone': require('../assets/images/GamesImage/heartstone.png'),
 };
 
 export default function FinalScreen() {
   const navigation = useNavigation();
   const [selectedItems, setSelectedItems] = useState([]);
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
   const [isLoading, setIsLoading] = useState(false);
 
   const updateGame = async () => {
@@ -96,8 +96,8 @@ export default function FinalScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{flex: 1}}>
-        <LogoWithBack />
+      <ScrollView style={{ flex: 1 }}>
+        <LogoWithBack logo={true} />
 
         <Text style={styles.loginText}>{'What games do you play?'}</Text>
         <Text style={styles.discText}>
@@ -124,9 +124,9 @@ export default function FinalScreen() {
             'Hearthstone',
           ]}
           nestedScrollEnabled={false}
-          style={{marginTop: getWidth(3), flex: 1}}
+          style={{ marginTop: getWidth(3), flex: 1 }}
           numColumns={2}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
             const isSelected = selectedItems.includes(item);
             return (
               <TouchableOpacity
@@ -151,7 +151,7 @@ export default function FinalScreen() {
                   },
                 ]}>
                 <Image
-                  style={{width: '30%', height: '70%', resizeMode: 'contain'}}
+                  style={{ width: '30%', height: '70%', resizeMode: 'contain' }}
                   source={gameImages[item]}
                 />
                 <Text
@@ -160,7 +160,7 @@ export default function FinalScreen() {
                       3.5,
                       isSelected ? Colors.lightGreen : Colors.white,
                     ),
-                    {flex: 1},
+                    { flex: 1 },
                   ]}>
                   {item}
                 </Text>
@@ -185,7 +185,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(4),
-    backgroundColor: Colors.gray1,
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     flex: 1,

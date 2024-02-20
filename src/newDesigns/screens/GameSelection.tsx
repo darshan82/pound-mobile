@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Image,
@@ -10,28 +10,28 @@ import {
   ScrollView,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   fontSemiBold,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {ToggleSwitch} from '../components/ToggleSwitch';
+import { ToggleSwitch } from '../components/ToggleSwitch';
 import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
-import {useGlobalDataContext} from '../../context';
+import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
-import {getWatchName} from '../../app/helpers';
+import { getWatchName } from '../../app/helpers';
 
 export default function GameSelection() {
   const navigation = useNavigation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isStepCounting, setIsStepCounting] = useState(false);
   const [isMotionDetected, setIsMotionDetected] = useState(false);
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,8 +51,8 @@ export default function GameSelection() {
     setIsLoading(true);
     try {
       if (isMotionDetected === false && isStepCounting === false) {
-        setError('Please Select at least one option');
-        return;
+        // setError('Please Select at least one option');
+        // return;
       }
       const updateUrl = 'http://18.217.10.162/api/users/update-user';
       const headers = {
@@ -92,8 +92,8 @@ export default function GameSelection() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{flex: 1}}>
-        <LogoWithBack />
+      <ScrollView style={{ flex: 1 }}>
+        <LogoWithBack logo={true} />
 
         <Text style={styles.loginText}>{'Enable Connections'}</Text>
         <Text style={styles.discText}>
@@ -123,7 +123,7 @@ export default function GameSelection() {
             style={styles.infoImage}
             source={require('../assets/images/question.png')}
           />
-          <View style={{flex: 1}} />
+          <View style={{ flex: 1 }} />
           <ToggleSwitch onToggleChange={handleStepCount} />
         </View>
 
@@ -149,21 +149,20 @@ export default function GameSelection() {
             style={styles.infoImage}
             source={require('../assets/images/question.png')}
           />
-          <View style={{flex: 1}} />
+          <View style={{ flex: 1 }} />
           <ToggleSwitch onToggleChange={handleMotionDetected} />
         </View>
 
-        <Text style={{color: 'red', paddingHorizontal: 8, paddingVertical: 5}}>
+        <Text style={{ color: 'red', paddingHorizontal: 8, paddingVertical: 5 }}>
           {error}
         </Text>
 
         <View
           style={{
-            marginTop: getWidth(5),
             flexDirection: 'row',
             alignItems: 'center',
           }}>
-          <Text style={{...fontSemiBold(5)}}>{'Heart Rate Detection '}</Text>
+          <Text style={{ ...fontSemiBold(5) }}>{'Heart Rate Detection '}</Text>
           <Image
             style={styles.infoImage}
             source={require('../assets/images/question.png')}
@@ -179,9 +178,9 @@ export default function GameSelection() {
             require('../assets/images/5.png'),
           ]}
           nestedScrollEnabled={false}
-          style={{marginTop: getWidth(3), flex: 1}}
+          style={{ marginTop: getWidth(3), flex: 1 }}
           numColumns={2}
-          renderItem={({item, index}) => {
+          renderItem={({ item, index }) => {
             return (
               <TouchableOpacity
                 onPress={() => {
@@ -201,14 +200,14 @@ export default function GameSelection() {
                   },
                   selectedIndex == index
                     ? {
-                        backgroundColor: Colors.lightGreen + 30,
-                        borderWidth: 2,
-                        borderColor: Colors.lightGreen,
-                      }
+                      backgroundColor: Colors.lightGreen + 30,
+                      borderWidth: 2,
+                      borderColor: Colors.lightGreen,
+                    }
                     : {},
                 ]}>
                 <Image
-                  style={{width: '100%', height: '40%', resizeMode: 'contain'}}
+                  style={{ width: '100%', height: '40%', resizeMode: 'contain' }}
                   source={item}
                 />
               </TouchableOpacity>
@@ -232,7 +231,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(4),
-    backgroundColor: Colors.gray1,
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     flex: 1,

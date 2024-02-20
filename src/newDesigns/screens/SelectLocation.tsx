@@ -1,41 +1,41 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {StyleSheet, View, Text, Alert} from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   getWidth,
   fontRegular,
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { InputText } from '../components/InputText';
 import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
 import DropdownComponent from '../components/DropdownComponent';
-import {useGlobalDataContext} from '../../context';
+import { useGlobalDataContext } from '../../context';
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
 
 const LocationData = [
-  {label: 'London', value: 'London'},
-  {label: 'Italy', value: 'Italy'},
-  {label: 'France', value: 'France'},
+  { label: 'London', value: 'London' },
+  { label: 'Italy', value: 'Italy' },
+  { label: 'France', value: 'France' },
 ];
 
 const TimeZone = [
-  {label: 'UTC', value: 'UTC'},
-  {label: 'EST', value: 'EST'},
-  {label: 'CST', value: 'CST'},
-  {label: 'MST', value: 'MST'},
-  {label: 'PST', value: 'PST'},
+  { label: 'UTC', value: 'UTC' },
+  { label: 'EST', value: 'EST' },
+  { label: 'CST', value: 'CST' },
+  { label: 'MST', value: 'MST' },
+  { label: 'PST', value: 'PST' },
 ];
 
 export default function SelectLocation() {
   const navigation = useNavigation();
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
   const [age, setAge] = useState('');
@@ -51,7 +51,7 @@ export default function SelectLocation() {
   const getLocation = async () => {
     await Geolocation.getCurrentPosition(
       position => {
-        const {latitude, longitude} = position.coords;
+        const { latitude, longitude } = position.coords;
         setLat(latitude);
         setLong(longitude);
       },
@@ -60,7 +60,7 @@ export default function SelectLocation() {
         setLat(null);
         setLong(null);
       },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
   };
 
@@ -115,7 +115,7 @@ export default function SelectLocation() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LogoWithBack />
+      <LogoWithBack logo={true} />
       <KeyboardAwareScrollView>
         <View style={styles.innerContainer}>
           <Text style={styles.loginText}>{'Tell us about yourself.'}</Text>
@@ -126,8 +126,8 @@ export default function SelectLocation() {
           </Text>
 
           <InputText
-            containerStyle={{marginTop: getWidth(2), width: '100%'}}
-            style={{color: '#AEFF03'}}
+            containerStyle={{ marginTop: getWidth(2), width: '100%' }}
+            style={{ color: '#AEFF03' }}
             isFloating={false}
             labelTitle="How old are you?"
             placeholder="Insert answer"
@@ -139,8 +139,8 @@ export default function SelectLocation() {
           />
 
           <DropdownComponent
-            containerStyle={{marginTop: getWidth(10), width: '100%'}}
-            style={{color: '#AEFF03', backgroundColor: 'black'}}
+            containerStyle={{ marginTop: getWidth(5), width: '100%' }}
+            style={{ color: '#AEFF03', backgroundColor: 'black' }}
             isFloating={false}
             labelTitle="What is your location?"
             placeholder="Insert answer"
@@ -148,8 +148,8 @@ export default function SelectLocation() {
             onSelectValue={setLocation}
           />
           <DropdownComponent
-            containerStyle={{marginTop: getWidth(10), width: '100%'}}
-            style={{color: '#AEFF03'}}
+            containerStyle={{ marginTop: getWidth(5), width: '100%' }}
+            style={{ color: '#AEFF03' }}
             isFloating={false}
             labelTitle="What is your time zone?"
             placeholder="Insert answer"
@@ -181,6 +181,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: getWidth(5),
     paddingVertical: getWidth(5),
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     flex: 1,

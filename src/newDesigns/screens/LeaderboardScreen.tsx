@@ -1,16 +1,16 @@
 import React from 'react';
 
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
 import RankingScreen from './RankingScreen';
 import LogoWithBack from '../components/LogoWithBack';
-import {MyTabBar} from '../routes/Navigation';
+import { MyTabBar } from '../routes/Navigation';
 import Colors from '../components/Colors';
 import TeamRankingScreen from './TeamRankingScreen';
 
@@ -20,7 +20,7 @@ export default function LeaderboardScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+      <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
         <View style={styles.innerContainer}>
           <View
             style={{

@@ -80,7 +80,7 @@ export default function SelectWeightGender() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={{flex: 1}}>
-        <LogoWithBack />
+        <LogoWithBack logo={true}/>
         <KeyboardAwareScrollView>
           <View style={styles.innerContainer}>
             <Text style={styles.loginText}>{'Tell us about yourself.'}</Text>
@@ -104,7 +104,7 @@ export default function SelectWeightGender() {
             />
 
             <InputText
-              containerStyle={{marginTop: getWidth(10), width: '100%'}}
+              containerStyle={{marginTop: getWidth(5), width: '100%'}}
               style={{color: '#AEFF03'}}
               isFloating={false}
               labelTitle="How much do you weight?"
@@ -116,7 +116,7 @@ export default function SelectWeightGender() {
               isInvalid={isError}
             />
 
-            <Text style={[fontBold(4), {marginTop: getWidth(8)}]}>
+            <Text style={[fontBold(4), {marginTop: getWidth(5)}]}>
               {'What is your gender?'}
             </Text>
 
@@ -185,6 +185,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: getWidth(4),
     paddingVertical: getWidth(4),
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     flex: 1,

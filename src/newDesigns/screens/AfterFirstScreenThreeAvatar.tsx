@@ -25,7 +25,7 @@ export default function AfterFirstScreenThreeAvatarScreen() {
             source={require('../assets/images/justLogo.png')}
           />
 
-          <Text style={styles.loginText}>{'It’s your name.\nOwn it. '}</Text>
+          <Text style={styles.loginText}>{'It’s your avatar.\nOwn it. '}</Text>
 
           <Text
             style={[
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(5),
+    backgroundColor:"#1f1f1f",
     paddingVertical: getWidth(2),
   },
   innerContainer: {

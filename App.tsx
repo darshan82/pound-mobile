@@ -1,12 +1,12 @@
-import React, {useEffect, useRef} from 'react';
-import {AppState, LogBox} from 'react-native';
-import {NativeBaseProvider, StatusBar, extendTheme} from 'native-base';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {AppProvider} from './src/app/context/AppProvider';
-import {configureNativeAppEventEmitter} from './src/modules/wearables/helpers/appleSamples';
-import {Navigation} from './src/newDesigns/routes/Navigation';
+import React, { useEffect, useRef } from 'react';
+import { AppState, LogBox } from 'react-native';
+import { NativeBaseProvider, StatusBar, extendTheme } from 'native-base';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AppProvider } from './src/app/context/AppProvider';
+import { configureNativeAppEventEmitter } from './src/modules/wearables/helpers/appleSamples';
+import { Navigation } from './src/newDesigns/routes/Navigation';
 import LinearGradient from 'react-native-linear-gradient';
-import {GlobalDataProvider} from './src/context';
+import { GlobalDataProvider } from './src/context';
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
@@ -59,7 +59,7 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={{}}>
-      <LinearGradient colors={['#1F1F1F', '#0B0B0B']} style={{flex: 1}}>
+      <LinearGradient colors={['#1F1F1F', '#0B0B0B']} style={{ flex: 1, }}>
         <StatusBar backgroundColor={'#1F1F1F'} barStyle="light-content" />
         <AppProvider>
           <GlobalDataProvider>

@@ -1,24 +1,24 @@
-import React, {useEffect, useId, useState} from 'react';
+import React, { useEffect, useId, useState } from 'react';
 
-import {Image, StyleSheet, View, Text, TextInput} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import { Image, StyleSheet, View, Text, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { InputText } from '../components/InputText';
 import Colors from '../components/Colors';
-import {useGlobalDataContext} from '../../context';
-import axios, {AxiosError} from 'axios';
+import { useGlobalDataContext } from '../../context';
+import axios, { AxiosError } from 'axios';
 
 export default function PlayerTagScreen() {
   const navigation = useNavigation();
   const [isError, setIsError] = useState(false);
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
   const [playerTag, setPlayerTag] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -37,18 +37,18 @@ export default function PlayerTagScreen() {
         setIsLoading(false);
         return;
       }
-      const userName = {userName: playerTag};
+      const userName = { userName: playerTag };
       const apiUrl = 'http://18.217.10.162/api/users/check-username';
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',
       };
-      const res = await axios.post(apiUrl, userName, {headers});
+      const res = await axios.post(apiUrl, userName, { headers });
 
       if (res.data.isAvailable && isError === false) {
         try {
           const updateUrl = 'http://18.217.10.162/api/users/update-user';
-          const updateBody = {username: playerTag};
+          const updateBody = { username: playerTag };
           const updateResponse = await axios.put(updateUrl, updateBody, {
             headers,
           });
@@ -68,7 +68,7 @@ export default function PlayerTagScreen() {
         const axiosError = error as AxiosError;
         if (axiosError?.response?.status === 409) {
           setIsError(true);
-          setError('Tag Name Not Available');
+          setError('Player tag already taken');
         } else {
           console.log('Error -->', axiosError);
         }
@@ -83,7 +83,7 @@ export default function PlayerTagScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
+      <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
         <View style={styles.innerContainer}>
           <Image
             style={styles.logoImage}
@@ -105,17 +105,17 @@ export default function PlayerTagScreen() {
           </Text>
 
           <InputText
-            containerStyle={{marginTop: getWidth(3), width: '100%'}}
+            containerStyle={{ marginTop: getWidth(3), width: '100%' }}
             labelTitle="Player Tag"
             placeholder="John Doe"
             value={playerTag}
             onChangeText={handleInputChange}
-            errorMessage="Tag Name Not Available"
+            errorMessage="Player tag already taken"
             showError={error !== ''}
             isInvalid={error.length !== 0}
           />
           {error && isError ? (
-            <Text style={{color: 'red', paddingHorizontal: 8, marginTop: 5}}>
+            <Text style={{ color: 'red', paddingHorizontal: 8, marginTop: 5 }}>
               {error}
             </Text>
           ) : null}
@@ -132,7 +132,7 @@ export default function PlayerTagScreen() {
               marginVertical: getWidth(5),
             }}
             key={imageId}
-            source={{uri: NewImageUrl + '?' + new Date()}}
+            source={{ uri: NewImageUrl + '?' + new Date() }}
           />
 
           <InputButton
@@ -156,6 +156,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: getWidth(5),
     paddingVertical: getWidth(2),
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     flex: 1,

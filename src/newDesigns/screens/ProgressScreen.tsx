@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   StyleSheet,
@@ -8,16 +8,16 @@ import {
   FlatList,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import {
   fontBold,
   fontSemiBold,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {RoundProgress} from '../components/RoundProgress';
+import { RoundProgress } from '../components/RoundProgress';
 import SimpleGradientProgressbarView from 'react-native-simple-gradient-progressbar-view';
 import Colors from '../components/Colors';
-import {useGlobalDataContext} from '../../context';
+import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
 
 const ProgressBar = ({
@@ -36,11 +36,11 @@ const ProgressBar = ({
         style,
       ]}>
       <Image
-        style={{position: 'absolute'}}
+        style={{ position: 'absolute' }}
         source={require('../assets/images/progressBG.png')}
       />
       <SimpleGradientProgressbarView
-        style={{width: '100%', height: progressHeight}}
+        style={{ width: '100%', height: progressHeight }}
         fromColor="#FFFFFF"
         toColor={toColor}
         progress={progress}
@@ -107,7 +107,7 @@ export default function ProgressScreen() {
   const navigation = useNavigation();
 
   const [isColored, setIsColor] = useState(true);
-  const {data} = useGlobalDataContext();
+  const { data } = useGlobalDataContext();
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
@@ -119,7 +119,7 @@ export default function ProgressScreen() {
           Authorization: `${userToken}`,
           'Content-Type': 'application/json',
         };
-        const res = await axios.get(apiUrl, {headers});
+        const res = await axios.get(apiUrl, { headers });
         console.log('res -->', res.data);
         setUserData(res.data);
       } catch (e) {
@@ -128,7 +128,7 @@ export default function ProgressScreen() {
     };
     getData();
   }, [data.loginToken]);
-
+  console.log("userData?.avatar", userData?.avatar)
   return (
     <View style={styles.container}>
       <View
@@ -140,8 +140,8 @@ export default function ProgressScreen() {
           paddingHorizontal: getWidth(5),
           paddingBottom: getWidth(6),
         }}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[fontBold(5), {flex: 1}]}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={[fontBold(5), { flex: 1 }]}>
             {userData?.username ? userData?.username : 'Guest'}
           </Text>
           <View
@@ -161,20 +161,20 @@ export default function ProgressScreen() {
               }}
               source={require('../assets/images/tokenpound.png')}
             />
-            <Text style={[fontBold(3.5), {marginLeft: getWidth(2)}]}>
+            <Text style={[fontBold(3.5), { marginLeft: getWidth(2) }]}>
               {userData?.streaks ? userData?.streaks : 0}
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={{flex: 1}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flex: 1 }}>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
+              style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={[fontBold(3.2), { marginVertical: getWidth(1) }]}>
                 LEVEL
               </Text>
 
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
+              <Text style={[fontBold(3.2), { marginVertical: getWidth(1) }]}>
                 {userData?.level ? userData?.level : 0}
               </Text>
             </View>
@@ -185,12 +185,12 @@ export default function ProgressScreen() {
             />
 
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between',marginTop:getWidth(2)}}>
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
+              style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: getWidth(2) }}>
+              <Text style={[fontBold(3.2), { marginVertical: getWidth(1) }]}>
                 STREAK
               </Text>
 
-              <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
+              <Text style={[fontBold(3.2), { marginVertical: getWidth(1) }]}>
                 64 Days
               </Text>
             </View>
@@ -221,7 +221,7 @@ export default function ProgressScreen() {
               }}
               source={require('../assets/images/trophy.png')}
             />
-            <Text style={[fontSemiBold(2.8), {marginVertical: getWidth(2)}]}>
+            <Text style={[fontSemiBold(2.8), { marginVertical: getWidth(2) }]}>
               Ranking
             </Text>
 
@@ -244,7 +244,7 @@ export default function ProgressScreen() {
         </View>
       </View>
       <View
-        style={{flex: 1, flexDirection: 'row', paddingHorizontal: getWidth(5)}}>
+        style={{ flex: 1, flexDirection: 'row', paddingHorizontal: getWidth(5) }}>
         <View
           style={{
             alignItems: 'center',
@@ -263,7 +263,7 @@ export default function ProgressScreen() {
 
           <RoundProgress
             size={getWidth(20)}
-            progress={userData ? userData?.HRV : 0}
+            progress={userData ? 25 : 0}
             progressText={25}
             color={'#2450FD'}
             centerImg={require('../assets/images/img4.png')}
@@ -285,7 +285,7 @@ export default function ProgressScreen() {
             progressText={25}
             color={'#AEFF03'}
             centerImg={require('../assets/images/img2.png')}
-            isloacked={true}
+            isloacked={false}
           />
 
           <RoundProgress
@@ -361,9 +361,9 @@ export default function ProgressScreen() {
                 image: require('../assets/images/INTELLECT.png'),
                 color: '#C3C218',
               },
-              {image: require('../assets/images/Luck.png'), color: '#12BF89'},
+              { image: require('../assets/images/Luck.png'), color: '#12BF89' },
             ]}
-            renderItem={({item}) => {
+            renderItem={({ item }) => {
               return (
                 <View
                   style={{
@@ -379,7 +379,7 @@ export default function ProgressScreen() {
                     }}
                     source={item.image}
                   />
-                  <View style={{flex: 1, width: '100%'}}>
+                  <View style={{ flex: 1, width: '100%' }}>
                     <ProgressBar
                       progress={0.5}
                       progressHeight={getWidth(1)}

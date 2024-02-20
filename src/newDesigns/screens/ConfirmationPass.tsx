@@ -1,26 +1,29 @@
-import React, {useState} from 'react';
-import {Image, StyleSheet, View, Text, Alert} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import React, { useState } from 'react';
+import { Image, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   getWidth,
+  fontSemiBold
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {InputText} from '../components/InputText';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { InputText } from '../components/InputText';
 import Colors from '../components/Colors';
-import {useGlobalDataContext} from '../../context';
-import axios, {AxiosError} from 'axios';
-import {Formik} from 'formik';
-import {isStrongPassword} from '../../app/helpers';
+import { useGlobalDataContext } from '../../context';
+import axios, { AxiosError } from 'axios';
+import { Formik } from 'formik';
+import { isStrongPassword } from '../../app/helpers';
+import { ScrollView } from 'native-base';
+import { Dimensions } from 'react-native';
 
 export default function ConfirmationPass() {
   const navigation = useNavigation();
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
   const [isLoading, setIsLoading] = useState(false);
-
+  const windowHeight = Dimensions.get('window').height;
   const registerUser = async (values, actions) => {
     setIsLoading(true);
     const apiUrl = 'http://18.217.10.162/api/users/update-user';
@@ -28,10 +31,10 @@ export default function ConfirmationPass() {
       Authorization: `${data.token}`,
       'Content-Type': 'application/json',
     };
-    const body = {...values};
+    const body = { ...values };
     try {
-      console.log({body});
-      const response = await axios.put(apiUrl, body, {headers});
+      console.log({ body });
+      const response = await axios.put(apiUrl, body, { headers });
       console.log('Register User -->:', response.data);
       setData(prevData => ({
         ...prevData,
@@ -40,7 +43,7 @@ export default function ConfirmationPass() {
       actions.resetForm();
       navigation.navigate('GameSelection');
     } catch (error) {
-      console.log({error});
+      console.log({ error });
       const axiosError = error as AxiosError;
       console.error('Error While Registering User:', axiosError);
       if (axiosError.response && axiosError.response.status === 400) {
@@ -55,7 +58,7 @@ export default function ConfirmationPass() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView style={{flex: 1, height: '100%'}}>
+      <KeyboardAwareScrollView style={{ flex: 1, height: '100%' }}>
         <View style={styles.innerContainer}>
           <Image
             style={styles.logoImage}
@@ -111,64 +114,77 @@ export default function ConfirmationPass() {
               }
               return errors;
             }}>
-            {({handleChange, handleSubmit, values, errors, touched}) => (
-              <View style={{flex: 1, width: '100%'}}>
-                <View style={{flexDirection: 'row', gap: 10}}>
+            {({ handleChange, handleSubmit, values, errors, touched }) => (
+              <View style={{ flex: 1, width: '100%' }}>
+                <ScrollView showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{
+                    flexGrow: 1,
+                  }}
+                  style={{ height: windowHeight - 370 }}>
+                  <View style={{ flexDirection: 'row', gap: 10 }}>
+                    <InputText
+                      containerStyle={{ marginTop: getWidth(3), width: '48%' }}
+                      labelTitle="First name"
+                      placeholder="John"
+                      value={values.firstName}
+                      onChangeText={handleChange('firstName')}
+                      errorMessage={touched.firstName && errors.firstName}
+                      showError={touched.firstName || errors.firstName}
+                      isInvalid={touched.firstName && errors.firstName}
+                    />
+                    <InputText
+                      containerStyle={{ marginTop: getWidth(3), width: '48%' }}
+                      labelTitle="Last name"
+                      placeholder="Doe"
+                      value={values.lastName}
+                      onChangeText={handleChange('lastName')}
+                      errorMessage={touched.lastName && errors.lastName}
+                      showError={touched.lastName || errors.lastName}
+                      isInvalid={touched.lastName && errors.lastName}
+                    />
+                  </View>
                   <InputText
-                    containerStyle={{marginTop: getWidth(3), width: '48%'}}
-                    labelTitle="First name"
-                    placeholder="John"
-                    value={values.firstName}
-                    onChangeText={handleChange('firstName')}
-                    errorMessage={touched.firstName && errors.firstName}
-                    showError={touched.firstName || errors.firstName}
-                    isInvalid={touched.firstName && errors.firstName}
+                    containerStyle={{ marginTop: getWidth(3), width: '100%' }}
+                    labelTitle="Email"
+                    placeholder="username@hotmail.com"
+                    value={values.email}
+                    onChangeText={handleChange('email')}
+                    errorMessage={touched.email && errors.email}
+                    showError={touched.email || errors.email}
+                    isInvalid={touched.email && errors.email}
                   />
                   <InputText
-                    containerStyle={{marginTop: getWidth(3), width: '48%'}}
-                    labelTitle="Last name"
-                    placeholder="Doe"
-                    value={values.lastName}
-                    onChangeText={handleChange('lastName')}
-                    errorMessage={touched.lastName && errors.lastName}
-                    showError={touched.lastName || errors.lastName}
-                    isInvalid={touched.lastName && errors.lastName}
+                    containerStyle={{ marginTop: getWidth(4), width: '100%' }}
+                    labelTitle="Password"
+                    placeholder="Password123"
+                    isPassword={true}
+                    value={values.password}
+                    onChangeText={handleChange('password')}
+                    errorMessage={touched.password && errors.password}
+                    showError={touched.password || errors.password}
+                    isInvalid={touched.password && errors.password}
                   />
-                </View>
-                <InputText
-                  containerStyle={{marginTop: getWidth(3), width: '100%'}}
-                  labelTitle="Email"
-                  placeholder="username@hotmail.com"
-                  value={values.email}
-                  onChangeText={handleChange('email')}
-                  errorMessage={touched.email && errors.email}
-                  showError={touched.email || errors.email}
-                  isInvalid={touched.email && errors.email}
-                />
-                <InputText
-                  containerStyle={{marginTop: getWidth(4), width: '100%'}}
-                  labelTitle="Password"
-                  placeholder="Password123"
-                  isPassword={true}
-                  value={values.password}
-                  onChangeText={handleChange('password')}
-                  errorMessage={touched.password && errors.password}
-                  showError={touched.password || errors.password}
-                  isInvalid={touched.password && errors.password}
-                />
-                <InputText
-                  containerStyle={{marginTop: getWidth(4), width: '100%'}}
-                  labelTitle="Confirm Password"
-                  placeholder="Password123"
-                  isPassword={true}
-                  value={values.confirmPassword}
-                  onChangeText={handleChange('confirmPassword')}
-                  errorMessage={
-                    touched.confirmPassword && errors.confirmPassword
-                  }
-                  showError={touched.confirmPassword || errors.confirmPassword}
-                  isInvalid={touched.confirmPassword && errors.confirmPassword}
-                />
+                  <InputText
+                    containerStyle={{ marginTop: getWidth(4), width: '100%' }}
+                    labelTitle="Confirm Password"
+                    placeholder="Password123"
+                    isPassword={true}
+                    value={values.confirmPassword}
+                    onChangeText={handleChange('confirmPassword')}
+                    errorMessage={
+                      touched.confirmPassword && errors.confirmPassword
+                    }
+                    showError={touched.confirmPassword || errors.confirmPassword}
+                    isInvalid={touched.confirmPassword && errors.confirmPassword}
+                  />
+                  <View style={{ flexDirection: 'row', justifyContent: "center" }}>
+                    <TouchableOpacity
+                      onPress={() => { }}>
+                      <Text style={styles.forgetText}>Forgot Password?</Text>
+
+                    </TouchableOpacity>
+                  </View>
+                </ScrollView>
                 <InputButton
                   onPress={handleSubmit}
                   style={styles.continueBtn}
@@ -182,6 +198,8 @@ export default function ConfirmationPass() {
           </Formik>
         </View>
       </KeyboardAwareScrollView>
+
+
     </SafeAreaView>
   );
 }
@@ -190,6 +208,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(8),
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     justifyContent: 'center',
@@ -210,5 +230,12 @@ const styles = StyleSheet.create({
     borderRadius: getWidth(3),
     borderWidth: 0,
     backgroundColor: Colors.lightGreen,
+  },
+  forgetText: {
+    alignSelf: 'center',
+    ...fontSemiBold(4),
+    opacity: 0.6,
+    marginTop: getWidth(6),
+    textDecorationLine: 'underline',
   },
 });

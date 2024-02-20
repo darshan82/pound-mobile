@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import {
   Image,
@@ -16,7 +16,7 @@ import {
 } from '../../modules/dashboard/helpers/tabs';
 import Colors from '../components/Colors';
 import JornalDetaileModal from '../components/JornalDetaileModal';
-import {useGlobalDataContext} from '../../context';
+import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
 
 interface Journal {
@@ -63,7 +63,7 @@ const enemyImage = {
 
 export default function RankingScreen() {
   const jornalDetaileModalRef = useRef();
-  const {data} = useGlobalDataContext();
+  const { data } = useGlobalDataContext();
   const [journalData, setJournalData] = useState<Journal[]>([]);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function RankingScreen() {
         Authorization: `${data.loginToken}`,
         'Content-Type': 'application/json',
       };
-      const res = await axios.get(apiUrl, {headers});
+      const res = await axios.get(apiUrl, { headers });
       setJournalData(res.data);
       console.log('Response Of Journal API -->', res.data);
     };
@@ -100,16 +100,16 @@ export default function RankingScreen() {
           <Text style={styles.noDataText}>No Journal data available</Text>
         ) : (
           <FlatList
-            style={{marginTop: getWidth(3), paddingHorizontal: getWidth(4)}}
+            style={{ marginTop: getWidth(3), paddingHorizontal: getWidth(4) }}
             data={journalData}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({item, index}) => {
+            renderItem={({ item, index }) => {
               return (
                 <TouchableOpacity
                   onPress={() => jornalDetaileModalRef.current?.showModal(true)}
                   style={{
                     alignItems: 'center',
-                    padding: getWidth(5),
+                    padding: getWidth(2),
                     backgroundColor: Colors.gray2,
                     borderRadius: getWidth(4),
                     marginTop: getWidth(3),
@@ -121,7 +121,7 @@ export default function RankingScreen() {
                       width: '95%',
                       alignItems: 'center',
                     }}>
-                    <View style={{alignItems: 'center'}}>
+                    <View style={{ alignItems: 'center' }}>
                       <Text style={fontBold(3.3)}>{monthPart}</Text>
                       <Text style={fontRegular(3.3)}>{yearPart}</Text>
                     </View>
@@ -132,12 +132,12 @@ export default function RankingScreen() {
                         backgroundColor: Colors.gray3 + '30',
                       }}
                     />
-                    <View style={{alignItems: 'center'}}>
+                    <View style={{ alignItems: 'center' }}>
                       <Text style={fontBold(3.5)}>{item.xp}</Text>
                       <Text
                         style={[
                           fontRegular(3.5, Colors.gray3),
-                          {marginTop: getWidth(1)},
+                          { marginTop: getWidth(1) },
                         ]}>
                         XP Gain
                       </Text>
@@ -180,7 +180,7 @@ export default function RankingScreen() {
                         <Text
                           style={[
                             fontRegular(3.5, Colors.gray3),
-                            {marginTop: getWidth(1)},
+                            { marginTop: getWidth(1) },
                           ]}>
                           Enemies
                         </Text>
@@ -193,8 +193,8 @@ export default function RankingScreen() {
                         backgroundColor: Colors.gray3 + '30',
                       }}
                     />
-                    <View style={{alignItems: 'center'}}>
-                      <View style={{flexDirection: 'row'}}>
+                    <View style={{ alignItems: 'center' }}>
+                      <View style={{ flexDirection: 'row' }}>
                         <Text style={fontBold(3.5)}>{item.Token}</Text>
                         <Image
                           style={[
@@ -241,7 +241,7 @@ export default function RankingScreen() {
                                 ]}
                                 source={
                                   attributeImages[
-                                    attribute as keyof typeof attributeImages
+                                  attribute as keyof typeof attributeImages
                                   ]
                                 }
                               />
@@ -251,7 +251,7 @@ export default function RankingScreen() {
                         <Text
                           style={[
                             fontRegular(3.5, Colors.gray3),
-                            {marginTop: getWidth(1)},
+                            { marginTop: getWidth(1) },
                           ]}>
                           Attributes
                         </Text>
@@ -279,7 +279,7 @@ export default function RankingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.gray0,
+    backgroundColor: "#1f1f1f",
   },
   innerContainer: {
     justifyContent: 'center',

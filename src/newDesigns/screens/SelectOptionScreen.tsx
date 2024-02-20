@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import {StyleSheet, View, Text, Alert, ScrollView} from 'react-native';
+import { StyleSheet, View, Text, Alert, ScrollView } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {InputButton} from '../components/InputButton';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontSemiBold,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
-import {getPower, getWeight} from '../../app/helpers';
-import {useGlobalDataContext} from '../../context';
+import { getPower, getWeight } from '../../app/helpers';
+import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
 
 export default function SelectOptionScreen() {
   const navigation = useNavigation();
   const [weight, setWeight] = useState(1);
   const [power, setPower] = useState([]);
-  const {data, setData} = useGlobalDataContext();
+  const { data, setData } = useGlobalDataContext();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -46,7 +46,7 @@ export default function SelectOptionScreen() {
     goal => goal === true,
   ).length;
 
-  console.log({trueCount});
+  console.log({ trueCount });
 
   const UpdateGoal = async () => {
     setIsLoading(true);
@@ -89,7 +89,7 @@ export default function SelectOptionScreen() {
           flexGrow: 1,
         }}>
         <View style={styles.innerContainer}>
-          <LogoWithBack />
+          <LogoWithBack logo={true} />
           <Text style={styles.loginText}>{'It’s your journey.\nOwn it.'}</Text>
           <Text style={styles.discText}>
             {'Lets start with identifying your goals'}
@@ -103,11 +103,11 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               weight == 0
                 ? {
-                    borderWidth: 2,
-                    borderColor: Colors.lightGreen,
-                    backgroundColor: Colors.lightGreen + '30',
-                  }
-                : {backgroundColor: Colors.gray2},
+                  borderWidth: 2,
+                  borderColor: Colors.lightGreen,
+                  backgroundColor: Colors.lightGreen + '30',
+                }
+                : { backgroundColor: Colors.gray2 },
             ]}
             labelTitle="Lose Weight"
             textColor={weight == 0 ? Colors.lightGreen : Colors.white}
@@ -119,11 +119,11 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               weight == 1
                 ? {
-                    borderWidth: 2,
-                    borderColor: Colors.lightGreen,
-                    backgroundColor: Colors.lightGreen + '30',
-                  }
-                : {backgroundColor: Colors.gray2},
+                  borderWidth: 2,
+                  borderColor: Colors.lightGreen,
+                  backgroundColor: Colors.lightGreen + '30',
+                }
+                : { backgroundColor: Colors.gray2 },
             ]}
             labelTitle="Maintain Weight"
             textColor={weight == 1 ? Colors.lightGreen : Colors.white}
@@ -135,17 +135,17 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               weight == 2
                 ? {
-                    borderWidth: 2,
-                    borderColor: Colors.lightGreen,
-                    backgroundColor: Colors.lightGreen + '30',
-                  }
-                : {backgroundColor: Colors.gray2},
+                  borderWidth: 2,
+                  borderColor: Colors.lightGreen,
+                  backgroundColor: Colors.lightGreen + '30',
+                }
+                : { backgroundColor: Colors.gray2 },
             ]}
             labelTitle="Gain Weight"
             textColor={weight == 2 ? Colors.lightGreen : Colors.white}
           />
 
-          <Text style={[fontBold(4.5), {marginTop: getWidth(9)}]}>
+          <Text style={[fontBold(4.5), { marginTop: getWidth(9) }]}>
             {'Pick up to two goal'}
           </Text>
 
@@ -158,11 +158,11 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               power.includes(0)
                 ? {
-                    borderWidth: 2,
-                    borderColor: Colors.lightGreen,
-                    backgroundColor: Colors.lightGreen + '30',
-                  }
-                : {backgroundColor: Colors.gray2},
+                  borderWidth: 2,
+                  borderColor: Colors.lightGreen,
+                  backgroundColor: Colors.lightGreen + '30',
+                }
+                : { backgroundColor: Colors.gray2 },
             ]}
             labelTitle="Tone Up"
             textColor={power.includes(0) ? Colors.lightGreen : Colors.white}
@@ -177,11 +177,11 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               power.includes(1)
                 ? {
-                    borderWidth: 2,
-                    borderColor: Colors.lightGreen,
-                    backgroundColor: Colors.lightGreen + '30',
-                  }
-                : {backgroundColor: Colors.gray2},
+                  borderWidth: 2,
+                  borderColor: Colors.lightGreen,
+                  backgroundColor: Colors.lightGreen + '30',
+                }
+                : { backgroundColor: Colors.gray2 },
             ]}
             labelTitle="Bulk Up"
             textColor={power.includes(1) ? Colors.lightGreen : Colors.white}
@@ -196,39 +196,40 @@ export default function SelectOptionScreen() {
               styles.continueBtn,
               power.includes(2)
                 ? {
-                    borderWidth: 2,
-                    borderColor: Colors.lightGreen,
-                    backgroundColor: Colors.lightGreen + '30',
-                  }
-                : {backgroundColor: Colors.gray2},
+                  borderWidth: 2,
+                  borderColor: Colors.lightGreen,
+                  backgroundColor: Colors.lightGreen + '30',
+                }
+                : { backgroundColor: Colors.gray2 },
             ]}
             labelTitle="Get Strong"
             textColor={power.includes(2) ? Colors.lightGreen : Colors.white}
           />
 
           <Text
-            style={{color: 'red', paddingHorizontal: 8, paddingVertical: 5}}>
+            style={{ color: 'red', paddingHorizontal: 8, paddingVertical: 5 }}>
             {error}
           </Text>
 
-          <View style={{flex: 1}} />
+          <View style={{ flex: 1 }} />
 
-          <InputButton
-            onPress={UpdateGoal}
-            style={[
-              styles.continueBtn,
-              {
-                marginTop: getWidth(5),
-                borderRadius: getWidth(2),
-              },
-            ]}
-            labelTitle="Continue"
-            textColor={Colors.gray1}
-            isLoading={isLoading}
-            isDisabled={isLoading}
-          />
         </View>
       </ScrollView>
+
+      <InputButton
+        onPress={UpdateGoal}
+        style={[
+          styles.continueBtn,
+          {
+            marginTop: getWidth(5),
+            borderRadius: getWidth(2),
+          },
+        ]}
+        labelTitle="Continue"
+        textColor={Colors.gray1}
+        isLoading={isLoading}
+        isDisabled={isLoading}
+      />
     </SafeAreaView>
   );
 }
@@ -239,6 +240,8 @@ const styles = StyleSheet.create({
     padding: getWidth(5),
     paddingVertical: getWidth(6),
     marginTop: getWidth(-3),
+    backgroundColor: "#1f1f1f",
+
   },
   innerContainer: {
     flex: 1,
@@ -260,6 +263,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     ...fontBold(6.5),
     textAlign: 'center',
+    marginTop: -20
   },
   discText: {
     alignSelf: 'center',

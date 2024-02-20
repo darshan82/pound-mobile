@@ -35,7 +35,6 @@ export default function WalletScreen() {
         <View style={styles.innerContainer}>
           <LogoWithBack />
 
-          <Text style={styles.loginText}>{'Enable Connections'}</Text>
           <Text style={styles.discText}>
             {
               'We use your health data to provide personalized and highly effective workouts and suggestions.'
@@ -129,6 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(5),
+    backgroundColor: "#1f1f1f",
   },
   innerContainer: {
     flex: 1,

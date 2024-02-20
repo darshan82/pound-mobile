@@ -79,7 +79,7 @@ export default function LoginScreen() {
 
           <InputText
             containerStyle={{marginTop: getWidth(6), width: '100%'}}
-            labelTitle="Email Address"
+            labelTitle="Email"
             placeholder="username@hotmail.com"
             value={email}
             onChangeText={setEmail}
@@ -159,6 +159,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:"#1f1f1f"
   },
   innerContainer: {
     // flex:1,
