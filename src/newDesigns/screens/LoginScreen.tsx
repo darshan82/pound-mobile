@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-import {Image, StyleSheet, View, Text} from 'react-native';
+import {Image, StyleSheet, View, Text, BackHandler, Alert} from 'react-native';
 
-import {
-  useFocusEffect,
-  useIsFocused,
-  useNavigation,
-} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {InputButton} from '../components/InputButton';
 import {
@@ -27,7 +23,6 @@ export default function LoginScreen() {
   const [error, setError] = useState('');
   const {data, setData} = useGlobalDataContext();
   const [isLoading, setIsLoading] = useState(false);
-  const isFocused = useIsFocused();
   const [key, setKey] = useState(0);
 
   const handleLogin = async () => {
@@ -102,10 +97,9 @@ export default function LoginScreen() {
             <Text
               style={{
                 color: 'red',
-                fontWeight: '700',
-                fontSize: 16,
                 marginTop: 5,
                 marginBottom: 4,
+                right: 85,
               }}>
               {error}
             </Text>
@@ -159,7 +153,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"#1f1f1f"
+    backgroundColor: '#1f1f1f',
   },
   innerContainer: {
     // flex:1,

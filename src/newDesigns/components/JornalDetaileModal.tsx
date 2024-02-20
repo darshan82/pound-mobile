@@ -20,10 +20,26 @@ import ReactNativeModal from 'react-native-modal';
 import QuestionWithOptions from './QuestionWithOptions';
 
 const JornalDetaileModal = forwardRef(
-  ({journalData, monthPart, yearPart, enemyImage, attributeImages}, ref) => {
+  (
+    {
+      journalData,
+      monthPart,
+      yearPart,
+      enemyImage,
+      attributeImages,
+      currentIndex,
+      onNext,
+      onPrevious,
+    },
+    ref,
+  ) => {
+    const currentJournal = journalData[currentIndex];
     const [isVisible, setIsVisible] = useState(false);
-    const enemies = journalData[0]?.EnemiesList;
-    const attributes = journalData[0]?.AttributesList;
+    const enemies = currentJournal?.EnemiesList;
+    const attributes = currentJournal?.AttributesList;
+
+    const hasNext = currentIndex < journalData?.length - 1;
+    const hasPrevious = currentIndex > 0;
 
     useImperativeHandle(ref, () => ({
       showModal(value) {
@@ -53,28 +69,32 @@ const JornalDetaileModal = forwardRef(
                 paddingBottom: getWidth(10),
               }}>
               <View style={{flexDirection: 'row', marginBottom: getWidth(6)}}>
-                <TouchableOpacity onPress={() => {}}>
-                  <Image
-                    style={{
-                      width: getWidth(6),
-                      height: getWidth(6),
-                      resizeMode: 'contain',
-                    }}
-                    source={require('../../newDesigns/assets/images/leftErrow.png')}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{marginLeft: getWidth(5)}}
-                  onPress={() => {}}>
-                  <Image
-                    style={{
-                      width: getWidth(6),
-                      height: getWidth(6),
-                      resizeMode: 'contain',
-                    }}
-                    source={require('../../newDesigns/assets/images/rightArrow.png')}
-                  />
-                </TouchableOpacity>
+                {hasPrevious ? (
+                  <TouchableOpacity onPress={onPrevious}>
+                    <Image
+                      style={{
+                        width: getWidth(6),
+                        height: getWidth(6),
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../newDesigns/assets/images/leftErrow.png')}
+                    />
+                  </TouchableOpacity>
+                ) : null}
+                {hasNext ? (
+                  <TouchableOpacity
+                    style={{marginLeft: getWidth(5)}}
+                    onPress={onNext}>
+                    <Image
+                      style={{
+                        width: getWidth(6),
+                        height: getWidth(6),
+                        resizeMode: 'contain',
+                      }}
+                      source={require('../../newDesigns/assets/images/rightArrow.png')}
+                    />
+                  </TouchableOpacity>
+                ) : null}
                 <View style={{flex: 1}}>
                   <View
                     style={{
@@ -125,7 +145,7 @@ const JornalDetaileModal = forwardRef(
                   }}
                 />
                 <View style={{alignItems: 'center'}}>
-                  <Text style={fontBold(3.5)}>{journalData[0]?.xp}</Text>
+                  <Text style={fontBold(3.5)}>{currentJournal?.xp}</Text>
                   <Text
                     style={[
                       fontRegular(3.5, Colors.gray3),
@@ -143,7 +163,7 @@ const JornalDetaileModal = forwardRef(
                 />
                 <View style={{alignItems: 'center'}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={fontBold(3.5)}>{journalData[0]?.Token}</Text>
+                    <Text style={fontBold(3.5)}>{currentJournal?.Token}</Text>
                     <Image
                       style={[
                         {
@@ -255,7 +275,7 @@ const JornalDetaileModal = forwardRef(
                   fontRegular(3.5, Colors.gray3),
                   {marginVertical: getWidth(8), lineHeight: getWidth(7)},
                 ]}>
-                {journalData[0]?.ChallangeJournal}
+                {journalData?.ChallangeJournal}
               </Text>
 
               <QuestionWithOptions

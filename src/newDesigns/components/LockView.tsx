@@ -52,7 +52,7 @@ export default function LockView({
             <InputButton
               onPress={handleBtnClick}
               isLoading={isLoading}
-              isDisabled={isLoading}
+              isDisabled={isDisable}
               textColor="black"
               style={{
                 backgroundColor: '#AEFF03',

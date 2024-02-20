@@ -1,4 +1,4 @@
-import React, {useId, useState} from 'react';
+import React, {useEffect, useId, useState} from 'react';
 
 import {Image, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
 
@@ -18,6 +18,15 @@ export default function AvatarScreen() {
   const navigation = useNavigation();
   const {data} = useGlobalDataContext();
   const imageId = useId();
+  const [imageLoading, setLoadingImage] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadingImage(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const imgUrl = data.avatarURL.replace('.glb', '.png');
   const NewImageUrl = `${imgUrl}?pose=power-stance&expression=happy&camera=fullbody`;
@@ -36,11 +45,17 @@ export default function AvatarScreen() {
             {'You are now on a journey to reach\nthe Avatar State'}
           </Text>
 
-          <Image
-            style={styles.avatarImage}
-            key={imageId}
-            source={{uri: NewImageUrl + '?' + new Date()}}
-          />
+          {imageLoading ? (
+            <View style={styles.loaderContainer}>
+              <ActivityIndicator size="large" color={Colors.lightGreen} />
+            </View>
+          ) : (
+            <Image
+              style={styles.avatarImage}
+              key={imageId}
+              source={{uri: NewImageUrl + '?' + new Date()}}
+            />
+          )}
 
           <InputButton
             onPress={() => navigation.navigate('ConfirmationPass')}
@@ -58,8 +73,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: getWidth(5),
-    backgroundColor: "#1f1f1f",
+    backgroundColor: '#1f1f1f',
     paddingVertical: getWidth(2),
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   innerContainer: {
     flex: 1,

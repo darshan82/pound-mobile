@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Image,
@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
 const attributeImages = {
@@ -29,7 +29,7 @@ const enemyImage = {
   Plateaus: require('../assets/images/Ene7.png'),
 };
 
-import { InputButton } from '../components/InputButton';
+import {InputButton} from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
@@ -37,19 +37,41 @@ import {
 } from '../../modules/dashboard/helpers/tabs';
 import Colors from '../components/Colors';
 import LockView from '../components/LockView';
-import { useGlobalDataContext } from '../../context';
-import axios, { AxiosError } from 'axios';
-import { isLight } from 'native-base/lib/typescript/theme/tools';
+import {useGlobalDataContext} from '../../context';
+import axios, {AxiosError} from 'axios';
+import {isLight} from 'native-base/lib/typescript/theme/tools';
 
-
-let exampleData = { "ActivityLevel": 0.3, "AttributesList": ["Vitality", "Agility"], "ChallangeDescription": "Join the VirtuaOdysseyGaming-Fit Saga, conquering Exercises • High Knees and • Squat Sumo. Face off against foes Procrastination and Fatigue. Unlock unique attributes Vitality and Agility. Level up your 0.43 readiness score, achieving the ultimate fusion of fitness and gaming prowess!", "ChallangeJournal": "Today, I faced the challenges of Procrastination and Fatigue. Mastered exercises • High Knees and • Squat Sumo, earning attributes Vitality and Agility. Leveled up and ready for more!", "ChallengeName": "VirtuaOdysseyGaming", "EnemiesList": ["Procrastination", "Fatigue"], "ExercisesList": ["• High Knees", "• Squat Sumo"], "ReadinessScore": 0.43, "Reps": 10, "Sets": 3, "Token": 6, "__v": 0, "_id": "65ccecf69f96025126243f24", "accuracy": "accurate", "createdAt": "2024-02-14T16:40:22.105Z", "difficultyLevel": "moderate", "status": "completed", "updatedAt": "2024-02-20T14:16:10.615Z", "userId": "65cce73a9f96025126243f06", "xp": 18 }
+let exampleData = {
+  ActivityLevel: 0.3,
+  AttributesList: ['Vitality', 'Agility'],
+  ChallangeDescription:
+    'Join the VirtuaOdysseyGaming-Fit Saga, conquering Exercises • High Knees and • Squat Sumo. Face off against foes Procrastination and Fatigue. Unlock unique attributes Vitality and Agility. Level up your 0.43 readiness score, achieving the ultimate fusion of fitness and gaming prowess!',
+  ChallangeJournal:
+    'Today, I faced the challenges of Procrastination and Fatigue. Mastered exercises • High Knees and • Squat Sumo, earning attributes Vitality and Agility. Leveled up and ready for more!',
+  ChallengeName: 'VirtuaOdysseyGaming',
+  EnemiesList: ['Procrastination', 'Fatigue'],
+  ExercisesList: ['• High Knees', '• Squat Sumo'],
+  ReadinessScore: 0.43,
+  Reps: 10,
+  Sets: 3,
+  Token: 6,
+  __v: 0,
+  _id: '65ccecf69f96025126243f24',
+  accuracy: 'accurate',
+  createdAt: '2024-02-14T16:40:22.105Z',
+  difficultyLevel: 'moderate',
+  status: 'completed',
+  updatedAt: '2024-02-20T14:16:10.615Z',
+  userId: '65cce73a9f96025126243f06',
+  xp: 18,
+};
 
 export default function FitnessChallage() {
-  const { data } = useGlobalDataContext();
+  const {data} = useGlobalDataContext();
   const [showCreateScreen, setShowCreateScreen] = useState(false);
   const [userChallenges, setUserChallenges] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { userId, loginToken } = data;
+  const {userId, loginToken} = data;
   const [isLoading, setIsLoading] = useState(false);
   const [isChallengeCompleteLoading, setIsChallengeCompleteLoading] =
     useState(false);
@@ -67,7 +89,7 @@ export default function FitnessChallage() {
           Authorization: `${loginToken}`,
           'Content-Type': 'application/json',
         };
-        const res = await axios.get(apiUrl, { headers });
+        const res = await axios.get(apiUrl, {headers});
         setUserChallenges(res.data);
 
         const hasUserId = res.data.some(
@@ -98,7 +120,8 @@ export default function FitnessChallage() {
   const [monthPart] = formattedDate.split(', ');
 
   const createChallenge = async () => {
-    setIsLoading(true)
+    console.log('funtion hit of create');
+    setIsLoading(true);
     try {
       const apiUrl = 'http://18.217.10.162/api/challenges/create-challenge';
       const headers = {
@@ -106,28 +129,28 @@ export default function FitnessChallage() {
         'Content-Type': 'application/json',
       };
       const body = {};
-      const res = await axios.post(apiUrl, body, { headers });
+      const res = await axios.post(apiUrl, body, {headers});
       console.log('Challenge Created -->', res.data);
       setShowCreateScreen(true);
     } catch (error) {
       console.error('Error creating challenge:', error);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
   const completeChallenge = async id => {
-    console.log({ id });
+    console.log({id});
     setIsChallengeCompleteLoading(true);
     try {
       const apiUrl = `http://18.217.10.162/api/challenges/complete-challenge/${id}`;
-      console.log({ apiUrl });
+      console.log({apiUrl});
       const headers = {
         Authorization: `${loginToken}`,
         'Content-Type': 'application/json',
       };
 
-      const res = await axios.put(apiUrl, {}, { headers });
+      const res = await axios.put(apiUrl, {}, {headers});
       console.log('Challenge Completed -->', res.data);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -136,202 +159,32 @@ export default function FitnessChallage() {
       setIsChallengeCompleteLoading(false);
     }
   };
-  console.log("userChallenges", userChallenges[0])
   return (
-    <View style={{ flex: 1, }}>
-      {/* 
-      <View>
-        <View style={{ height: windowHeight - 270 }}>
-
-          <View style={[styles.innerContainer, { marginHorizontal: 20, }]}>
-            <TouchableOpacity>
-              <Text style={{ color: "#818181", fontWeight: "bold", fontSize: 18, textAlign: "right" }}>X</Text>
-            </TouchableOpacity>
-            <View style={{ flexDirection: 'row', justifyContent: "center", alignContent: "center" }}>
-              <Text style={[fontBold(4), { marginTop: 10, lineHeight: 30, textAlign: "center", flexDirection: 'row', justifyContent: "center", alignContent: "center" }]}>
-                Congratulations, you successfully completed the "Challange Name"
-                Challenge
-              </Text>
-            </View>
-
-            <View style={{ marginTop: getWidth(2) }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  width: '70%',
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  marginVertical: getWidth(4),
-                }}>
-                <View style={{ alignItems: 'center' }}>
-                  <Text style={fontBold(3.5)}>{232}</Text>
-                  <Text style={fontRegular(3.5, Colors.gray3)}>
-                    XP Gain
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: 1,
-                    height: getWidth(6),
-                    backgroundColor: Colors.gray3 + '30',
-                  }}
-                />
-                <View style={{}}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <Text style={fontBold(3.5)}>
-                      {' '}
-                      {exampleData?.Token}
-                    </Text>
-                    <Image
-                      style={[
-                        {
-                          width: getWidth(5),
-                          height: getWidth(5),
-                          resizeMode: 'contain',
-                          marginLeft: getWidth(2),
-                        },
-                      ]}
-                      source={require('../assets/images/tokenpound.png')}
-                    />
-                  </View>
-                  <Text style={fontRegular(3.5, Colors.gray3)}>Token</Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: '100%',
-                  justifyContent: 'center',
-                }}>
-                <View
-                  style={{
-                    borderRadius: getWidth(3),
-                    alignItems: 'center',
-                    marginTop: getWidth(3),
-                    marginRight: 40,
-                    backgroundColor: Colors.gray2_0,
-                    padding: getWidth(3),
-                  }}>
-                  <Text
-                    style={[
-                      fontRegular(3.5, Colors.white),
-                      { marginTop: getWidth(1) },
-                    ]}>
-                    Enemies
-                  </Text>
-                  <View
-                    style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
-                    {exampleData?.EnemiesList?.map(
-                      (item, index) => (
-                        <View
-                          style={[
-                            styles.image,
-                            {
-                              marginLeft: index ? -getWidth(3) : 0,
-                              overflow: 'hidden',
-                            },
-                          ]}>
-                          <Image
-                            style={[
-                              {
-                                width: '70%',
-                                height: '70%',
-                                resizeMode: 'contain',
-                              },
-                            ]}
-                            source={
-                              enemyImage[item as keyof typeof enemyImage]
-                            }
-                          />
-                        </View>
-                      ),
-                    )}
-                  </View>
-                </View>
-
-                <View
-                  style={{
-                    borderRadius: getWidth(3),
-                    alignItems: 'center',
-                    marginTop: getWidth(3),
-                    backgroundColor: Colors.gray2_0,
-                    padding: getWidth(3),
-                    marginLeft: getWidth(10),
-                  }}>
-                  <Text
-                    style={[
-                      fontRegular(3.5, Colors.white),
-                      { marginTop: getWidth(1) },
-                    ]}>
-                    Attributes
-                  </Text>
-                  <View
-                    style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
-                    {exampleData?.AttributesList?.map(
-                      (item, index) => (
-                        <View
-                          style={[
-                            styles.image,
-                            {
-                              marginLeft: index ? -getWidth(3) : 0,
-                              overflow: 'hidden',
-                            },
-                          ]}>
-                          <Image
-                            style={[
-                              {
-                                width: '70%',
-                                height: '70%',
-                                resizeMode: 'contain',
-                              },
-                            ]}
-                            source={
-                              attributeImages[
-                              item as keyof typeof attributeImages
-                              ]
-                            }
-                          />
-                        </View>
-                      ),
-                    )}
-                  </View>
-                </View>
-              </View>
-            </View>
-
-          </View>
-        </View>
-        <InputButton
-          onPress={() => { }}
-          style={styles.submitBtn}
-          textColor={"white"}
-          labelTitle="Go To Journal"
-        />
-      </View> */}
+    <View style={{flex: 1}}>
       {!showCreateScreen ? (
         <LockView
           text="Need a Challenge?"
           subText=""
           btnText="Generate Challenge"
           isLoading={isLoading}
+          isDisable={isLoading}
           handleBtnClick={createChallenge}
         />
       ) : (
         <ScrollView
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           contentContainerStyle={{
-            backgroundColor: "#1f1f1f",
+            backgroundColor: '#1f1f1f',
             paddingHorizontal: getWidth(4),
           }}>
           {userChallenges.length > 0 ? (
             <>
               <View style={styles.innerContainer}>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{flexDirection: 'row'}}>
                   <Text style={[fontBold(4), {}]}>
                     {userChallenges[currentIndex].ChallengeName}
                   </Text>
-                  <View style={{ flex: 1 }} />
+                  <View style={{flex: 1}} />
                   <TouchableOpacity
                     onPress={reloadChallenge}
                     style={{
@@ -351,11 +204,11 @@ export default function FitnessChallage() {
                   </TouchableOpacity>
                 </View>
 
-                <View style={{ marginTop: getWidth(2) }}>
+                <View style={{marginTop: getWidth(2)}}>
                   <Text
                     style={[
                       fontRegular(3.5, Colors.gray3),
-                      { lineHeight: getWidth(6) },
+                      {lineHeight: getWidth(6)},
                     ]}>
                     {userChallenges[currentIndex].ChallangeDescription}
                   </Text>
@@ -369,7 +222,7 @@ export default function FitnessChallage() {
                       alignSelf: 'center',
                       marginVertical: getWidth(4),
                     }}>
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={{alignItems: 'center'}}>
                       <Text style={fontBold(3.5)}>{monthPart}</Text>
                       <Text style={fontRegular(3.5, Colors.gray3)}>
                         XP Gain
@@ -382,8 +235,8 @@ export default function FitnessChallage() {
                         backgroundColor: Colors.gray3 + '30',
                       }}
                     />
-                    <View style={{ alignItems: 'center' }}>
-                      <View style={{ flexDirection: 'row' }}>
+                    <View style={{alignItems: 'center'}}>
+                      <View style={{flexDirection: 'row'}}>
                         <Text style={fontBold(3.5)}>
                           {' '}
                           {userChallenges[currentIndex].Token}
@@ -420,12 +273,12 @@ export default function FitnessChallage() {
                       <Text
                         style={[
                           fontRegular(3.5, Colors.white),
-                          { marginTop: getWidth(1) },
+                          {marginTop: getWidth(1)},
                         ]}>
                         Enemies
                       </Text>
                       <View
-                        style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
+                        style={{flexDirection: 'row', marginTop: getWidth(2)}}>
                         {userChallenges[currentIndex]?.EnemiesList?.map(
                           (item, index) => (
                             <View
@@ -466,12 +319,12 @@ export default function FitnessChallage() {
                       <Text
                         style={[
                           fontRegular(3.5, Colors.white),
-                          { marginTop: getWidth(1) },
+                          {marginTop: getWidth(1)},
                         ]}>
                         Attributes
                       </Text>
                       <View
-                        style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
+                        style={{flexDirection: 'row', marginTop: getWidth(2)}}>
                         {userChallenges[currentIndex]?.AttributesList?.map(
                           (item, index) => (
                             <View
@@ -492,7 +345,7 @@ export default function FitnessChallage() {
                                 ]}
                                 source={
                                   attributeImages[
-                                  item as keyof typeof attributeImages
+                                    item as keyof typeof attributeImages
                                   ]
                                 }
                               />
@@ -516,11 +369,11 @@ export default function FitnessChallage() {
                     borderRadius: getWidth(2),
                     backgroundColor: Colors.gray2_0,
                   }}>
-                  <Text style={[fontBold(3.5, 'white'), { elevation: 3 }]}>
+                  <Text style={[fontBold(3.5, 'white'), {elevation: 3}]}>
                     {'DEMO OF CHALLENGE'}
                   </Text>
                 </View>
-                <Text style={[fontRegular(4), { marginVertical: getWidth(3) }]}>
+                <Text style={[fontRegular(4), {marginVertical: getWidth(3)}]}>
                   Instructions:
                 </Text>
 
@@ -531,11 +384,11 @@ export default function FitnessChallage() {
                   'Real-time feedback on your form and an accurate count of each precise push-up will guide your progress.',
                   'Each push-up propels you closer to the Avatar State. Challenge Apathy and Fatigue, and discover the strength and agility within you.',
                 ].map((item, index) => (
-                  <View style={{ flexDirection: 'row' }}>
+                  <View style={{flexDirection: 'row'}}>
                     <Text
                       style={[
                         fontRegular(3.5, Colors.gray3),
-                        { marginTop: getWidth(1), lineHeight: getWidth(5) },
+                        {marginTop: getWidth(1), lineHeight: getWidth(5)},
                       ]}>
                       {++index}.{' '}
                     </Text>
@@ -636,8 +489,6 @@ export default function FitnessChallage() {
           ) : null}
         </ScrollView>
       )}
-
-
     </View>
   );
 }
@@ -649,13 +500,12 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     marginLeft: 20,
-    width: "90%",
+    width: '90%',
     borderRadius: getWidth(3),
     borderWidth: 1,
-    borderColor: "#3f3f3f",
-    backgroundColor: "transparent",
-    color: "white"
-
+    borderColor: '#3f3f3f',
+    backgroundColor: 'transparent',
+    color: 'white',
   },
   innerContainer: {
     // flex: 1,

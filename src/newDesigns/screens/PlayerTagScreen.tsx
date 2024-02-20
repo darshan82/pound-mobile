@@ -1,66 +1,91 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, {useEffect, useId, useState} from 'react';
 
-import { Image, StyleSheet, View, Text, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { InputButton } from '../components/InputButton';
+import {Image, StyleSheet, View, Text, ActivityIndicator} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {InputButton} from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
   getWidth,
 } from '../../modules/dashboard/helpers/tabs';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { InputText } from '../components/InputText';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
-import { useGlobalDataContext } from '../../context';
-import axios, { AxiosError } from 'axios';
+import {useGlobalDataContext} from '../../context';
+import axios, {AxiosError} from 'axios';
 
 export default function PlayerTagScreen() {
   const navigation = useNavigation();
   const [isError, setIsError] = useState(false);
-  const { data, setData } = useGlobalDataContext();
+  const {data, setData} = useGlobalDataContext();
   const [playerTag, setPlayerTag] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const imageId = useId();
+  const [imageLoading, setLoadingImage] = useState(true);
+  const [isPlayerTagValid, setIsPlayerTagValid] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadingImage(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleInputChange = (text: string) => {
     setPlayerTag(text);
     setIsError(false);
     setError('');
+    const alphanumericRegex = /^(?=.*[a-z])(?=.*\d)[a-zA-Z\d]{5,15}$/;
+    setIsPlayerTagValid(alphanumericRegex.test(text));
   };
+
+  console.log({isPlayerTagValid});
 
   const handleSaveName = async () => {
     try {
       setIsLoading(true);
-      if (!playerTag) {
+      setError('');
+      if (!playerTag.length) {
+        setError('Player tag required!');
         setIsLoading(false);
         return;
       }
-      const userName = { userName: playerTag };
-      const apiUrl = 'http://18.217.10.162/api/users/check-username';
-      const headers = {
-        Authorization: `${data.token}`,
-        'Content-Type': 'application/json',
-      };
-      const res = await axios.post(apiUrl, userName, { headers });
 
-      if (res.data.isAvailable && isError === false) {
-        try {
-          const updateUrl = 'http://18.217.10.162/api/users/update-user';
-          const updateBody = { username: playerTag };
-          const updateResponse = await axios.put(updateUrl, updateBody, {
-            headers,
-          });
-          console.log('Player Tag Response:', updateResponse.data);
-          setData(prevData => ({
-            ...prevData,
-            playerTag: playerTag,
-          }));
+      if (!isPlayerTagValid) {
+        setError(
+          'Player tag must contain between 5 and 15 alphanumeric characters',
+        );
+        setIsLoading(false);
+        return;
+      } else {
+        const userName = {userName: playerTag};
+        const apiUrl = 'http://18.217.10.162/api/users/check-username';
+        const headers = {
+          Authorization: `${data.token}`,
+          'Content-Type': 'application/json',
+        };
+        const res = await axios.post(apiUrl, userName, {headers});
 
-          navigation.navigate('AvatarScreen');
-        } catch (updateError) {
-          console.error('Error:', updateError);
+        if (res.data.isAvailable && isError === false) {
+          try {
+            const updateUrl = 'http://18.217.10.162/api/users/update-user';
+            const updateBody = {username: playerTag};
+            const updateResponse = await axios.put(updateUrl, updateBody, {
+              headers,
+            });
+            console.log('Player Tag Response:', updateResponse.data);
+            setData(prevData => ({
+              ...prevData,
+              playerTag: playerTag,
+            }));
+
+            navigation.navigate('AvatarScreen');
+          } catch (updateError) {
+            console.error('Error:', updateError);
+          }
         }
       }
     } catch (error) {
@@ -83,7 +108,7 @@ export default function PlayerTagScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+      <KeyboardAwareScrollView contentContainerStyle={{flex: 1}}>
         <View style={styles.innerContainer}>
           <Image
             style={styles.logoImage}
@@ -105,35 +130,35 @@ export default function PlayerTagScreen() {
           </Text>
 
           <InputText
-            containerStyle={{ marginTop: getWidth(3), width: '100%' }}
+            containerStyle={{marginTop: getWidth(3), width: '100%'}}
             labelTitle="Player Tag"
-            placeholder="John Doe"
+            placeholder="JohnDoe123"
             value={playerTag}
             onChangeText={handleInputChange}
             errorMessage="Player tag already taken"
             showError={error !== ''}
             isInvalid={error.length !== 0}
           />
-          {error && isError ? (
-            <Text style={{ color: 'red', paddingHorizontal: 8, marginTop: 5 }}>
-              {error}
-            </Text>
-          ) : null}
-
           <Text style={styles.infoText}>
             {'Must contain between 5 & 15 alphanumeric characters'}
           </Text>
 
-          <Image
-            style={{
-              flex: 1,
-              resizeMode: 'contain',
-              width: '110%',
-              marginVertical: getWidth(5),
-            }}
-            key={imageId}
-            source={{ uri: NewImageUrl + '?' + new Date() }}
-          />
+          {imageLoading ? (
+            <View style={styles.loaderContainer}>
+              <ActivityIndicator size="large" color={Colors.lightGreen} />
+            </View>
+          ) : (
+            <Image
+              style={{
+                flex: 1,
+                resizeMode: 'contain',
+                width: '110%',
+                marginVertical: getWidth(5),
+              }}
+              key={imageId}
+              source={{uri: NewImageUrl + '?' + new Date()}}
+            />
+          )}
 
           <InputButton
             onPress={handleSaveName}
@@ -141,9 +166,7 @@ export default function PlayerTagScreen() {
             textColor={Colors.gray1}
             isLoading={isLoading}
             labelTitle="CONTINUE"
-            isDisabled={
-              playerTag.length < 5 || playerTag.length > 18 || isLoading
-            }
+            isDisabled={!isPlayerTagValid || isLoading}
           />
         </View>
       </KeyboardAwareScrollView>
@@ -156,8 +179,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: getWidth(5),
     paddingVertical: getWidth(2),
-    backgroundColor: "#1f1f1f",
-
+    backgroundColor: '#1f1f1f',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   innerContainer: {
     flex: 1,
