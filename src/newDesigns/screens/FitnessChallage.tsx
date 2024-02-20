@@ -6,7 +6,8 @@ import {
   View,
   TouchableOpacity,
   Text,
-  ScrollView,
+  Dimensions,
+  ScrollView
 } from 'react-native';
 
 const attributeImages = {
@@ -40,6 +41,9 @@ import { useGlobalDataContext } from '../../context';
 import axios, { AxiosError } from 'axios';
 import { isLight } from 'native-base/lib/typescript/theme/tools';
 
+
+let exampleData = { "ActivityLevel": 0.3, "AttributesList": ["Vitality", "Agility"], "ChallangeDescription": "Join the VirtuaOdysseyGaming-Fit Saga, conquering Exercises • High Knees and • Squat Sumo. Face off against foes Procrastination and Fatigue. Unlock unique attributes Vitality and Agility. Level up your 0.43 readiness score, achieving the ultimate fusion of fitness and gaming prowess!", "ChallangeJournal": "Today, I faced the challenges of Procrastination and Fatigue. Mastered exercises • High Knees and • Squat Sumo, earning attributes Vitality and Agility. Leveled up and ready for more!", "ChallengeName": "VirtuaOdysseyGaming", "EnemiesList": ["Procrastination", "Fatigue"], "ExercisesList": ["• High Knees", "• Squat Sumo"], "ReadinessScore": 0.43, "Reps": 10, "Sets": 3, "Token": 6, "__v": 0, "_id": "65ccecf69f96025126243f24", "accuracy": "accurate", "createdAt": "2024-02-14T16:40:22.105Z", "difficultyLevel": "moderate", "status": "completed", "updatedAt": "2024-02-20T14:16:10.615Z", "userId": "65cce73a9f96025126243f06", "xp": 18 }
+
 export default function FitnessChallage() {
   const { data } = useGlobalDataContext();
   const [showCreateScreen, setShowCreateScreen] = useState(false);
@@ -53,6 +57,7 @@ export default function FitnessChallage() {
   const reloadChallenge = () => {
     setCurrentIndex(prevIndex => (prevIndex + 1) % userChallenges.length);
   };
+  const windowHeight = Dimensions.get('window').height;
 
   useEffect(() => {
     const checkUserId = async () => {
@@ -131,9 +136,179 @@ export default function FitnessChallage() {
       setIsChallengeCompleteLoading(false);
     }
   };
-
+  console.log("userChallenges", userChallenges[0])
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, }}>
+      {/* 
+      <View>
+        <View style={{ height: windowHeight - 270 }}>
+
+          <View style={[styles.innerContainer, { marginHorizontal: 20, }]}>
+            <TouchableOpacity>
+              <Text style={{ color: "#818181", fontWeight: "bold", fontSize: 18, textAlign: "right" }}>X</Text>
+            </TouchableOpacity>
+            <View style={{ flexDirection: 'row', justifyContent: "center", alignContent: "center" }}>
+              <Text style={[fontBold(4), { marginTop: 10, lineHeight: 30, textAlign: "center", flexDirection: 'row', justifyContent: "center", alignContent: "center" }]}>
+                Congratulations, you successfully completed the "Challange Name"
+                Challenge
+              </Text>
+            </View>
+
+            <View style={{ marginTop: getWidth(2) }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  width: '70%',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  marginVertical: getWidth(4),
+                }}>
+                <View style={{ alignItems: 'center' }}>
+                  <Text style={fontBold(3.5)}>{232}</Text>
+                  <Text style={fontRegular(3.5, Colors.gray3)}>
+                    XP Gain
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 1,
+                    height: getWidth(6),
+                    backgroundColor: Colors.gray3 + '30',
+                  }}
+                />
+                <View style={{}}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Text style={fontBold(3.5)}>
+                      {' '}
+                      {exampleData?.Token}
+                    </Text>
+                    <Image
+                      style={[
+                        {
+                          width: getWidth(5),
+                          height: getWidth(5),
+                          resizeMode: 'contain',
+                          marginLeft: getWidth(2),
+                        },
+                      ]}
+                      source={require('../assets/images/tokenpound.png')}
+                    />
+                  </View>
+                  <Text style={fontRegular(3.5, Colors.gray3)}>Token</Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'center',
+                }}>
+                <View
+                  style={{
+                    borderRadius: getWidth(3),
+                    alignItems: 'center',
+                    marginTop: getWidth(3),
+                    marginRight: 40,
+                    backgroundColor: Colors.gray2_0,
+                    padding: getWidth(3),
+                  }}>
+                  <Text
+                    style={[
+                      fontRegular(3.5, Colors.white),
+                      { marginTop: getWidth(1) },
+                    ]}>
+                    Enemies
+                  </Text>
+                  <View
+                    style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
+                    {exampleData?.EnemiesList?.map(
+                      (item, index) => (
+                        <View
+                          style={[
+                            styles.image,
+                            {
+                              marginLeft: index ? -getWidth(3) : 0,
+                              overflow: 'hidden',
+                            },
+                          ]}>
+                          <Image
+                            style={[
+                              {
+                                width: '70%',
+                                height: '70%',
+                                resizeMode: 'contain',
+                              },
+                            ]}
+                            source={
+                              enemyImage[item as keyof typeof enemyImage]
+                            }
+                          />
+                        </View>
+                      ),
+                    )}
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    borderRadius: getWidth(3),
+                    alignItems: 'center',
+                    marginTop: getWidth(3),
+                    backgroundColor: Colors.gray2_0,
+                    padding: getWidth(3),
+                    marginLeft: getWidth(10),
+                  }}>
+                  <Text
+                    style={[
+                      fontRegular(3.5, Colors.white),
+                      { marginTop: getWidth(1) },
+                    ]}>
+                    Attributes
+                  </Text>
+                  <View
+                    style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
+                    {exampleData?.AttributesList?.map(
+                      (item, index) => (
+                        <View
+                          style={[
+                            styles.image,
+                            {
+                              marginLeft: index ? -getWidth(3) : 0,
+                              overflow: 'hidden',
+                            },
+                          ]}>
+                          <Image
+                            style={[
+                              {
+                                width: '70%',
+                                height: '70%',
+                                resizeMode: 'contain',
+                              },
+                            ]}
+                            source={
+                              attributeImages[
+                              item as keyof typeof attributeImages
+                              ]
+                            }
+                          />
+                        </View>
+                      ),
+                    )}
+                  </View>
+                </View>
+              </View>
+            </View>
+
+          </View>
+        </View>
+        <InputButton
+          onPress={() => { }}
+          style={styles.submitBtn}
+          textColor={"white"}
+          labelTitle="Go To Journal"
+        />
+      </View> */}
       {!showCreateScreen ? (
         <LockView
           text="Need a Challenge?"
@@ -461,6 +636,8 @@ export default function FitnessChallage() {
           ) : null}
         </ScrollView>
       )}
+
+
     </View>
   );
 }
@@ -470,8 +647,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: getWidth(8),
   },
+  submitBtn: {
+    marginLeft: 20,
+    width: "90%",
+    borderRadius: getWidth(3),
+    borderWidth: 1,
+    borderColor: "#3f3f3f",
+    backgroundColor: "transparent",
+    color: "white"
+
+  },
   innerContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: Colors.gray2,
     marginVertical: getWidth(4),
     padding: getWidth(4),
