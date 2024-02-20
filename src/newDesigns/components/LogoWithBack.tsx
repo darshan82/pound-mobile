@@ -11,16 +11,7 @@ export default function LogoWithBack({ title, logo = false }) {
   return (
     <View style={styles.innerContainer}>
 
-      {title && (
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-          }}>
-          <Text style={styles.logoImage}>{title}</Text>
-        </View>
-      )}
+
 
       <View style={{ marginBottom: 10, flexDirection: "row", alignItems: 'center', justifyContent: 'center' }}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -29,6 +20,14 @@ export default function LogoWithBack({ title, logo = false }) {
             source={require('../assets/images/arrow_left.png')}
           />
         </TouchableOpacity>
+        {title && (
+          <View
+            style={{
+              flex: 1, alignItems: 'center'
+            }}>
+            <Text style={styles.logoImage}>{title}</Text>
+          </View>
+        )}
         {logo && <View style={{ flex: 1, alignItems: 'center' }}>
           <Image
             style={styles.poundlogoImage}

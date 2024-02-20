@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Image,
@@ -28,7 +28,7 @@ const enemyImage = {
   Plateaus: require('../assets/images/Ene7.png'),
 };
 
-import {InputButton} from '../components/InputButton';
+import { InputButton } from '../components/InputButton';
 import {
   fontBold,
   fontRegular,
@@ -36,17 +36,17 @@ import {
 } from '../../modules/dashboard/helpers/tabs';
 import Colors from '../components/Colors';
 import LockView from '../components/LockView';
-import {useGlobalDataContext} from '../../context';
-import axios, {AxiosError} from 'axios';
-import {isLight} from 'native-base/lib/typescript/theme/tools';
+import { useGlobalDataContext } from '../../context';
+import axios, { AxiosError } from 'axios';
+import { isLight } from 'native-base/lib/typescript/theme/tools';
 
 export default function FitnessChallage() {
-  const {data} = useGlobalDataContext();
+  const { data } = useGlobalDataContext();
   const [showCreateScreen, setShowCreateScreen] = useState(false);
   const [userChallenges, setUserChallenges] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const {userId, loginToken} = data;
-  const [isLoading,setIsLoading] = useState(false);
+  const { userId, loginToken } = data;
+  const [isLoading, setIsLoading] = useState(false);
   const [isChallengeCompleteLoading, setIsChallengeCompleteLoading] =
     useState(false);
 
@@ -62,7 +62,7 @@ export default function FitnessChallage() {
           Authorization: `${loginToken}`,
           'Content-Type': 'application/json',
         };
-        const res = await axios.get(apiUrl, {headers});
+        const res = await axios.get(apiUrl, { headers });
         setUserChallenges(res.data);
 
         const hasUserId = res.data.some(
@@ -101,7 +101,7 @@ export default function FitnessChallage() {
         'Content-Type': 'application/json',
       };
       const body = {};
-      const res = await axios.post(apiUrl, body, {headers});
+      const res = await axios.post(apiUrl, body, { headers });
       console.log('Challenge Created -->', res.data);
       setShowCreateScreen(true);
     } catch (error) {
@@ -112,17 +112,17 @@ export default function FitnessChallage() {
   };
 
   const completeChallenge = async id => {
-    console.log({id});
+    console.log({ id });
     setIsChallengeCompleteLoading(true);
     try {
       const apiUrl = `http://18.217.10.162/api/challenges/complete-challenge/${id}`;
-      console.log({apiUrl});
+      console.log({ apiUrl });
       const headers = {
         Authorization: `${loginToken}`,
         'Content-Type': 'application/json',
       };
 
-      const res = await axios.put(apiUrl, {}, {headers});
+      const res = await axios.put(apiUrl, {}, { headers });
       console.log('Challenge Completed -->', res.data);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -133,7 +133,7 @@ export default function FitnessChallage() {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       {!showCreateScreen ? (
         <LockView
           text="Need a Challenge?"
@@ -144,19 +144,19 @@ export default function FitnessChallage() {
         />
       ) : (
         <ScrollView
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           contentContainerStyle={{
-            backgroundColor: Colors.gray0,
+            backgroundColor: "#1f1f1f",
             paddingHorizontal: getWidth(4),
           }}>
           {userChallenges.length > 0 ? (
             <>
               <View style={styles.innerContainer}>
-                <View style={{flexDirection: 'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   <Text style={[fontBold(4), {}]}>
                     {userChallenges[currentIndex].ChallengeName}
                   </Text>
-                  <View style={{flex: 1}} />
+                  <View style={{ flex: 1 }} />
                   <TouchableOpacity
                     onPress={reloadChallenge}
                     style={{
@@ -176,11 +176,11 @@ export default function FitnessChallage() {
                   </TouchableOpacity>
                 </View>
 
-                <View style={{marginTop: getWidth(2)}}>
+                <View style={{ marginTop: getWidth(2) }}>
                   <Text
                     style={[
                       fontRegular(3.5, Colors.gray3),
-                      {lineHeight: getWidth(6)},
+                      { lineHeight: getWidth(6) },
                     ]}>
                     {userChallenges[currentIndex].ChallangeDescription}
                   </Text>
@@ -194,7 +194,7 @@ export default function FitnessChallage() {
                       alignSelf: 'center',
                       marginVertical: getWidth(4),
                     }}>
-                    <View style={{alignItems: 'center'}}>
+                    <View style={{ alignItems: 'center' }}>
                       <Text style={fontBold(3.5)}>{monthPart}</Text>
                       <Text style={fontRegular(3.5, Colors.gray3)}>
                         XP Gain
@@ -207,8 +207,8 @@ export default function FitnessChallage() {
                         backgroundColor: Colors.gray3 + '30',
                       }}
                     />
-                    <View style={{alignItems: 'center'}}>
-                      <View style={{flexDirection: 'row'}}>
+                    <View style={{ alignItems: 'center' }}>
+                      <View style={{ flexDirection: 'row' }}>
                         <Text style={fontBold(3.5)}>
                           {' '}
                           {userChallenges[currentIndex].Token}
@@ -245,12 +245,12 @@ export default function FitnessChallage() {
                       <Text
                         style={[
                           fontRegular(3.5, Colors.white),
-                          {marginTop: getWidth(1)},
+                          { marginTop: getWidth(1) },
                         ]}>
                         Enemies
                       </Text>
                       <View
-                        style={{flexDirection: 'row', marginTop: getWidth(2)}}>
+                        style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
                         {userChallenges[currentIndex]?.EnemiesList?.map(
                           (item, index) => (
                             <View
@@ -291,12 +291,12 @@ export default function FitnessChallage() {
                       <Text
                         style={[
                           fontRegular(3.5, Colors.white),
-                          {marginTop: getWidth(1)},
+                          { marginTop: getWidth(1) },
                         ]}>
                         Attributes
                       </Text>
                       <View
-                        style={{flexDirection: 'row', marginTop: getWidth(2)}}>
+                        style={{ flexDirection: 'row', marginTop: getWidth(2) }}>
                         {userChallenges[currentIndex]?.AttributesList?.map(
                           (item, index) => (
                             <View
@@ -317,7 +317,7 @@ export default function FitnessChallage() {
                                 ]}
                                 source={
                                   attributeImages[
-                                    item as keyof typeof attributeImages
+                                  item as keyof typeof attributeImages
                                   ]
                                 }
                               />
@@ -341,11 +341,11 @@ export default function FitnessChallage() {
                     borderRadius: getWidth(2),
                     backgroundColor: Colors.gray2_0,
                   }}>
-                  <Text style={[fontBold(3.5, 'white'), {elevation: 3}]}>
+                  <Text style={[fontBold(3.5, 'white'), { elevation: 3 }]}>
                     {'DEMO OF CHALLENGE'}
                   </Text>
                 </View>
-                <Text style={[fontRegular(4), {marginVertical: getWidth(3)}]}>
+                <Text style={[fontRegular(4), { marginVertical: getWidth(3) }]}>
                   Instructions:
                 </Text>
 
@@ -356,11 +356,11 @@ export default function FitnessChallage() {
                   'Real-time feedback on your form and an accurate count of each precise push-up will guide your progress.',
                   'Each push-up propels you closer to the Avatar State. Challenge Apathy and Fatigue, and discover the strength and agility within you.',
                 ].map((item, index) => (
-                  <View style={{flexDirection: 'row'}}>
+                  <View style={{ flexDirection: 'row' }}>
                     <Text
                       style={[
                         fontRegular(3.5, Colors.gray3),
-                        {marginTop: getWidth(1), lineHeight: getWidth(5)},
+                        { marginTop: getWidth(1), lineHeight: getWidth(5) },
                       ]}>
                       {++index}.{' '}
                     </Text>

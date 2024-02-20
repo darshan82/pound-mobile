@@ -27,7 +27,7 @@ export default function LeaderboardScreen() {
               backgroundColor: Colors.gray2,
               paddingHorizontal: getWidth(4),
             }}>
-            <LogoWithBack />
+            <LogoWithBack logo={true} />
           </View>
 
           <Tab.Navigator

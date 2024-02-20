@@ -1,18 +1,18 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import {StyleSheet, View, TouchableOpacity, Text, FlatList} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, FlatList } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { fontBold, getWidth } from '../../modules/dashboard/helpers/tabs';
 import OracleScreenChild from './OracleScreenChild';
 import Colors from '../components/Colors';
 import FitnessChallage from './FitnessChallage';
 
 const Tab = createMaterialTopTabNavigator();
 
-function MyTabBar({state, descriptors, navigation}) {
+function MyTabBar({ state, descriptors, navigation }) {
   const ref = useRef();
 
   // useEffect(() => {
@@ -32,6 +32,7 @@ function MyTabBar({state, descriptors, navigation}) {
         paddingBottom: getWidth(3),
         borderBottomLeftRadius: getWidth(8),
         borderBottomRightRadius: getWidth(8),
+
       }}>
       <FlatList
         ref={ref}
@@ -40,15 +41,15 @@ function MyTabBar({state, descriptors, navigation}) {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item, index) => `${index}`}
-        renderItem={({item, index}) => {
+        renderItem={({ item, index }) => {
           const route = item;
-          const {options} = descriptors[route.key];
+          const { options } = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
               ? options.tabBarLabel
               : options.title !== undefined
-              ? options.title
-              : route.name;
+                ? options.title
+                : route.name;
 
           const isFocused = state.index === index;
 
@@ -61,7 +62,7 @@ function MyTabBar({state, descriptors, navigation}) {
 
             if (!isFocused && !event.defaultPrevented) {
               // The `merge: true` option makes sure that the params inside the tab screen are preserved
-              navigation.navigate({name: route.name, merge: true});
+              navigation.navigate({ name: route.name, merge: true });
             }
           };
 
@@ -75,7 +76,7 @@ function MyTabBar({state, descriptors, navigation}) {
           return (
             <TouchableOpacity
               accessibilityRole="button"
-              accessibilityState={isFocused ? {selected: true} : {}}
+              accessibilityState={isFocused ? { selected: true } : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarTestID}
               onPress={onPress}
@@ -92,7 +93,7 @@ function MyTabBar({state, descriptors, navigation}) {
                 borderWidth: 1,
                 borderColor: isFocused ? Colors.lightGreen : Colors.gray2_0,
               }}>
-              <Text style={[fontBold(3.3, 'white'), {elevation: 3}]}>
+              <Text style={[fontBold(3.3, 'white'), { elevation: 3 }]}>
                 {label}
               </Text>
             </TouchableOpacity>
@@ -112,6 +113,7 @@ export default function OracleScreen() {
       backBehavior="none"
       tabBar={props => <MyTabBar {...props} />}
       initialRouteName="Fitness Challenges"
+      style={{ backgroundColor: "#1f1f1f" }}
       screenOptions={{
         tabBarActiveTintColor: '#AEFF03',
         tabBarInactiveTintColor: 'white',

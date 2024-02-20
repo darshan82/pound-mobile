@@ -187,7 +187,11 @@ function HomeScreen() {
         </View>
       </View>
 
-      <View style={{ flex: 1, backgroundColor: "#1f1f1f" }}>
+      <View style={{
+        flex: 1,
+        backgroundColor: "#1f1f1f"
+
+      }}>
         <TopTab.Navigator
           tabBar={props => <MyTabBar {...props} isHome={true} />}
           initialRouteName={'Dashboard'}
