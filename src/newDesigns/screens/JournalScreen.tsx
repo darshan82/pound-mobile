@@ -119,7 +119,10 @@ export default function RankingScreen() {
             renderItem={({item, index}) => {
               return (
                 <TouchableOpacity
-                  onPress={() => jornalDetaileModalRef.current?.showModal(true)}
+                  onPress={() => {
+                    setCurrentIndex(index);
+                    jornalDetaileModalRef.current?.showModal(true);
+                  }}
                   style={{
                     alignItems: 'center',
                     padding: getWidth(2),
