@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 import {
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Text,
   ScrollView,
+  Button,
 } from 'react-native';
 
 const attributeImages = {
@@ -52,6 +53,17 @@ export default function FitnessChallage() {
   const [challengeCompleteLoading, setChallengeCompleteLoading] =
     useState(false);
   const [lockViewLoading, setLockViewLoading] = useState(false);
+  const [playing, setPlaying] = useState(false);
+
+  const onStateChange = useCallback(state => {
+    if (state === 'ended') {
+      setPlaying(false);
+    }
+  }, []);
+
+  const togglePlaying = useCallback(() => {
+    setPlaying(prev => !prev);
+  }, []);
 
   const getCurrentChallenge = async () => {
     try {
@@ -177,6 +189,7 @@ export default function FitnessChallage() {
       />
     );
   }
+  // console.log('userChallenges yt', userChallenges.demoUrl);
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -360,11 +373,21 @@ export default function FitnessChallage() {
               borderRadius: getWidth(2),
               backgroundColor: Colors.gray2_0,
             }}>
-            <YoutubePlayer play={true} videoId={'hIkeJVV-Djk'} />
-
-            {/* <Text style={[fontBold(3.5, 'white'), {elevation: 3}]}>
-                    {'DEMO OF CHALLENGE'}
-                  </Text> */}
+            <View>
+              <YoutubePlayer
+                play={playing}
+                videoId={'hIkeJVV-Djk'}
+                onChangeState={onStateChange}
+              />
+              <Text
+                style={{
+                  width: getWidth(80),
+                  borderRadius: 10,
+                  color: Colors.gray2,
+                }}>
+                {playing ? 'pause' : 'play'}
+              </Text>
+            </View>
           </View>
           <Text style={[fontRegular(4), {marginVertical: getWidth(3)}]}>
             Instructions:
