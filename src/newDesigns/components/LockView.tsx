@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-import {Image, StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import {Image, StyleSheet, View, Text} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
 import {fontBold, getWidth} from '../../modules/dashboard/helpers/tabs';
 import {InputButton} from '../components/InputButton';
+import Colors from './Colors';
 
 export default function LockView({
   isVisible,
@@ -15,8 +15,9 @@ export default function LockView({
   isLoading,
   isDisable,
 }) {
-  const navigation = useNavigation();
-
+  useEffect(() => {
+    console.log('LockView re-rendered');
+  }, []);
   return (
     <>
       <View style={styles.innerContainer}>
@@ -60,7 +61,6 @@ export default function LockView({
                 borderRadius: getWidth(10),
                 borderWidth: 0,
               }}
-              labelTitle="Generate Challenge"
             />
           ) : null}
         </View>

@@ -13,15 +13,15 @@ import {fontSemiBold, getWidth} from '../../modules/dashboard/helpers/tabs';
 import Colors from './Colors';
 
 type InputButtonProps = {
-  children: ReactNode;
+  children?: ReactNode;
   isLoading?: boolean;
   style?: StyleProp<ViewStyle>;
   onPress: () => void;
-  labelTitle: string;
-  image: ImageSourcePropType;
-  textColor: string;
-  isDisabled: boolean;
-  imageStyle: StyleProp<ImageStyle>;
+  labelTitle?: string;
+  image?: ImageSourcePropType;
+  textColor?: string;
+  isDisabled?: boolean;
+  imageStyle?: StyleProp<ImageStyle>;
 };
 
 export const InputButton: FC<InputButtonProps> = ({

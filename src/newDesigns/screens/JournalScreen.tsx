@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect, useCallback} from 'react';
 
 import {
   Image,
@@ -67,8 +67,9 @@ export default function RankingScreen() {
   const [journalData, setJournalData] = useState<Journal[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const getJournalData = async () => {
+
+  const getJournalData = useCallback(async () => {
+    try {
       const apiUrl = 'http://18.217.10.162/api/challenges';
       const headers = {
         Authorization: `${data.loginToken}`,
@@ -77,10 +78,18 @@ export default function RankingScreen() {
       const res = await axios.get(apiUrl, {headers});
       setJournalData(res.data);
       console.log('Response Of Journal API -->', res.data);
-    };
-
-    getJournalData();
+    } catch (error) {
+      console.error('Error fetching journal data:', error);
+    }
   }, [data.loginToken]);
+
+  useEffect(() => {
+    getJournalData();
+  }, [getJournalData]);
+
+  const handleGetJournalData = () => {
+    getJournalData();
+  };
 
   const handleNext = () => {
     if (currentIndex < journalData.length - 1) {
@@ -103,8 +112,6 @@ export default function RankingScreen() {
   });
 
   const [monthPart, yearPart] = formattedDate.split(', ');
-
-  // console.log({journalData});
 
   return (
     <View style={styles.container}>
@@ -237,7 +244,7 @@ export default function RankingScreen() {
                             flexDirection: 'row',
                             marginTop: getWidth(2),
                           }}>
-                          {item.AttributesList.map((attribute, index) => (
+                          {item?.AttributesList?.map((attribute, index) => (
                             <View
                               key={index}
                               style={[
@@ -290,6 +297,7 @@ export default function RankingScreen() {
         ref={jornalDetaileModalRef}
         onPrevious={handlePrevious}
         onNext={handleNext}
+        onGetJournalData={handleGetJournalData}
       />
     </View>
   );

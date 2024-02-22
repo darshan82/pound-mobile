@@ -218,7 +218,7 @@ export default function ProgressScreen() {
               </Text>
 
               <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
-                64 Days
+                {`${userData?.streaks} Days`}
               </Text>
             </View>
             <ProgressBar
