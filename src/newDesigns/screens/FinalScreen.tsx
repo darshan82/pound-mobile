@@ -68,6 +68,7 @@ export default function FinalScreen() {
       setData(prevData => ({
         ...prevData,
         gamesToPlay: res.data.gamesToplay,
+        loginToken: data.token
       }));
       navigation.navigate('DrawerStack');
     } catch (err) {
