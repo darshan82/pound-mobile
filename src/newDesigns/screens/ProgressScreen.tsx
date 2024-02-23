@@ -63,6 +63,7 @@ const ProgressBar = ({
 };
 
 type UserData = {
+  totalTokens: number;
   Energy: number;
   HRV: number;
   Recovery: number;
@@ -143,14 +144,15 @@ export default function ProgressScreen() {
           'Content-Type': 'application/json',
         };
         const res = await axios.get(apiUrl, {headers});
-        console.log('res -->', res.data);
+        console.log('res get profile -->', res.data);
         setUserData(res.data);
       } catch (e) {
-        console.log('Error ->', e);
+        console.log('Error -->', e);
       }
     };
     getData();
   }, [data.loginToken]);
+
   console.log('userAvatar', userData?.avatar);
   return (
     <View style={styles.container}>
@@ -165,7 +167,7 @@ export default function ProgressScreen() {
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Text style={[fontBold(5), {flex: 1}]}>
-            {userData?.username ? userData?.username : 'Guest'}
+            {userData && userData?.username ? userData?.username : 'Guest'}
           </Text>
           <View
             style={{
@@ -185,7 +187,7 @@ export default function ProgressScreen() {
               source={require('../assets/images/tokenpound.png')}
             />
             <Text style={[fontBold(3.5), {marginLeft: getWidth(2)}]}>
-              {userData?.streaks ? userData?.streaks : 0}
+              {userData && userData?.totalTokens ? userData?.totalTokens : 0}
             </Text>
           </View>
         </View>
@@ -218,7 +220,9 @@ export default function ProgressScreen() {
               </Text>
 
               <Text style={[fontBold(3.2), {marginVertical: getWidth(1)}]}>
-                {`${userData?.streaks} Days`}
+                {`${
+                  userData && userData?.streaks ? userData?.streaks : 0
+                } Days`}
               </Text>
             </View>
             <ProgressBar
