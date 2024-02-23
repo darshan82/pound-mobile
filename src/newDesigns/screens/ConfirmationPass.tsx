@@ -39,6 +39,7 @@ export default function ConfirmationPass() {
       setData(prevData => ({
         ...prevData,
         email: values.email,
+        loginToken: data.token
       }));
       actions.resetForm();
       navigation.navigate('GameSelection');
