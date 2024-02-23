@@ -18,6 +18,7 @@ import Colors from '../components/Colors';
 import JornalDetaileModal from '../components/JornalDetaileModal';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
+import {useIsFocused} from '@react-navigation/native';
 
 interface Journal {
   _id: string;
@@ -66,7 +67,7 @@ export default function RankingScreen() {
   const {data} = useGlobalDataContext();
   const [journalData, setJournalData] = useState<Journal[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const isFocused = useIsFocused();
 
   const getJournalData = useCallback(async () => {
     try {
@@ -84,8 +85,10 @@ export default function RankingScreen() {
   }, [data.loginToken]);
 
   useEffect(() => {
-    getJournalData();
-  }, [getJournalData]);
+    if (isFocused) {
+      getJournalData();
+    }
+  }, [getJournalData, isFocused]);
 
   const handleGetJournalData = () => {
     getJournalData();
