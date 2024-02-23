@@ -153,7 +153,6 @@ export default function ProgressScreen() {
     getData();
   }, [data.loginToken]);
 
-  console.log('userAvatar', userData?.avatar);
   return (
     <View style={styles.container}>
       <View
