@@ -114,6 +114,15 @@ export default function ProgressScreen() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', () => {
+      console.log('user leave');
+      setUserData(null);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
     const backAction = () => {
       Alert.alert('Hold on!', 'Are you sure you want to go back?', [
         {
