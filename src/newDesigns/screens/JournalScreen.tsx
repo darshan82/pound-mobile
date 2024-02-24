@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import {
@@ -68,9 +69,11 @@ export default function RankingScreen() {
   const [journalData, setJournalData] = useState<Journal[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(false);
 
   const getJournalData = useCallback(async () => {
     try {
+      setLoading(true);
       const apiUrl = 'http://18.217.10.162/api/challenges';
       const headers = {
         Authorization: `${data.loginToken}`,
@@ -81,6 +84,8 @@ export default function RankingScreen() {
       console.log('Response Of Journal API -->', res.data);
     } catch (error) {
       console.error('Error fetching journal data:', error);
+    } finally {
+      setLoading(false);
     }
   }, [data.loginToken]);
 
@@ -116,10 +121,18 @@ export default function RankingScreen() {
 
   const [monthPart, yearPart] = formattedDate.split(', ');
 
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={Colors.lightGreen} />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        {journalData.length === 0 ? (
+        {journalData.length === 0 && !loading ? (
           <Text style={styles.noDataText}>No Journal data available</Text>
         ) : (
           <FlatList
@@ -322,6 +335,11 @@ const styles = StyleSheet.create({
     borderRadius: getWidth(10),
     borderWidth: 2,
     borderColor: Colors.gray2_0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loaderContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -9,6 +9,7 @@ import {
   Text,
   ScrollView,
   Button,
+  ActivityIndicator,
 } from 'react-native';
 
 const attributeImages = {
@@ -190,7 +191,17 @@ export default function FitnessChallage() {
       />
     );
   }
+
   // console.log('userChallenges yt', userChallenges.demoUrl);
+
+  if (isLoading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={Colors.lightGreen} />
+      </View>
+    );
+  }
+
   return (
     <View style={{flex: 1}}>
       <ScrollView
@@ -519,6 +530,11 @@ const styles = StyleSheet.create({
     marginVertical: getWidth(4),
     padding: getWidth(4),
     borderRadius: getWidth(4),
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logoImage: {
     width: getWidth(18),
