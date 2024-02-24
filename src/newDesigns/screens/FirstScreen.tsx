@@ -18,6 +18,7 @@ export default function FirstScreen() {
         navigation.navigate('DrawerStack');
       } else {
         setIsLoading(false);
+        navigation.navigate('FirstScreen');
       }
     }, 3000);
 

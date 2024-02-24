@@ -7,6 +7,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Image,
+  BackHandler,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import LogoWithBack from '../components/LogoWithBack';
@@ -48,6 +49,18 @@ const SettingsScreen = () => {
       }
     };
     getData();
+
+    const backAction = () => {
+      navigation.navigate('Dashboard');
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
   }, [data.loginToken]);
 
   const navigation = useNavigation();

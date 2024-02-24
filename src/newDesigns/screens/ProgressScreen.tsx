@@ -10,7 +10,7 @@ import {
   BackHandler,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   fontBold,
   fontSemiBold,
@@ -112,27 +112,24 @@ export default function ProgressScreen() {
   const [isColored, setIsColor] = useState(true);
   const {data} = useGlobalDataContext();
   const [userData, setUserData] = useState<UserData | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('beforeRemove', () => {
-      console.log('user leave');
-      setUserData(null);
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+  const [shouldShowAlert, setShouldShowAlert] = useState(false);
+  const route = useRoute();
 
   useEffect(() => {
     const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
+      if (shouldShowAlert) {
+        Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {text: 'YES', onPress: () => BackHandler.exitApp()},
+        ]);
+        return true;
+      } else {
+        return false;
+      }
     };
 
     const backHandler = BackHandler.addEventListener(
@@ -140,8 +137,28 @@ export default function ProgressScreen() {
       backAction,
     );
 
-    return () => backHandler.remove();
-  }, []);
+    const unsubscribe = navigation.addListener('beforeRemove', () => {
+      console.log('user leave');
+      setUserData(null);
+    });
+
+    return () => {
+      backHandler.remove();
+      unsubscribe();
+    };
+  }, [navigation, shouldShowAlert]);
+
+  useEffect(() => {
+    if (
+      route.name === 'Journal' ||
+      route.name === 'Dashboard' ||
+      route.name === 'Oracle'
+    ) {
+      setShouldShowAlert(true);
+    } else {
+      setShouldShowAlert(false);
+    }
+  }, [route]);
 
   useEffect(() => {
     const getData = async () => {

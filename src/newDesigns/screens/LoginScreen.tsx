@@ -25,6 +25,20 @@ export default function LoginScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [key, setKey] = useState(0);
 
+  useEffect(() => {
+    const backAction = () => {
+      navigation.navigate('FirstScreen');
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const handleLogin = async () => {
     setIsLoading(true);
     if (!email || !password) {
