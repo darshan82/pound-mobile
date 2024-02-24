@@ -46,7 +46,7 @@ import CongratulationsModal from '../components/CongratulationsModal';
 export default function FitnessChallage() {
   const {data} = useGlobalDataContext();
   const [showCreateScreen, setShowCreateScreen] = useState(false);
-  const [userChallenges, setUserChallenges] = useState([]);
+  const [userChallenges, setUserChallenges] = useState(null);
   const {loginToken} = data;
   const [isLoading, setIsLoading] = useState(false);
   const [showCongratsModal, setShowCongratsModal] = useState(false);
@@ -74,7 +74,7 @@ export default function FitnessChallage() {
       };
       const res = await axios.get(apiUrl, {headers});
       console.log('res from current', res.data);
-      setUserChallenges(res.data);
+      setUserChallenges(res?.data);
       if (res.data.length === 0) {
         setShowCreateScreen(true);
       } else {
@@ -159,6 +159,7 @@ export default function FitnessChallage() {
       const body = {};
       const res = await axios.post(apiUrl, body, {headers});
       console.log('Challenge Created -->', res.data);
+      getCurrentChallenge();
       setShowCreateScreen(false);
     } catch (error) {
       console.error('Error creating challenge:', error);
@@ -423,9 +424,9 @@ export default function FitnessChallage() {
             </View>
           ))}
         </View>
-        {userChallenges.status === 'created' ? (
+        {userChallenges?.status === 'created' ? (
           <InputButton
-            onPress={() => updateChallengeStatus(userChallenges._id)}
+            onPress={() => updateChallengeStatus(userChallenges?._id)}
             isLoading={challengeCompleteLoading}
             isDisabled={challengeCompleteLoading}
             style={[
@@ -440,7 +441,7 @@ export default function FitnessChallage() {
         ) : null}
 
         <TouchableOpacity
-          onPress={() => completeChallenge(userChallenges._id)}
+          onPress={() => completeChallenge(userChallenges?._id)}
           style={[
             styles.continueBtn,
             {
