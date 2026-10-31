@@ -1,79 +1,82 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Pound — Mobile App (React Native)
 
-# Getting Started
+Cross-platform mobile app for **Pound**, a platform that gamifies fitness for gamers. Players create an account and a personalised 3D avatar, set up their fitness profile, then take on daily fitness challenges, log progress in a journal, earn tokens and compete on individual and team leaderboards. Health data from Apple Health is synced to track activity.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Companion web sign-up: [pound-landing-page](https://github.com/darshan82/pound-landing-page)
 
-## Step 1: Start the Metro Server
+![React Native](https://img.shields.io/badge/React_Native-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![React Navigation](https://img.shields.io/badge/React_Navigation-6B52AE?logo=react&logoColor=white)
+![NativeBase](https://img.shields.io/badge/NativeBase-1A202C?logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Features
 
-To start Metro, run the following command from the _root_ of your React Native project:
+- **Onboarding flow** – sign up / login, password setup, unique player tag, body type, weight & gender, location and favourite games
+- **3D avatar creation** with Ready Player Me (embedded WebView) and an editable avatar screen
+- **Fitness challenges** – daily challenges with embedded YouTube workout videos, progress tracking and completion
+- **Journal & dashboard** – history of completed challenges, progress screen with circular progress indicators
+- **Oracle** – fitness guidance section backed by its own API
+- **Leaderboards** – individual and team rankings
+- **Tokens** – token balance shown on the player dashboard
+- Settings / profile management, plus early UI for Wallet and Chat screens
+- **Wearables** – Apple Health integration (`react-native-health`) synced through the Rook Connect API
+- Navigation with stack, bottom tab, top tab and drawer navigators
 
-```bash
-# using npm
-npm start
+## Tech stack
 
-# OR using Yarn
-yarn start
+| Area        | Tools                                                                 |
+| ----------- | --------------------------------------------------------------------- |
+| Mobile      | React Native 0.72, React 18, TypeScript                               |
+| Navigation  | React Navigation (native stack, bottom tabs, material top tabs, drawer) |
+| UI          | NativeBase, Linear Gradient, Modal, circular progress indicators      |
+| Forms/state | Formik, React Context                                                 |
+| Data        | Axios, AsyncStorage                                                   |
+| Integrations| Ready Player Me, YouTube iframe, Apple HealthKit, Rook Connect        |
+
+## Project structure
+
+```
+src/
+├── app/config/       # API clients (Pound, Oracle, Rook Connect) and env config
+├── context/          # Global app state
+├── modules/          # Feature modules: login, signup, dashboard, wearables
+├── newDesigns/
+│   ├── screens/      # All app screens (onboarding, challenges, journal, leaderboards, …)
+│   ├── components/   # Shared UI components
+│   └── routes/       # Navigation setup
+└── interfaces/       # TypeScript types
 ```
 
-## Step 2: Start your Application
+## Getting started
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+**Requirements:** Node.js 18+, Yarn, React Native CLI environment ([setup guide](https://reactnative.dev/docs/environment-setup)), Xcode and/or Android Studio
 
 ```bash
-# using npm
-npm run android
+git clone https://github.com/darshan82/pound-mobile.git
+cd pound-mobile
+yarn install
+cp src/app/config/env.example.ts src/app/config/env.ts   # add your API URLs and keys
+```
 
-# OR using Yarn
+Run on iOS:
+
+```bash
+cd ios && pod install && cd .. && yarn ios
+```
+
+Run on Android:
+
+```bash
 yarn android
 ```
 
-### For iOS
+### Configuration
 
-```bash
-# using npm
-npm run ios
+API URLs and keys live in `src/app/config/env.ts`, which is git-ignored. See [`env.example.ts`](src/app/config/env.example.ts) for the required values.
 
-# OR using Yarn
-yarn ios
-```
+## Author
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Darshan Lal** — Full-Stack Developer
+[Portfolio](https://darshan-portfolio-one.vercel.app/) · [GitHub](https://github.com/darshan82)
