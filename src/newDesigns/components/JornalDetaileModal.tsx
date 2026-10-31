@@ -21,6 +21,7 @@ import ReactNativeModal from 'react-native-modal';
 import QuestionWithOptions from './QuestionWithOptions';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 const JornalDetaileModal = forwardRef(
   (
@@ -67,7 +68,7 @@ const JornalDetaileModal = forwardRef(
     const handleDifficultySelect = async difficulty => {
       setIsLoading(true);
       try {
-        const updateUrl = `http://18.217.10.162/api/challenges/${currentModalId}`;
+        const updateUrl = `${API_BASE_URL}/challenges/${currentModalId}`;
         const headers = {
           Authorization: data.loginToken,
           'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ const JornalDetaileModal = forwardRef(
     const handleAccuracySelect = async accuracy => {
       setIsLoading(true);
       try {
-        const updateUrl = `http://18.217.10.162/api/challenges/${currentModalId}`;
+        const updateUrl = `${API_BASE_URL}/challenges/${currentModalId}`;
         const headers = {
           Authorization: data.loginToken,
           'Content-Type': 'application/json',

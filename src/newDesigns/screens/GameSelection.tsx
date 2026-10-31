@@ -25,6 +25,7 @@ import Colors from '../components/Colors';
 import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
 import { getWatchName } from '../../app/helpers';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function GameSelection() {
   const navigation = useNavigation();
@@ -54,7 +55,7 @@ export default function GameSelection() {
         // setError('Please Select at least one option');
         // return;
       }
-      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const updateUrl = `${API_BASE_URL}/users/update-user`;
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',

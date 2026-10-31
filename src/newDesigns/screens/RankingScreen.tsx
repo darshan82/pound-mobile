@@ -27,6 +27,7 @@ import {
 import Colors from '../components/Colors';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function RankingScreen() {
   const [playerRanking, setPlayerRanking] = useState<PlayerRanking[]>([]);
@@ -37,7 +38,7 @@ export default function RankingScreen() {
     const getPlayerRanking = async () => {
       setIsLoading(true);
       try {
-        const apiUrl = 'http://18.217.10.162/api/users/ranking';
+        const apiUrl = `${API_BASE_URL}/users/ranking`;
         const headers = {
           Authorization: `${data.loginToken}`,
           'Content-Type': 'application/json',

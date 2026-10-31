@@ -4,6 +4,7 @@ import { Alert, View, ScrollView } from 'react-native';
 import { useGlobalDataContext } from '../../context';
 import axios, { AxiosError } from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import {API_BASE_URL} from '../../app/config/api';
 
 export type BodyType = 'halfbody' | 'fullbody';
 
@@ -111,7 +112,7 @@ export default function EditableAvatarScreen() {
   const createAvatar = async (avatarUrl: string) => {
     console.log('Create Avatar Function Call');
     try {
-      const apiUrl = 'http://18.217.10.162/api/users/create-avatar';
+      const apiUrl = `${API_BASE_URL}/users/create-avatar`;
       const response = await axios.post(apiUrl, { avatar: avatarUrl });
       console.log('response of createAvatarAPI', response.data);
       setData(prevData => ({

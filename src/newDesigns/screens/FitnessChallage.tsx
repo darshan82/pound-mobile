@@ -43,6 +43,7 @@ import {useGlobalDataContext} from '../../context';
 import axios, {AxiosError} from 'axios';
 import {isLight} from 'native-base/lib/typescript/theme/tools';
 import CongratulationsModal from '../components/CongratulationsModal';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function FitnessChallage() {
   const {data} = useGlobalDataContext();
@@ -68,7 +69,7 @@ export default function FitnessChallage() {
 
   const getCurrentChallenge = async () => {
     try {
-      const apiUrl = 'http://18.217.10.162/api/challenges/get-current';
+      const apiUrl = `${API_BASE_URL}/challenges/get-current`;
       const headers = {
         Authorization: `${loginToken}`,
         'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ export default function FitnessChallage() {
 
   const completeChallenge = async id => {
     try {
-      const updateUrl = `http://18.217.10.162/api/challenges/${id}`;
+      const updateUrl = `${API_BASE_URL}/challenges/${id}`;
       const headers = {
         Authorization: data.loginToken,
         'Content-Type': 'application/json',
@@ -127,7 +128,7 @@ export default function FitnessChallage() {
   const updateChallengeStatus = async id => {
     setChallengeCompleteLoading(true);
     try {
-      const updateUrl = `http://18.217.10.162/api/challenges/${id}`;
+      const updateUrl = `${API_BASE_URL}/challenges/${id}`;
       const headers = {
         Authorization: data.loginToken,
         'Content-Type': 'application/json',
@@ -152,7 +153,7 @@ export default function FitnessChallage() {
     setIsLoading(true);
     setLockViewLoading(true);
     try {
-      const apiUrl = 'http://18.217.10.162/api/challenges/create-challenge';
+      const apiUrl = `${API_BASE_URL}/challenges/create-challenge`;
       const headers = {
         Authorization: `${loginToken}`,
         'Content-Type': 'application/json',

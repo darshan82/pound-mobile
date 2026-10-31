@@ -40,6 +40,7 @@ import GameSelection from '../screens/GameSelection';
 import SettingScreen from '../screens/SettingScreen';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 export function MyTabBar({state, descriptors, navigation, position, isHome}) {
   return (
@@ -142,7 +143,7 @@ function HomeScreen() {
     const getData = async () => {
       try {
         const userToken = data.loginToken;
-        const apiUrl = 'http://18.217.10.162/api/users/profile';
+        const apiUrl = `${API_BASE_URL}/users/profile`;
         const headers = {
           Authorization: `${userToken}`,
           'Content-Type': 'application/json',

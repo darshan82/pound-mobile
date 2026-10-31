@@ -16,6 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
 import LoginScreen from './LoginScreen';
+import {API_BASE_URL} from '../../app/config/api';
 
 const BottomBorder = () => {
   return <View style={styles.bottomBorder} />;
@@ -32,7 +33,7 @@ const SettingsScreen = () => {
     const getData = async () => {
       try {
         const userToken = data.loginToken;
-        const apiUrl = 'http://18.217.10.162/api/users/profile';
+        const apiUrl = `${API_BASE_URL}/users/profile`;
         const headers = {
           Authorization: `${userToken}`,
           'Content-Type': 'application/json',
@@ -104,7 +105,7 @@ const SettingsScreen = () => {
     sound: boolean,
   ) => {
     try {
-      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const updateUrl = `${API_BASE_URL}/users/update-user`;
       const headers = {
         Authorization: `${data.loginToken}`,
         'Content-Type': 'application/json',

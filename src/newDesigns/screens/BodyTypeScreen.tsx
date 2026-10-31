@@ -16,6 +16,7 @@ import Colors from '../components/Colors';
 import {useGlobalDataContext} from '../../context';
 import {getBodyTypeString} from '../../app/helpers';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function BodyTypeScreen() {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ export default function BodyTypeScreen() {
 
   const updateGender = async () => {
     try {
-      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const updateUrl = `${API_BASE_URL}/users/update-user`;
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',

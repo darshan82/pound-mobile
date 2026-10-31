@@ -18,6 +18,7 @@ import DropdownComponent from '../components/DropdownComponent';
 import {useGlobalDataContext} from '../../context';
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 const LocationData = [
   {label: 'London', value: 'London'},
@@ -80,7 +81,7 @@ export default function SelectLocation() {
         setIsLoading(false);
         return;
       }
-      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const updateUrl = `${API_BASE_URL}/users/update-user`;
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',

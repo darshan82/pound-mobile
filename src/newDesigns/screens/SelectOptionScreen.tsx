@@ -16,6 +16,7 @@ import Colors from '../components/Colors';
 import { getPower, getWeight } from '../../app/helpers';
 import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function SelectOptionScreen() {
   const navigation = useNavigation();
@@ -55,7 +56,7 @@ export default function SelectOptionScreen() {
         setError('Exactly two goals must be selected');
         return;
       }
-      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const updateUrl = `${API_BASE_URL}/users/update-user`;
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',

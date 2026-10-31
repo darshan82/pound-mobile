@@ -20,6 +20,7 @@ import JornalDetaileModal from '../components/JornalDetaileModal';
 import {useGlobalDataContext} from '../../context';
 import axios from 'axios';
 import {useIsFocused} from '@react-navigation/native';
+import {API_BASE_URL} from '../../app/config/api';
 
 interface Journal {
   _id: string;
@@ -74,7 +75,7 @@ export default function RankingScreen() {
   const getJournalData = useCallback(async () => {
     try {
       setLoading(true);
-      const apiUrl = 'http://18.217.10.162/api/challenges';
+      const apiUrl = `${API_BASE_URL}/challenges`;
       const headers = {
         Authorization: `${data.loginToken}`,
         'Content-Type': 'application/json',

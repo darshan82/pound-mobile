@@ -22,6 +22,7 @@ import LogoWithBack from '../components/LogoWithBack';
 import Colors from '../components/Colors';
 import { useGlobalDataContext } from '../../context';
 import axios from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 // prettier-ignore
 const gameImages = {
@@ -53,7 +54,7 @@ export default function FinalScreen() {
       if (!selectedItems.length) {
         return;
       }
-      const updateUrl = 'http://18.217.10.162/api/users/update-user';
+      const updateUrl = `${API_BASE_URL}/users/update-user`;
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',

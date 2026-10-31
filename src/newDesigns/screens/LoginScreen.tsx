@@ -15,6 +15,7 @@ import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
 import axios, {AxiosError} from 'axios';
 import {useGlobalDataContext} from '../../context';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -47,7 +48,7 @@ export default function LoginScreen() {
       return;
     }
     try {
-      const apiUrl = 'http://18.217.10.162/api/users/login';
+      const apiUrl = `${API_BASE_URL}/users/login`;
       const headers = {
         Authorization: `${data.token}`,
         'Content-Type': 'application/json',

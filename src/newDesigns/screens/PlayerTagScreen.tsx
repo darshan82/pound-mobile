@@ -14,6 +14,7 @@ import {InputText} from '../components/InputText';
 import Colors from '../components/Colors';
 import {useGlobalDataContext} from '../../context';
 import axios, {AxiosError} from 'axios';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function PlayerTagScreen() {
   const navigation = useNavigation();
@@ -62,7 +63,7 @@ export default function PlayerTagScreen() {
         return;
       } else {
         const userName = {userName: playerTag};
-        const apiUrl = 'http://18.217.10.162/api/users/check-username';
+        const apiUrl = `${API_BASE_URL}/users/check-username`;
         const headers = {
           Authorization: `${data.token}`,
           'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export default function PlayerTagScreen() {
 
         if (res.data.isAvailable && isError === false) {
           try {
-            const updateUrl = 'http://18.217.10.162/api/users/update-user';
+            const updateUrl = `${API_BASE_URL}/users/update-user`;
             const updateBody = {username: playerTag};
             const updateResponse = await axios.put(updateUrl, updateBody, {
               headers,

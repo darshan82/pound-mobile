@@ -18,6 +18,7 @@ import { Formik } from 'formik';
 import { isStrongPassword } from '../../app/helpers';
 import { ScrollView } from 'native-base';
 import { Dimensions } from 'react-native';
+import {API_BASE_URL} from '../../app/config/api';
 
 export default function ConfirmationPass() {
   const navigation = useNavigation();
@@ -26,7 +27,7 @@ export default function ConfirmationPass() {
   const windowHeight = Dimensions.get('window').height;
   const registerUser = async (values, actions) => {
     setIsLoading(true);
-    const apiUrl = 'http://18.217.10.162/api/users/update-user';
+    const apiUrl = `${API_BASE_URL}/users/update-user`;
     const headers = {
       Authorization: `${data.token}`,
       'Content-Type': 'application/json',
