@@ -1,9 +1,9 @@
 import axios from 'axios';
+import {ENV} from './env';
 
 export const oracleClient = axios.create({
-  // baseURL: 'https://separate-heavenly-hope.glitch.me',
-  baseURL: 'http://34.27.120.197',
+  baseURL: ENV.ORACLE_API_URL,
   headers: {
-    Authorization: 'Psg26gwWui2w0o',
+    Authorization: ENV.ORACLE_API_KEY,
   },
 });

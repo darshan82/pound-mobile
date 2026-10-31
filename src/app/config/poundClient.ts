@@ -1,9 +1,9 @@
 import axios from 'axios';
+import {ENV} from './env';
 
 export const poundClient = axios.create({
-  baseURL: 'https://0mcmjr2ek3.execute-api.us-east-2.amazonaws.com/Prod',
+  baseURL: ENV.POUND_LAMBDA_URL,
   headers: {
-    Authorization:
-      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOiAiMjAyMi0xMi0xOSAwMjo0Mzo0OS44NjM5NTYiLCAic3ViIjogInBvdW5kX2FwcCJ9.JxnGLlLRlFSSslWZ4UhTtgCrC1nDiwkWJt9fi7TXc08',
+    Authorization: `Bearer ${ENV.POUND_LAMBDA_TOKEN}`,
   },
 });
